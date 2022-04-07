@@ -112,4 +112,6 @@ I used a raw ESP-C3-13 to verify that these pins could be used as SPI clocks.
 
 __You can change it to any pin using menuconfig.__   
 
+# Reference
 
+https://github.com/nopnop2002/esp-idf-sx127x
