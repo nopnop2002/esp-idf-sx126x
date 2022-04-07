@@ -1,0 +1,87 @@
+menu "Application Configuration"
+
+	choice DIRECTION
+		prompt "Communication polarity"
+		default SENDER
+		help
+			Select Communication polarity.
+		config SENDER
+			bool "As the sender"
+			help
+				As the sender.
+		config RECEIVER
+			bool "As the receiver"
+			help
+				As the receiver.
+	endchoice
+
+	choice FREQUENCY
+		prompt "Frequency to use"
+		default 433MHZ
+		help
+			Select Frequency to use.
+		config 169MHZ
+			bool "169MHz"
+			help
+				Frequency is 169MHz.
+		config 433MHZ
+			bool "433MHz"
+			help
+				Frequency is 433MHz.
+		config 470MHZ
+			bool "470MHz"
+			help
+				Frequency is 470MHz.
+		config 866MHZ
+			bool "866MHz"
+			help
+				Frequency is 866MHz.
+		config 915MHZ
+			bool "915MHz"
+			help
+				Frequency is 915MHz.
+		config OTHER
+			bool "Other"
+			help
+				Other Frequency.
+	endchoice
+
+	config OTHER_FREQUENCY
+		depends on OTHER
+		int "Frequency to use[MHz]"
+		range 1 999
+		default 433
+		help
+			Frequency to use[MHz].
+
+	config ADVANCED
+		bool "Enable Advanced settings"
+		default false
+		help
+			Enable Advanced settings.
+
+	config CODING_RATE
+		depends on ADVANCED
+		int "Error coding rate"
+		range 1 4
+		default 1
+		help
+			Error coding rate.
+
+	config BANDWIDTH
+		depends on ADVANCED
+		int "Signal Bandwidth"
+		range 1 6
+		default 4
+		help
+			Signal Bandwidth.
+
+	config SF_RATE
+		depends on ADVANCED
+		int "Spreading Factor"
+		range 5 12
+		default 7
+		help
+			Spreading Factor.
+
+endmenu 

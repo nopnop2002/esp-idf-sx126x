@@ -1,0 +1,79 @@
+menu "SX126X Configuration"
+
+	config GPIO_RANGE_MAX
+		int
+		default 33 if IDF_TARGET_ESP32
+		default 46 if IDF_TARGET_ESP32S2
+		default 19 if IDF_TARGET_ESP32C3
+		default 48 if IDF_TARGET_ESP32S3
+
+	config MISO_GPIO
+		int "SX126X MISO GPIO"
+		range 0 GPIO_RANGE_MAX
+		default 19 if IDF_TARGET_ESP32
+		default 33 if IDF_TARGET_ESP32S2
+		default 18 if IDF_TARGET_ESP32C3
+		help
+			Pin Number to be used as the MISO SPI signal.
+
+	config MOSI_GPIO
+		int "SX126X MOSI GPIO"
+		range 0 GPIO_RANGE_MAX
+		default 23 if IDF_TARGET_ESP32
+		default 35 if IDF_TARGET_ESP32S2
+		default 19 if IDF_TARGET_ESP32C3
+		help
+			Pin Number to be used as the MOSI SPI signal.
+
+	config SCLK_GPIO
+		int "SX126X SCLK GPIO"
+		range 0 GPIO_RANGE_MAX
+		default 18 if IDF_TARGET_ESP32
+		default 36 if IDF_TARGET_ESP32S2
+		default 10 if IDF_TARGET_ESP32C3
+		help
+			Pin Number to be used as the SCLK SPI signal.
+
+	config NSS_GPIO
+		int "SX126X NSS GPIO"
+		range 0 GPIO_RANGE_MAX
+		default 15 if IDF_TARGET_ESP32
+		default 37 if IDF_TARGET_ESP32S2
+		default 7  if IDF_TARGET_ESP32C3
+		help
+			Pin Number to be used as the NSS SPI signal.
+
+	config RST_GPIO
+		int "SX126X RST GPIO"
+		range 0 GPIO_RANGE_MAX
+		default 16 if IDF_TARGET_ESP32
+		default 38 if IDF_TARGET_ESP32S2
+		default 8  if IDF_TARGET_ESP32C3
+		help
+			Pin Number to be used as the RST signal.
+
+	config BUSY_GPIO
+		int "SX126X BUSY GPIO"
+		range 0 GPIO_RANGE_MAX
+		default 17 if IDF_TARGET_ESP32
+		default 39 if IDF_TARGET_ESP32S2
+		default 9  if IDF_TARGET_ESP32C3
+		help
+			Pin Number to be used as the BUSY signal.
+
+	config TXEN_GPIO
+		int "SX126X TXEN GPIO"
+		range -1 GPIO_RANGE_MAX
+		default -1
+		help
+			Pin Number to be used as the TXEN signal.
+
+	config RXEN_GPIO
+		int "SX126X RXEN GPIO"
+		range -1 GPIO_RANGE_MAX
+		default -1
+		help
+			Pin Number to be used as the RXEN signal.
+
+
+endmenu
