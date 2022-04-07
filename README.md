@@ -44,7 +44,7 @@ Ra-01S / Ra-01SH use only LDO in all modes.
 - RF-Switching   
 In general, use DIO2 to switch the RF-Switch.   
 However, some tranceiver use an external gpio to switch the RF-Switch.   
-Ra-01S / Ra-01SH use the SC70-6 integrated load switch to switch RF.   
+Ra-01S / Ra-01SH use the SC70-6 integrated load switch to switch between RFO and RFI.   
 Ra-01S / Ra-01SH use DIO2 to control this.   
 DIO2 = 1, CTRL = 0, RFC to RF1  Tx Mode.   
 DIO2 = 0, CTRL = 1, RFC to R21  Rx Mode.  
