@@ -90,7 +90,9 @@ I used a raw ESP-C3-13 to verify that these pins could be used as SPI clocks.
 # Configuration for Transceiver   
 
 ![config-top](https://user-images.githubusercontent.com/6020549/162125293-9405dae9-fd52-440a-b0e5-19e6b481fcf6.jpg)
-![config-sx126x](https://user-images.githubusercontent.com/6020549/162125314-f0139171-3642-4e34-8013-2b6e85edd20d.jpg)# Wirering
+![config-sx126x](https://user-images.githubusercontent.com/6020549/162125314-f0139171-3642-4e34-8013-2b6e85edd20d.jpg)
+
+# Wirering
 
 |SX126X||ESP32|ESP32-S2|ESP32-C3|
 |:-:|:-:|:-:|:-:|:-:|
