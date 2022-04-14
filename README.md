@@ -112,6 +112,15 @@ I used a raw ESP-C3-13 to verify that these pins could be used as SPI clocks.
 
 __You can change it to any pin using menuconfig.__   
 
-# Reference
+# Trouble shooting   
+If it doesn't look like this at boot time, the wire ring is incorrect.   
+```
+I (3425) RA01S: syncWord=0x1424
+I (3425) RA01S: SX126x installed
+```
+If that doesn't work, enable [this](https://github.com/nopnop2002/esp-idf-sx126x/blob/main/basic/main/main.c#L123).   
+
+
+# Reference   
 
 https://github.com/nopnop2002/esp-idf-sx127x
