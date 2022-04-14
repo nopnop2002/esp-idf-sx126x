@@ -113,7 +113,7 @@ I used a raw ESP-C3-13 to verify that these pins could be used as SPI clocks.
 __You can change it to any pin using menuconfig.__   
 
 # Trouble shooting   
-If it doesn't look like this at boot time, the wire ring is incorrect.   
+If it doesn't look like this at boot time, the wirering is incorrect.   
 ```
 I (3425) RA01S: syncWord=0x1424
 I (3425) RA01S: SX126x installed
