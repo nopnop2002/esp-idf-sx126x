@@ -882,7 +882,8 @@ void WriteRegister(uint16_t reg, uint8_t* data, uint8_t numBytes) {
 		uint8_t in = spi_transfer(data[n]);
 		(void)in;
 		if(debugPrint) {
-			ESP_LOGI(TAG, "DataOut:%02x ", data[n]);
+			ESP_LOGI(TAG, "%02x --> %02x", data[n], in);
+			//ESP_LOGI(TAG, "DataOut:%02x ", data[n]);
 		}
 	}
 
@@ -906,7 +907,7 @@ void ReadRegister(uint16_t reg, uint8_t* data, uint8_t numBytes) {
 
 	// start transfer
 	if(debugPrint) {
-		ESP_LOGI(TAG, "ReadRegister:	REG=0x%02x", reg);
+		ESP_LOGI(TAG, "ReadRegister: REG=0x%02x", reg);
 	}
 	gpio_set_level(SX126x_SPI_SELECT, LOW);
 	//SPI.beginTransaction(SPISettings(2000000, MSBFIRST, SPI_MODE0));
@@ -948,7 +949,7 @@ void WriteCommand(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 
 	// send command byte
 	if(debugPrint) {
-		ESP_LOGI(TAG, "WriteCommand:	CMD=0x%02x", cmd);
+		ESP_LOGI(TAG, "WriteCommand: CMD=0x%02x", cmd);
 	}
 	spi_transfer(cmd);
 
@@ -966,8 +967,8 @@ void WriteCommand(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 		if(((in & 0b00001110) == SX126X_STATUS_CMD_TIMEOUT) ||
 		 ((in & 0b00001110) == SX126X_STATUS_CMD_INVALID) ||
 		 ((in & 0b00001110) == SX126X_STATUS_CMD_FAILED)) {
-		status = in & 0b00001110;
-		break;
+			status = in & 0b00001110;
+			break;
 		} else if(in == 0x00 || in == 0xFF) {
 			status = SX126X_STATUS_SPI_FAILED;
 			break;
@@ -1003,7 +1004,7 @@ void ReadCommand(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 
 	// send command byte
 	if(debugPrint) {
-		ESP_LOGI(TAG, "ReadCommand:	 CMD=0x%02x", cmd);
+		ESP_LOGI(TAG, "ReadCommand: CMD=0x%02x", cmd);
 	}
 	spi_transfer(cmd);
 
