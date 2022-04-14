@@ -119,7 +119,106 @@ I (3425) RA01S: syncWord=0x1424
 I (3425) RA01S: SX126x installed
 ```
 If that doesn't work, enable [this](https://github.com/nopnop2002/esp-idf-sx126x/blob/main/basic/main/main.c#L123).   
-
+This is my logging.   
+```
+I (0) cpu_start: Starting scheduler on APP CPU.
+I (332) main: Frequency is 433MHz
+I (332) RA01S: CONFIG_MISO_GPIO=19
+I (342) RA01S: CONFIG_MOSI_GPIO=23
+I (342) RA01S: CONFIG_SCLK_GPIO=18
+I (352) RA01S: CONFIG_NSS_GPIO=15
+I (352) RA01S: CONFIG_RST_GPIO=16
+I (352) RA01S: CONFIG_BUSY_GPIO=17
+I (362) RA01S: CONFIG_TXEN_GPIO=-1
+I (362) RA01S: CONFIG_RXEN_GPIO=-1
+I (372) gpio: GPIO[15]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0
+I (382) gpio: GPIO[16]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0
+I (392) gpio: GPIO[17]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0
+I (392) RA01S: spi_bus_initialize=0
+I (402) RA01S: spi_bus_add_device=0
+I (442) RA01S: Reset
+I (442) RA01S: ReadRegister: REG=0x740
+I (442) RA01S: DataIn:14
+I (442) RA01S: DataIn:24
+I (452) RA01S: syncWord=0x1424
+I (452) RA01S: SX126x installed
+I (452) RA01S: WriteCommand: CMD=0x80
+I (462) RA01S: 00 --> a2
+I (462) RA01S: WriteCommand: CMD=0x9d
+I (472) RA01S: 01 --> a2
+I (472) RA01S: tcxoVoltage=0.000000
+I (472) RA01S: WriteCommand: CMD=0x89
+I (482) RA01S: 7f --> a2
+I (482) RA01S: useRegulatorLDO=0
+I (482) RA01S: WriteCommand: CMD=0x96
+I (492) RA01S: 01 --> a2
+I (492) RA01S: WriteCommand: CMD=0x8f
+I (502) RA01S: 00 --> a2
+I (502) RA01S: 00 --> a2
+I (502) RA01S: WriteCommand: CMD=0x95
+I (512) RA01S: 04 --> a2
+I (512) RA01S: 07 --> a2
+I (512) RA01S: 00 --> a2
+I (522) RA01S: 01 --> a2
+I (522) RA01S: WriteRegister: REG=0x8e7
+I (522) RA01S: 18 --> a2
+I (532) RA01S: WriteCommand: CMD=0x8e
+I (532) RA01S: 16 --> a2
+I (532) RA01S: 04 --> a2
+I (542) RA01S: WriteCommand: CMD=0x98
+I (542) RA01S: 6b --> a2
+I (552) RA01S: 6f --> a2
+I (552) RA01S: WriteCommand: CMD=0x86
+I (552) RA01S: 1b --> a2
+I (562) RA01S: 10 --> a2
+I (562) RA01S: 00 --> a2
+I (562) RA01S: 00 --> a2
+I (572) MAIN: LoRaBegin=0
+I (572) RA01S: WriteCommand: CMD=0x9f
+I (572) RA01S: 00 --> a2
+I (582) RA01S: WriteCommand: CMD=0xa0
+I (582) RA01S: 00 --> a2
+I (582) RA01S: WriteCommand: CMD=0x8a
+I (592) RA01S: 01 --> a2
+I (592) RA01S: WriteCommand: CMD=0x8b
+I (602) RA01S: 07 --> a2
+I (602) RA01S: 04 --> a2
+I (602) RA01S: 01 --> a2
+I (612) RA01S: 00 --> a2
+I (612) RA01S: ReadRegister: REG=0x736
+I (612) RA01S: DataIn:0d
+I (622) RA01S: WriteRegister: REG=0x736
+I (622) RA01S: 09 --> a2
+I (622) RA01S: WriteCommand: CMD=0x8c
+I (632) RA01S: 00 --> a2
+I (632) RA01S: 08 --> a2
+I (642) RA01S: 00 --> a2
+I (642) RA01S: ff --> a2
+I (642) RA01S: 01 --> a2
+I (652) RA01S: 00 --> a2
+I (652) RA01S: WriteCommand: CMD=0x08
+I (652) RA01S: 03 --> a2
+I (662) RA01S: ff --> a2
+I (662) RA01S: 00 --> a2
+I (662) RA01S: 00 --> a2
+I (672) RA01S: 00 --> a2
+I (672) RA01S: 00 --> a2
+I (672) RA01S: 00 --> a2
+I (682) RA01S: 00 --> a2
+I (682) RA01S: ----- SetRx timeout=16777215
+I (682) RA01S: WriteCommand: CMD=0x80
+I (692) RA01S: 00 --> a2
+I (692) RA01S: SetRxEnable:SX126x_TXEN=-1 SX126x_RXEN=-1
+I (702) RA01S: WriteCommand: CMD=0x82
+I (702) RA01S: ff --> a2
+I (702) RA01S: ff --> a2
+I (712) RA01S: ff --> a2
+I (712) RA01S: ReadCommand: CMD=0xc0
+I (712) RA01S: DataIn:52
+I (722) RA01S: ReadCommand: CMD=0xc0
+I (722) RA01S: DataIn:52
+I (732) task_tx: Start
+```
 
 # Reference   
 
