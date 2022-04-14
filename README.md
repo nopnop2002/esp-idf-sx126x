@@ -112,6 +112,15 @@ I used a raw ESP-C3-13 to verify that these pins could be used as SPI clocks.
 
 __You can change it to any pin using menuconfig.__   
 
+# Limitation
+- The SX126x chip implements FSK, but FSK is not supported in this library.   
+- Interrupts is not supported in this library.   
+
+
+# SX1262 and SX1278, SX1276 Comparison
+[This](https://www.ebyte.com/en/new-view-info.aspx?id=303) will be helpful.   
+
+
 # Trouble shooting   
 If it doesn't look like this at boot time, the wirering is incorrect.   
 ```
