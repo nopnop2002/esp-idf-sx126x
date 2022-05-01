@@ -17,6 +17,8 @@
 #define SPI_HOST_ID HSPI_HOST
 #elif CONFIG_IDF_TARGET_ESP32S2
 #define SPI_HOST_ID SPI2_HOST
+#elif CONFIG_IDF_TARGET_ESP32S3
+#define SPI_HOST_ID SPI2_HOST
 #elif defined CONFIG_IDF_TARGET_ESP32C3
 #define SPI_HOST_ID SPI2_HOST
 #endif
@@ -26,35 +28,9 @@ static const int SPI_Frequency = 2000000;
 
 // Arduino compatible function
 
-static portMUX_TYPE microsMux = portMUX_INITIALIZER_UNLOCKED;
-
-unsigned long micros()
-{
-	static unsigned long lccount = 0;
-	static unsigned long overflow = 0;
-	unsigned long ccount;
-	portENTER_CRITICAL_ISR(&microsMux);
-	__asm__ __volatile__ ( "rsr	%0, ccount" : "=a" (ccount) );
-	if(ccount < lccount){
-		overflow += UINT32_MAX / CONFIG_ESP32_DEFAULT_CPU_FREQ_MHZ;
-	}
-	lccount = ccount;
-	portEXIT_CRITICAL_ISR(&microsMux);
-	return overflow + (ccount / CONFIG_ESP32_DEFAULT_CPU_FREQ_MHZ);
-}
-
 void delayMicroseconds(uint32_t us)
 {
-	portDISABLE_INTERRUPTS();
-	uint32_t m = micros();
-	if (us) {
-		uint32_t e = (m + us);
-		if (m > e) { //overflow
-			while (micros() > e) ;
-		}
-		while(micros() < e) ;
-	}
-	portENABLE_INTERRUPTS();
+	esp_rom_delay_us(us);
 }
 
 void delay(unsigned long ms)
