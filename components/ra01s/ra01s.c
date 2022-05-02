@@ -26,18 +26,11 @@
 
 static const int SPI_Frequency = 2000000;
 
-// Arduino compatible function
+// Arduino compatible macros
 
-void delayMicroseconds(uint32_t us)
-{
-	esp_rom_delay_us(us);
-}
+#define delayMicroseconds(us) esp_rom_delay_us(us)
 
-void delay(unsigned long ms)
-{
-	uint32_t us = ms * 1000;
-	delayMicroseconds(us);
-}
+#define delay(ms) esp_rom_delay_us(ms*1000)
 
 void LoRaInit(void)
 {
