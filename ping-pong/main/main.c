@@ -38,7 +38,7 @@ void task_primary(void *pvParameters)
 				TickType_t diffTick = currentTick - startTick;
 				if ( rxLen > 0 ) {
 					ESP_LOGI(pcTaskGetName(NULL), "%d byte packet received:[%.*s]", rxLen, rxLen, rxData);
-					ESP_LOGI(pcTaskGetName(NULL), "Response time is %d MillSecs", diffTick * portTICK_RATE_MS);
+					ESP_LOGI(pcTaskGetName(NULL), "Response time is %d MillSecs", diffTick * portTICK_PERIOD_MS);
 					waiting = false;
 				}
 				

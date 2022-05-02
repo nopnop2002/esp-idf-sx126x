@@ -97,10 +97,10 @@ I used a raw ESP-C3-13 to verify that these pins could be used as SPI clocks.
 
 # Wirering
 
-|SX126X||ESP32|ESP32-S2|ESP32-C3|
+|SX126X||ESP32|ESP32-S2/S3|ESP32-C3|
 |:-:|:-:|:-:|:-:|:-:|
-|RST|--|GPIO16|GPIO38|GPIO8|
 |BUSY|--|GPIO17|GPIO39|GPIO9|
+|RST|--|GPIO16|GPIO38|GPIO8|
 |TXEN|--|N/C|N/C|N/C|
 |RXEN|--|N/C|N/C|N/C|
 |MISO|--|GPIO19|GPIO37|GPIO18|

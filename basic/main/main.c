@@ -97,6 +97,7 @@ void app_main()
 	int8_t txPowerInDbm = 22;
 	float tcxoVoltage = 0.0; // don't use TCXO
 	bool useRegulatorLDO = false; // use only LDO in all modes
+	//LoRaDebugPrint(true);
 	int ret = LoRaBegin(frequencyInHz, txPowerInDbm, tcxoVoltage, useRegulatorLDO);
 	ESP_LOGI(TAG, "LoRaBegin=%d", ret);
 	if (ret != 0) {
