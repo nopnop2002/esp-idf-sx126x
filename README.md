@@ -229,6 +229,13 @@ I (722) RA01S: ReadCommand: CMD=0xc0
 I (722) RA01S: DataIn:52
 I (732) task_tx: Start
 ```
+# Communication with SX127X
+LoRa's packet format is strictly specified.   
+Therefore, if the following three parameters are the same, they can communicate with each other.   
+- Signal Bandwidth (= BW)   
+- Error Cording Rate (= CR)   
+- Spreading Factor (= SF)   
+
 
 # Reference   
 
