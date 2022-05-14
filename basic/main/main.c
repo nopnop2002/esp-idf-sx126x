@@ -6,7 +6,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_log.h"
-#define __MAIN__
+
 #include "ra01s.h"
 
 #define TAG "MAIN"

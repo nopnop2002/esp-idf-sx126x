@@ -367,23 +367,6 @@
 #define SX126x_TXMODE_SYNC                            0x02
 #define SX126x_TXMODE_BACK2RX                         0x04
 
-// Global Stuff
-#ifndef __MAIN__
-    #define DECLARE extern
-#else
-    #define DECLARE
-#endif
-DECLARE uint8_t             PacketParams[6];
-DECLARE bool                txActive;
-DECLARE bool                debugPrint;
-DECLARE int                 SX126x_SPI_SELECT;
-DECLARE int                 SX126x_RESET;
-DECLARE int                 SX126x_BUSY;
-DECLARE int                 SX126x_TXEN;
-DECLARE int                 SX126x_RXEN;
-DECLARE spi_device_handle_t SpiHandle;
-
-
 // Public function
 void     LoRaInit(void);
 int16_t  LoRaBegin(uint32_t frequencyInHz, int8_t txPowerInDbm, float tcxoVoltage, bool useRegulatorLDO);

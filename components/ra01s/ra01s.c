@@ -21,11 +21,20 @@
 #endif
 
 static const int SPI_Frequency = 2000000;
+static spi_device_handle_t SpiHandle;
+
+// Global Stuff
+static uint8_t PacketParams[6];
+static bool    txActive;
+static bool    debugPrint;
+static int     SX126x_SPI_SELECT;
+static int     SX126x_RESET;
+static int     SX126x_BUSY;
+static int     SX126x_TXEN;
+static int     SX126x_RXEN;
 
 // Arduino compatible macros
-
 #define delayMicroseconds(us) esp_rom_delay_us(us)
-
 #define delay(ms) esp_rom_delay_us(ms*1000)
 
 void LoRaInit(void)
