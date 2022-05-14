@@ -6,6 +6,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_log.h"
+#define __MAIN__
 #include "ra01s.h"
 
 #define TAG "MAIN"
@@ -121,7 +122,6 @@ void app_main()
 #endif
 	LoRaConfig(spreadingFactor, bandwidth, codingRate, preambleLength, payloadLen, crcOn, invertIrq);
 
-	//LoRaDebugPrint(true);
 
 #if CONFIG_SENDER
 	xTaskCreate(&task_tx, "task_tx", 1024*4, NULL, 5, NULL);

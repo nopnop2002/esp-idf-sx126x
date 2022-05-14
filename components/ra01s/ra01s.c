@@ -13,16 +13,12 @@
 
 #define TAG "RA01S"
 
-#if CONFIG_IDF_TARGET_ESP32
-#define SPI_HOST_ID HSPI_HOST
-#elif CONFIG_IDF_TARGET_ESP32S2
-#define SPI_HOST_ID SPI2_HOST
-#elif CONFIG_IDF_TARGET_ESP32S3
-#define SPI_HOST_ID SPI2_HOST
-#elif defined CONFIG_IDF_TARGET_ESP32C3
-#define SPI_HOST_ID SPI2_HOST
+// SPI Stuff
+#if CONFIG_SPI2_HOST
+#define HOST_ID SPI2_HOST
+#elif CONFIG_SPI3_HOST
+#define HOST_ID SPI3_HOST
 #endif
-
 
 static const int SPI_Frequency = 2000000;
 
@@ -44,13 +40,13 @@ void LoRaInit(void)
 	ESP_LOGI(TAG, "CONFIG_RXEN_GPIO=%d", CONFIG_RXEN_GPIO);
 
 	SX126x_SPI_SELECT = CONFIG_NSS_GPIO;
-	SX126x_RESET			= CONFIG_RST_GPIO;
-	SX126x_BUSY				= CONFIG_BUSY_GPIO;
-	SX126x_TXEN				= CONFIG_TXEN_GPIO;
-	SX126x_RXEN				= CONFIG_RXEN_GPIO;
+	SX126x_RESET = CONFIG_RST_GPIO;
+	SX126x_BUSY	= CONFIG_BUSY_GPIO;
+	SX126x_TXEN	= CONFIG_TXEN_GPIO;
+	SX126x_RXEN	= CONFIG_RXEN_GPIO;
 	
-	txActive					= false;
-	debugPrint				= false;
+	txActive = false;
+	debugPrint = false;
 
 	gpio_reset_pin(SX126x_SPI_SELECT);
 	gpio_set_direction(SX126x_SPI_SELECT, GPIO_MODE_OUTPUT);
@@ -81,7 +77,7 @@ void LoRaInit(void)
 	};
 
 	esp_err_t ret;
-	ret = spi_bus_initialize( SPI_HOST_ID, &spi_bus_config, SPI_DMA_CH_AUTO );
+	ret = spi_bus_initialize( HOST_ID, &spi_bus_config, SPI_DMA_CH_AUTO );
 	ESP_LOGI(TAG, "spi_bus_initialize=%d",ret);
 	assert(ret==ESP_OK);
 
@@ -97,7 +93,7 @@ void LoRaInit(void)
 	devcfg.flags = SPI_DEVICE_NO_DUMMY;
 
 	//spi_device_handle_t handle;
-	ret = spi_bus_add_device( SPI_HOST_ID, &devcfg, &SpiHandle);
+	ret = spi_bus_add_device( HOST_ID, &devcfg, &SpiHandle);
 	ESP_LOGI(TAG, "spi_bus_add_device=%d",ret);
 	assert(ret==ESP_OK);
 
@@ -241,7 +237,6 @@ void FixInvertedIQ(uint8_t iqConfig)
 
 void LoRaConfig(uint8_t spreadingFactor, uint8_t bandwidth, uint8_t codingRate, uint16_t preambleLength, uint8_t payloadLen, bool crcOn, bool invertIrq) 
 {
-
 	SetStopRxTimerOnPreambleDetect(false);
 	SetLoRaSymbNumTimeout(0); 
 	SetPacketType(SX126X_PACKET_TYPE_LORA); // SX126x.ModulationParams.PacketType : MODEM_LORA
@@ -276,17 +271,11 @@ void LoRaConfig(uint8_t spreadingFactor, uint8_t bandwidth, uint8_t codingRate, 
 
 	WriteCommand(SX126X_CMD_SET_PACKET_PARAMS, PacketParams, 6); // 0x8C
 
-#if 0
-	SetDioIrqParams(SX126X_IRQ_ALL,  //all interrupts enabled
-									(SX126X_IRQ_RX_DONE | SX126X_IRQ_TX_DONE | SX126X_IRQ_TIMEOUT), //interrupts on DIO1
-									SX126X_IRQ_NONE,	//interrupts on DIO2
-									SX126X_IRQ_NONE); //interrupts on DIO3
-#endif
 	// Do not use DIO interruptst
 	SetDioIrqParams(SX126X_IRQ_ALL,		//all interrupts enabled
-									SX126X_IRQ_NONE,	//interrupts on DIO1
-									SX126X_IRQ_NONE,	//interrupts on DIO2
-									SX126X_IRQ_NONE); //interrupts on DIO3
+					SX126X_IRQ_NONE,	//interrupts on DIO1
+					SX126X_IRQ_NONE,	//interrupts on DIO2
+					SX126X_IRQ_NONE); //interrupts on DIO3
 
 	// Receive state no receive timeoout
 	SetRx(0xFFFFFF);
@@ -342,15 +331,15 @@ bool LoRaSend(uint8_t *pData, uint8_t len, uint8_t mode)
 				delay(1);
 				irqStatus = GetIrqStatus();
 			}
-		if (debugPrint) {
+			if (debugPrint) {
 				ESP_LOGI(TAG, "irqStatus=0x%x", irqStatus);
 				if (irqStatus & SX126X_IRQ_TX_DONE) {
 					ESP_LOGI(TAG, "SX126X_IRQ_TX_DONE");
-			}
+				}
 				if (irqStatus & SX126X_IRQ_TIMEOUT) {
 					ESP_LOGI(TAG, "SX126X_IRQ_TIMEOUT");
+				}
 			}
-		}
 			txActive = false;
 	
 			SetRx(0xFFFFFF);
@@ -613,9 +602,12 @@ void SetDioIrqParams
 }
 
 
-void SetStopRxTimerOnPreambleDetect( bool enable )
+void SetStopRxTimerOnPreambleDetect(bool enable)
 {
-	uint8_t data = (uint8_t)enable;
+	ESP_LOGI(TAG, "SetStopRxTimerOnPreambleDetect enable=%d", enable);
+	//uint8_t data = (uint8_t)enable;
+	uint8_t data = 0;
+	if (enable) data = 1;
 	WriteCommand(SX126X_CMD_STOP_TIMER_ON_PREAMBLE, &data, 1); // 0x9F
 }
 
