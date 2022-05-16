@@ -2,7 +2,7 @@ menu "Application Configuration"
 
 	choice POLARITY
 		prompt "Communication Polarity"
-		default Primary
+		default PRIMARY
 		help
 			Select Communication Polarity.
 		config PRIMARY
