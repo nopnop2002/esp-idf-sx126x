@@ -38,7 +38,6 @@ However, as the communication speed increases, the reception sensitivity deterio
 - SF rate   
 5:SF5   
 6:SF6   
-6:SF6   
 7:SF7(Default)   
 8:SF8   
 9:SF9   
