@@ -1,5 +1,5 @@
 # esp-idf-sx126x
-SX1262//68 Low Power Long Range Transceiver driver for esp-idf.   
+SX1262/SX1268/LLCC68 Low Power Long Range Transceiver driver for esp-idf.   
 
 I ported from [here](https://github.com/nopnop2002/Arduino-LoRa-Ra01S).
 
@@ -16,7 +16,7 @@ You can get these on AliExpress and eBay.
 |Ra-01H|Tranceiver|SPI|SX1276|803-930Mhz|SMD16|No|No|
 |Ra-01S|Tranceiver|SPI|**SX1268**|410-525Mhz|SMD16|No|No|
 |Ra-01SH|Tranceiver|SPI|**SX1262**|803-930Mhz|SMD16|Yes|No|
-|Ra-01SC|Tranceiver|SPI|LLCC68|410-525Mhz|SMD16|Yes|No|
+|Ra-01SC|Tranceiver|SPI|**LLCC68**|410-525Mhz|SMD16|Yes|No|
 |Ra-06|MCU|ARM Cortex M0+|SX1278|410-525Mhz|SMD20|Yes|No|
 |Ra-07|MCU|ARM Cortex M0+|ASR6501|410-525Mhz|SMD18|No|Yes|
 |Ra-07H|MCU|ARM Cortex M0+|ASR6501|803-930Mhz|SMD18|No|Yes|
@@ -55,6 +55,17 @@ __When using other than Ra-01S / Ra-01SH, you need to set them appropriately.__
 I don't have a SX126X other than Ra-01S / Ra-01SH.   
 Therefore, I don't know the settings of SX126X other than Ra-01S / Ra-01SH.   
 
+# About LLCC68   
+LLCC68 is used for Ra-01SC.   
+LLCC68 is compatible with SX126X.   
+However, there are the following restrictions:   
+- BW is either 125KHz, 250KHz or 500Khz.   
+- When BW is 125KHz, SF is in the range of 5-9.   
+- When BW is 250KHz, SF is in the range of 5-10.   
+- When BW is 500KHz, SF is in the range of 5-11.   
+
+![ra01sc](https://user-images.githubusercontent.com/6020549/169180199-12a88938-1d6d-43c7-836d-f3c2081ac10d.JPG)
+
 # Datasheet   
 - RA-01S   
 https://docs.ai-thinker.com/_media/lora/docs/ra-01s_specification.pdf
@@ -62,6 +73,8 @@ https://docs.ai-thinker.com/_media/lora/docs/ra-01s_specification.pdf
 - RA-01SH   
 https://docs.ai-thinker.com/_media/lora/docs/ra-01sh_specification.pdf
 
+- RA-01SC(Chinese)   
+https://img.iceasy.com/product/product/files/202108/8a8a8a1a7aec7b55017b2ef70a370953.pdf
 
 # Foot pattern
 RA-0x(SMD16) has the same foot pattern as ESP12.   
