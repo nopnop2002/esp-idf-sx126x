@@ -152,7 +152,7 @@ If it doesn't look like this at boot time, the wirering is incorrect.
 I (3425) RA01S: syncWord=0x1424
 I (3425) RA01S: SX126x installed
 ```
-If that doesn't work, enable [LoRaDebugPrint](https://github.com/nopnop2002/esp-idf-sx126x/blob/main/basic/main/main.c#L124).   
+If that doesn't work, enable [LoRaDebugPrint](https://github.com/nopnop2002/esp-idf-sx126x/blob/main/basic/main/main.c#L101).   
 This is my logging.   
 ```
 I (0) cpu_start: Starting scheduler on APP CPU.
