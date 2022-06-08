@@ -65,7 +65,7 @@ void LoRaInit(void)
 	gpio_set_direction(SX126x_RESET, GPIO_MODE_OUTPUT);
 	
 	gpio_reset_pin(SX126x_BUSY);
-	gpio_set_direction(SX126x_RESET, GPIO_MODE_INPUT);
+	gpio_set_direction(SX126x_BUSY, GPIO_MODE_INPUT);
 
 	if (SX126x_TXEN != -1) {
 		gpio_reset_pin(SX126x_TXEN);
