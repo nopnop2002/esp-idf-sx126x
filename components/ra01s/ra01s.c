@@ -932,7 +932,23 @@ void WriteCommand(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 		if(debugPrint) {
 			ESP_LOGI(TAG, "%02x --> %02x", data[n], in);
 		}
-
+// retry loop
+                for (uint8_t retry = 1; (in == 0xaa) && (retry < 10); retry++)
+                	{
+                		gpio_set_level(SX126x_SPI_SELECT, HIGH);
+                		WaitForIdle(BUSY_WAIT);
+                		gpio_set_level(SX126x_SPI_SELECT, LOW);
+                		spi_transfer(cmd);
+                		in = spi_transfer(data[n]);
+                
+                		if (debugPrint)
+                		{
+                			ESP_LOGW(TAG, "RETRY: Try=%d", retry);
+                			ESP_LOGW(TAG, "RETRY:WriteCommand: CMD=0x%02x", cmd);
+                			ESP_LOGW(TAG, "RETRY:%02x --> %02x", data[n], in);
+                		}
+                	}
+// retry loop
 		// check status
 		if(((in & 0b00001110) == SX126X_STATUS_CMD_TIMEOUT) ||
 		 ((in & 0b00001110) == SX126X_STATUS_CMD_INVALID) ||
@@ -959,7 +975,7 @@ void WriteCommand(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 
 	if (status != 0) {
 		ESP_LOGE(TAG, "SPI Transaction error:%d", status);
-		while(1) { vTaskDelay(1); }
+//		while(1) { vTaskDelay(1); }
 	}
 }
 
