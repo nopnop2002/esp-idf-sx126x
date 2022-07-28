@@ -20,7 +20,7 @@
 #define HOST_ID SPI3_HOST
 #endif
 
-static const int SPI_Frequency = 2000000;
+static const int SPI_Frequency = 16000000;
 static spi_device_handle_t SpiHandle;
 
 // Global Stuff
@@ -176,7 +176,7 @@ int16_t LoRaBegin(uint32_t frequencyInHz, int8_t txPowerInDbm, float tcxoVoltage
 		ESP_LOGE(TAG, "SX126x error, maybe no SPI connection");
 		return ERR_INVALID_MODE;
 	}
-
+	vTaskDelay(30000 / portTICK_RATE_MS);
 	ESP_LOGI(TAG, "SX126x installed");
 	SetStandby(SX126X_STANDBY_RC);
 
@@ -670,22 +670,31 @@ void SetRx(uint32_t timeout)
 	if (debugPrint) {
 		ESP_LOGI(TAG, "----- SetRx timeout=%u", timeout);
 	}
+	ESP_LOGI(TAG, "SetStandyBy");
 	SetStandby(SX126X_STANDBY_RC);
+	ESP_LOGI(TAG, "SetRxEnable");
 	SetRxEnable();
 	uint8_t buf[3];
 	buf[0] = (uint8_t)((timeout >> 16) & 0xFF);
 	buf[1] = (uint8_t)((timeout >> 8) & 0xFF);
 	buf[2] = (uint8_t )(timeout & 0xFF);
+	ESP_LOGI(TAG, "SetRx");
 	WriteCommand(SX126X_CMD_SET_RX, buf, 3); // 0x82
 
-	for(int retry=0;retry<10;retry++) {
-		if ((GetStatus() & 0x70) == 0x50) break;
+/*
+ 	for(int retry=0;retry<10;retry++) {
+		if ((GetStatus() & 0x50) == 0x50) break;
 		delay(1);
 	}
-	if ((GetStatus() & 0x70) != 0x50) {
+	if ((GetStatus() & 0x50) != 0x50) {
 		ESP_LOGE(TAG, "SetRx Illegal Status");
+		
+	        uint8_t status = GetStatus();
+		ESP_LOGE(TAG, "Status:%02x", status);
 		while(1) { vTaskDelay(1); }
-	}
+	}   
+*/
+
 }
 
 
@@ -728,6 +737,7 @@ void SetTx(uint32_t timeoutInMs)
 	}
 	if ((GetStatus() & 0x70) != 0x60) {
 		ESP_LOGE(TAG, "SetTx Illegal Status");
+
 		while(1) { vTaskDelay(1); }
 	}
 }
