@@ -22,15 +22,15 @@ void task_tx(void *pvParameters)
 
 		// Wait for transmission to complete
 		if (LoRaSend(txData, txLen, SX126x_TXMODE_SYNC)) {
-			//printf("Send success\n");
+			printf("Send success\n");
 		} else {
 			printf("Send fail\n");
 		}
 
 		// Do not wait for the transmission to be completed
-		//LoRaSend(txData, txLen, SX126x_TXMODE_ASYNC );
+                //LoRaSend(txData, txLen, SX126x_TXMODE_ASYNC );
 
-		vTaskDelay(pdMS_TO_TICKS(1000));
+		//vTaskDelay(pdMS_TO_TICKS(1000));
 	} // end while
 }
 #endif // CONFIG_SENDER
@@ -96,9 +96,9 @@ void app_main()
 	LoRaInit();
 	//int ret = LoRaBegin(915000000, 22, 0.0, false);
 	int8_t txPowerInDbm = 22;
-	float tcxoVoltage = 3.3; // don't use TCXO
+	float tcxoVoltage = 0.0; // if 0.0 -> don't use TCXO
 	bool useRegulatorLDO = false; // use only LDO in all modes
-	LoRaDebugPrint(true);
+	LoRaDebugPrint(false);
 	int ret = LoRaBegin(frequencyInHz, txPowerInDbm, tcxoVoltage, useRegulatorLDO);
 	ESP_LOGI(TAG, "LoRaBegin=%d", ret);
 	if (ret != 0) {
