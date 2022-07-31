@@ -181,7 +181,7 @@ int16_t LoRaBegin(uint32_t frequencyInHz, int8_t txPowerInDbm, float tcxoVoltage
 		ESP_LOGE(TAG, "SX126x error, maybe no SPI connection");
 		return ERR_INVALID_MODE;
 	}
-	vTaskDelay(30000 / portTICK_RATE_MS);
+	//vTaskDelay(3000 / portTICK_RATE_MS);
 	ESP_LOGI(TAG, "SX126x installed");
 	//delay(30000);
 	SetStandby(SX126X_STANDBY_RC);
