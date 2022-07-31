@@ -188,6 +188,9 @@ int16_t LoRaBegin(uint32_t frequencyInHz, int8_t txPowerInDbm, float tcxoVoltage
 	SetDio2AsRfSwitchCtrl(true);
 	ESP_LOGI(TAG, "tcxoVoltage=%f", tcxoVoltage);
 	// set TCXO control, if requested
+#if CONFIG_EBYTE // Ebyte sx126* have external tcxo at 3.3v alimentation. 
+	tcxoVoltage=3.3; // EBYTE is defined as a bool in kconfig menu
+#endif
 	if (tcxoVoltage > 0.0)
 	{
 		SetDio3AsTcxoCtrl(tcxoVoltage, RADIO_TCXO_SETUP_TIME); // Configure the radio to use a TCXO controlled by DIO3
