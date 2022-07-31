@@ -15,6 +15,21 @@ menu "Application Configuration"
 				As the receiver.
 	endchoice
 
+        choice MODULE
+               prompt "sx126x module type" 
+               default STANDARD
+               help 
+                       Select lora module model.
+               config STANDARD
+                      bool "STANDARD"
+                      help 
+                           Default choice to support RA* modules.
+               config EBYTE
+                      bool "EBYTE"
+                      help
+                           Ebyte module (E22 900M22S or E22 900M30S)
+        endchoice              
+
 	choice FREQUENCY
 		prompt "Frequency to use"
 		default 433MHZ
