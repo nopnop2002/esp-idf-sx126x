@@ -14,22 +14,18 @@ menu "Application Configuration"
 			help
 				As the receiver.
 	endchoice
-
-        choice MODULE
-               prompt "sx126x module type" 
-               default STANDARD
-               help 
-                       Select lora module model.
-               config STANDARD
-                      bool "STANDARD"
-                      help 
-                           Default choice to support RA* modules.
-               config EBYTE
-                      bool "EBYTE"
-                      help
-                           Ebyte module (E22 900M22S or E22 900M30S)
-        endchoice              
-
+        
+        config USE_TXCO
+		bool "Enable TXCO"
+		default false
+		help
+			Enable TXCO
+        config TCXO_VOLTAGE
+	       int "voltage in mV"
+	       range 0 5000
+               default 0 
+	       help 
+	              TCXO voltage in mV (typical 3300 for 3.3V)
 	choice FREQUENCY
 		prompt "Frequency to use"
 		default 433MHZ
