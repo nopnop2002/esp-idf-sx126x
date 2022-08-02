@@ -16,10 +16,10 @@ menu "Application Configuration"
 	endchoice
         
         config USE_TCXO
-		bool "Enable TXCO"
+		bool "Enable TCXO"
 		default false
 		help
-			Enable TXCO
+			Enable TCXO
         config TCXO_VOLTAGE
                depends on USE_TCXO
 	       int "voltage in mV"
