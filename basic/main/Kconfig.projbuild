@@ -15,12 +15,13 @@ menu "Application Configuration"
 				As the receiver.
 	endchoice
         
-        config USE_TXCO
+        config USE_TCXO
 		bool "Enable TXCO"
 		default false
 		help
 			Enable TXCO
         config TCXO_VOLTAGE
+               depends on USE_TCXO
 	       int "voltage in mV"
 	       range 0 5000
                default 0 
