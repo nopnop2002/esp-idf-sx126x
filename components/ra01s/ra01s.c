@@ -11,7 +11,7 @@
 
 #include "ra01s.h"
 
-#define TAG "RA01S"
+#define TAG "SX126x"
 
 // SPI Stuff
 #if CONFIG_SPI2_HOST
@@ -188,8 +188,8 @@ int16_t LoRaBegin(uint32_t frequencyInHz, int8_t txPowerInDbm, float tcxoVoltage
 	SetDio2AsRfSwitchCtrl(true);
 	ESP_LOGI(TAG, "tcxoVoltage=%f", tcxoVoltage);
 	// set TCXO control, if requested
-#if CONFIG_EBYTE // Ebyte sx126* have external tcxo at 3.3v alimentation. 
-	tcxoVoltage=3.3; // EBYTE is defined as a bool in kconfig menu
+#if CONFIG_USE_TCXO // Ebyte sx126* have external tcxo at 3.3v alimentation. 
+	tcxoVoltage=(float)CONFIG_TCXO_VOLTAGE/1000; // EBYTE is defined as a bool in kconfig menu
 #endif
 	if (tcxoVoltage > 0.0)
 	{
