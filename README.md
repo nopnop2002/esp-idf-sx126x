@@ -262,7 +262,7 @@ Therefore, if the following three parameters are the same, they can communicate 
 
 # Using ebyte E22 900M22S and E22 900M30S
 I don't have this one.   
-This might work.   
+With this change it may work.   
 ```
 	//float tcxoVoltage = 0.0; // don't use TCXO
 	//bool useRegulatorLDO = false; // use only LDO in all modes
