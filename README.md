@@ -260,6 +260,16 @@ Therefore, if the following three parameters are the same, they can communicate 
 - Error Cording Rate (= CR)   
 - Spreading Factor (= SF)   
 
+# Using ebyte E22 900M22S and E22 900M30S
+I don't have this one.   
+This might work.   
+```
+	//float tcxoVoltage = 0.0; // don't use TCXO
+	//bool useRegulatorLDO = false; // use only LDO in all modes
+
+	float tcxoVoltage = 3.3; // use TCXO
+	bool useRegulatorLDO = true; // use TCXO
+```
 
 # Reference   
 
