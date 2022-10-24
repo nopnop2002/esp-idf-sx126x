@@ -233,10 +233,11 @@ void FixInvertedIQ(uint8_t iqConfig)
 	ReadRegister(SX126X_REG_IQ_POLARITY_SETUP, &iqConfigCurrent, 1); // 0x0736
 
 	// set correct IQ configuration
-	if(iqConfig == SX126X_LORA_IQ_STANDARD) {
-		iqConfigCurrent &= 0xFB;
+	//if(iqConfig == SX126X_LORA_IQ_STANDARD) {
+	if(iqConfig == SX126X_LORA_IQ_INVERTED) {
+		iqConfigCurrent &= 0xFB; // using inverted IQ polarity
 	} else {
-		iqConfigCurrent |= 0x04;
+		iqConfigCurrent |= 0x04; // using standard IQ polarity
 	}
 
 	// update with the new value
