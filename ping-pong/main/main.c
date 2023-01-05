@@ -2,7 +2,9 @@
  *
  * This sample code is in the public domain.
  */
+
 #include <stdio.h>
+#include <inttypes.h>
 #include <string.h>
 #include <ctype.h>
 #include "freertos/FreeRTOS.h"
@@ -24,7 +26,7 @@ void task_primary(void *pvParameters)
 	uint8_t rxData[256]; // Maximum Payload size of SX1261/62/68 is 255
 	while(1) {
 		TickType_t nowTick = xTaskGetTickCount();
-		int txLen = sprintf((char *)txData, "Hello World %d", nowTick);
+		int txLen = sprintf((char *)txData, "Hello World %"PRIu32, nowTick);
 		//uint8_t len = strlen((char *)txData);
 
 		// Wait for transmission to complete
@@ -39,11 +41,11 @@ void task_primary(void *pvParameters)
 				TickType_t diffTick = currentTick - startTick;
 				if ( rxLen > 0 ) {
 					ESP_LOGI(pcTaskGetName(NULL), "%d byte packet received:[%.*s]", rxLen, rxLen, rxData);
-					ESP_LOGI(pcTaskGetName(NULL), "Response time is %d MillSecs", diffTick * portTICK_PERIOD_MS);
+					ESP_LOGI(pcTaskGetName(NULL), "Response time is %"PRIu32" MillSecs", diffTick * portTICK_PERIOD_MS);
 					waiting = false;
 				}
 				
-				ESP_LOGD(pcTaskGetName(NULL), "diffTick=%d", diffTick);
+				ESP_LOGD(pcTaskGetName(NULL), "diffTick=%"PRIu32, diffTick);
 				if (diffTick > TIMEOUT) {
 					ESP_LOGW(pcTaskGetName(NULL), "No response within %d ticks", TIMEOUT);
 					waiting = false;
