@@ -85,15 +85,15 @@ Therefore, a pitch conversion PCB for ESP12 can be used.
 
 
 # Software requirements
-esp-idf v4.4 or later.   
-This is because this version supports ESP32-C3.   
+ESP-IDF V4.4/V5.0.   
+ESP-IDF V5 is required when using ESP32-C2.   
 
 # Installation
 
 ```Shell
 git clone https://github.com/nopnop2002/esp-idf-sx126x
 cd esp-idf-sx126x/basic/
-idf.py set-target {esp32/esp32s2/esp32s3/esp32c3}
+idf.py set-target {esp32/esp32s2/esp32s3/esp32c2/esp32c3}
 idf.py menuconfig
 idf.py flash
 ```
@@ -122,15 +122,15 @@ Previously it was called HSPI_HOST / VSPI_HOST, but now it is called SPI2_HOST /
 
 # Wirering
 
-|SX126X||ESP32|ESP32-S2/S3|ESP32-C3|
+|SX126X||ESP32|ESP32-S2/S3|ESP32-C2/C3|
 |:-:|:-:|:-:|:-:|:-:|
-|BUSY|--|GPIO17|GPIO39|GPIO9|
-|RST|--|GPIO16|GPIO38|GPIO8|
+|BUSY|--|GPIO17|GPIO39|GPIO3|
+|RST|--|GPIO16|GPIO38|GPIO2|
 |TXEN|--|N/C|N/C|N/C|
 |RXEN|--|N/C|N/C|N/C|
-|MISO|--|GPIO19|GPIO37|GPIO18|
-|SCK|--|GPIO18|GPIO36|GPIO10|
-|MOSI|--|GPIO23|GPIO35|GPIO19|
+|MISO|--|GPIO19|GPIO37|GPIO4|
+|SCK|--|GPIO18|GPIO36|GPIO5|
+|MOSI|--|GPIO23|GPIO35|GPIO6|
 |NSS|--|GPIO15|GPIO34|GPIO7|
 |GND|--|GND|GND|GND|
 |VCC|--|3.3V|3.3V|3.3V|

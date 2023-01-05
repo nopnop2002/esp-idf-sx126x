@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <inttypes.h>
 #include <string.h>
 #include <math.h>
 
@@ -188,13 +189,13 @@ int16_t LoRaBegin(uint32_t frequencyInHz, int8_t txPowerInDbm, float tcxoVoltage
 	}
 
 	Calibrate(	SX126X_CALIBRATE_IMAGE_ON
-									| SX126X_CALIBRATE_ADC_BULK_P_ON
-									| SX126X_CALIBRATE_ADC_BULK_N_ON
-									| SX126X_CALIBRATE_ADC_PULSE_ON
-									| SX126X_CALIBRATE_PLL_ON
-									| SX126X_CALIBRATE_RC13M_ON
-									| SX126X_CALIBRATE_RC64K_ON
-									);
+				| SX126X_CALIBRATE_ADC_BULK_P_ON
+				| SX126X_CALIBRATE_ADC_BULK_N_ON
+				| SX126X_CALIBRATE_ADC_PULSE_ON
+				| SX126X_CALIBRATE_PLL_ON
+				| SX126X_CALIBRATE_RC13M_ON
+				| SX126X_CALIBRATE_RC64K_ON
+				);
 
 	ESP_LOGI(TAG, "useRegulatorLDO=%d", useRegulatorLDO);
 	if (useRegulatorLDO) {
@@ -282,9 +283,9 @@ void LoRaConfig(uint8_t spreadingFactor, uint8_t bandwidth, uint8_t codingRate, 
 	WriteCommand(SX126X_CMD_SET_PACKET_PARAMS, PacketParams, 6); // 0x8C
 
 	// Do not use DIO interruptst
-	SetDioIrqParams(SX126X_IRQ_ALL,		//all interrupts enabled
-					SX126X_IRQ_NONE,	//interrupts on DIO1
-					SX126X_IRQ_NONE,	//interrupts on DIO2
+	SetDioIrqParams(SX126X_IRQ_ALL,   //all interrupts enabled
+					SX126X_IRQ_NONE,  //interrupts on DIO1
+					SX126X_IRQ_NONE,  //interrupts on DIO2
 					SX126X_IRQ_NONE); //interrupts on DIO3
 
 	// Receive state no receive timeoout
@@ -648,6 +649,27 @@ void SetModulationParams(uint8_t spreadingFactor, uint8_t bandwidth, uint8_t cod
 }
 
 
+void SetCadParams(uint8_t cadSymbolNum, uint8_t cadDetPeak, uint8_t cadDetMin, uint8_t cadExitMode, uint32_t cadTimeout)
+{
+	uint8_t data[7];
+	data[0] = cadSymbolNum;
+	data[1] = cadDetPeak;
+	data[2] = cadDetMin;
+	data[3] = cadExitMode;
+	data[4] = (uint8_t)((cadTimeout >> 16) & 0xFF);
+	data[5] = (uint8_t)((cadTimeout >> 8) & 0xFF);
+	data[6] = (uint8_t)(cadTimeout & 0xFF);
+	WriteCommand(SX126X_CMD_SET_CAD_PARAMS, data, 7); // 0x88
+}
+
+
+void SetCad()
+{
+	uint8_t data = 0;
+	WriteCommand(SX126X_CMD_SET_CAD, &data, 0); // 0xC5
+}
+
+
 uint16_t GetIrqStatus( void )
 {
 	uint8_t data[3];
@@ -669,14 +691,14 @@ void ClearIrqStatus(uint16_t irq)
 void SetRx(uint32_t timeout)
 {
 	if (debugPrint) {
-		ESP_LOGI(TAG, "----- SetRx timeout=%u", timeout);
+		ESP_LOGI(TAG, "----- SetRx timeout=%"PRIu32, timeout);
 	}
 	SetStandby(SX126X_STANDBY_RC);
 	SetRxEnable();
 	uint8_t buf[3];
 	buf[0] = (uint8_t)((timeout >> 16) & 0xFF);
 	buf[1] = (uint8_t)((timeout >> 8) & 0xFF);
-	buf[2] = (uint8_t )(timeout & 0xFF);
+	buf[2] = (uint8_t)(timeout & 0xFF);
 	WriteCommand(SX126X_CMD_SET_RX, buf, 3); // 0x82
 
 	for(int retry=0;retry<10;retry++) {
@@ -705,7 +727,7 @@ void SetRxEnable(void)
 void SetTx(uint32_t timeoutInMs)
 {
 	if (debugPrint) {
-		ESP_LOGI(TAG, "----- SetTx timeoutInMs=%u", timeoutInMs);
+		ESP_LOGI(TAG, "----- SetTx timeoutInMs=%"PRIu32, timeoutInMs);
 	}
 	SetStandby(SX126X_STANDBY_RC);
 	SetTxEnable();
@@ -716,7 +738,7 @@ void SetTx(uint32_t timeoutInMs)
 		tout = (uint32_t)(timeoutInUs / 0.015625);
 	}
 	if (debugPrint) {
-		ESP_LOGI(TAG, "SetTx timeoutInMs=%u tout=%u", timeoutInMs, tout);
+		ESP_LOGI(TAG, "SetTx timeoutInMs=%"PRIu32" tout=%"PRIu32, timeoutInMs, tout);
 	}
 	buf[0] = (uint8_t)((tout >> 16) & 0xFF);
 	buf[1] = (uint8_t)((tout >> 8) & 0xFF);

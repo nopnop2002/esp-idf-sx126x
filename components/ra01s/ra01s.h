@@ -402,6 +402,8 @@ void     SetStopRxTimerOnPreambleDetect(bool enable);
 void     SetLoRaSymbNumTimeout(uint8_t SymbNum);
 void     SetPacketType(uint8_t packetType);
 void     SetModulationParams(uint8_t spreadingFactor, uint8_t bandwidth, uint8_t codingRate, uint8_t lowDataRateOptimize);
+void     SetCadParams(uint8_t cadSymbolNum, uint8_t cadDetPeak, uint8_t cadDetMin, uint8_t cadExitMode, uint32_t cadTimeout);
+void     SetCad();
 uint8_t  GetStatus(void);
 uint16_t GetIrqStatus(void);
 void     ClearIrqStatus(uint16_t irq);
