@@ -91,7 +91,7 @@ void task_seconfary(void *pvParameters)
 
 			int8_t rssi, snr;
 			GetPacketStatus(&rssi, &snr);
-			printf("rssi:%d dBm snr=%d dB\n", rssi, snr);
+			printf("rssi=%d[dBm] snr=%d[dB]\n", rssi, snr);
 
 			for(int i=0;i<rxLen;i++) {
 				if (isupper(rxData[i])) {
