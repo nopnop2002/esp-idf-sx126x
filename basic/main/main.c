@@ -2,6 +2,9 @@
  *
  * This sample code is in the public domain.
  */
+
+#include <stdio.h>
+#include <inttypes.h>
 #include <string.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -18,7 +21,7 @@ void task_tx(void *pvParameters)
 	uint8_t txData[256]; // Maximum Payload size of SX1261/62/68 is 255
 	while(1) {
 		TickType_t nowTick = xTaskGetTickCount();
-		int txLen = sprintf((char *)txData, "Hello World %d", nowTick);
+		int txLen = sprintf((char *)txData, "Hello World %"PRIu32, nowTick);
 
 		// Wait for transmission to complete
 		if (LoRaSend(txData, txLen, SX126x_TXMODE_SYNC)) {
@@ -63,7 +66,7 @@ void task_rx(void *pvParameters)
 
 			int8_t rssi, snr;
 			GetPacketStatus(&rssi, &snr);
-			printf("rssi:%d dBm snr=%d dB\n", rssi, snr);
+			printf("rssi=%d[dBm] snr=%d[dB]\n", rssi, snr);
 		}
 		vTaskDelay(1); // Avoid WatchDog alerts
 	} // end while
