@@ -953,7 +953,7 @@ void WriteCommand(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 	for(uint8_t n = 0; n < numBytes; n++) {
 		uint8_t in = spi_transfer(data[n]);
 		
-		for (uint8_t retry = 1; (in == 0xaa) && (retry < 10); retry++) {
+		for (uint8_t retry = 1; (in != 0xa2) && (retry < 10); retry++) {
 			if(debugPrint) {
 				ESP_LOGI(TAG, "%02x --> %02x", data[n], in);
 			}
