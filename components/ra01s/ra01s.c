@@ -952,9 +952,24 @@ void WriteCommand(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 	// send/receive all bytes
 	for(uint8_t n = 0; n < numBytes; n++) {
 		uint8_t in = spi_transfer(data[n]);
-		if(debugPrint) {
-			ESP_LOGI(TAG, "%02x --> %02x", data[n], in);
+		
+		for (uint8_t retry = 1; (in == 0xaa) && (retry < 10); retry++) {
+			if(debugPrint) {
+				ESP_LOGI(TAG, "%02x --> %02x", data[n], in);
+			}
+			
+			gpio_set_level(SX126x_SPI_SELECT, HIGH);
+			WaitForIdle(BUSY_WAIT);
+			gpio_set_level(SX126x_SPI_SELECT, LOW);
+			spi_transfer(cmd);
+			in = spi_transfer(data[n]);
+
+			if (debugPrint) {
+				ESP_LOGW(TAG, "RETRY: Try=%d", retry);
+			}
+
 		}
+
 
 		// check status
 		if(((in & 0b00001110) == SX126X_STATUS_CMD_TIMEOUT) ||
