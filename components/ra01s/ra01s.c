@@ -815,8 +815,9 @@ uint8_t ReadBuffer(uint8_t *rxData, uint8_t maxLen)
 	// ensure BUSY is low (state meachine ready)
 	WaitForIdle(BUSY_WAIT);
 
+	// start transfer
 	gpio_set_level(SX126x_SPI_SELECT, LOW);
-	//SPI.beginTransaction(SPISettings(2000000, MSBFIRST, SPI_MODE0));
+
 	spi_transfer(SX126X_CMD_READ_BUFFER); // 0x1E
 	spi_transfer(offset);
 	spi_transfer(SX126X_CMD_NOP);
@@ -824,7 +825,8 @@ uint8_t ReadBuffer(uint8_t *rxData, uint8_t maxLen)
 	{
 		rxData[i] = spi_transfer(SX126X_CMD_NOP);  
 	}
-	//SPI.endTransaction();
+
+	// stop transfer
 	gpio_set_level(SX126x_SPI_SELECT, HIGH);
 
 	// wait for BUSY to go low
@@ -839,15 +841,17 @@ void WriteBuffer(uint8_t *txData, uint8_t txDataLen)
 	// ensure BUSY is low (state meachine ready)
 	WaitForIdle(BUSY_WAIT);
 
+	// start transfer
 	gpio_set_level(SX126x_SPI_SELECT, LOW);
-	//SPI.beginTransaction(SPISettings(2000000, MSBFIRST, SPI_MODE0));
+
 	spi_transfer(SX126X_CMD_WRITE_BUFFER); // 0x0E
 	spi_transfer(0); //offset in tx fifo
 	for( uint16_t i = 0; i < txDataLen; i++ )
 	{ 
 		 spi_transfer( txData[i]);	
 	}
-	//SPI.endTransaction();
+
+	// stop transfer
 	gpio_set_level(SX126x_SPI_SELECT, HIGH);
 
 	// wait for BUSY to go low
@@ -859,12 +863,11 @@ void WriteRegister(uint16_t reg, uint8_t* data, uint8_t numBytes) {
 	// ensure BUSY is low (state meachine ready)
 	WaitForIdle(BUSY_WAIT);
 
-	// start transfer
 	if(debugPrint) {
 		ESP_LOGI(TAG, "WriteRegister: REG=0x%02x", reg);
 	}
+	// start transfer
 	gpio_set_level(SX126x_SPI_SELECT, LOW);
-	//SPI.beginTransaction(SPISettings(2000000, MSBFIRST, SPI_MODE0));
 
 	// send command byte
 	spi_transfer(SX126X_CMD_WRITE_REGISTER); // 0x0D
@@ -881,7 +884,6 @@ void WriteRegister(uint16_t reg, uint8_t* data, uint8_t numBytes) {
 	}
 
 	// stop transfer
-	//SPI.endTransaction();
 	gpio_set_level(SX126x_SPI_SELECT, HIGH);
 
 	// wait for BUSY to go low
@@ -898,12 +900,12 @@ void ReadRegister(uint16_t reg, uint8_t* data, uint8_t numBytes) {
 	// ensure BUSY is low (state meachine ready)
 	WaitForIdle(BUSY_WAIT);
 
-	// start transfer
 	if(debugPrint) {
 		ESP_LOGI(TAG, "ReadRegister: REG=0x%02x", reg);
 	}
+
+	// start transfer
 	gpio_set_level(SX126x_SPI_SELECT, LOW);
-	//SPI.beginTransaction(SPISettings(2000000, MSBFIRST, SPI_MODE0));
 
 	// send command byte
 	spi_transfer(SX126X_CMD_READ_REGISTER); // 0x1D
@@ -919,7 +921,6 @@ void ReadRegister(uint16_t reg, uint8_t* data, uint8_t numBytes) {
 	}
 
 	// stop transfer
-	//SPI.endTransaction();
 	gpio_set_level(SX126x_SPI_SELECT, HIGH);
 
 	// wait for BUSY to go low
@@ -931,14 +932,27 @@ void ReadRegister(uint16_t reg, uint8_t* data, uint8_t numBytes) {
 #endif
 }
 
-
+// WriteCommand with retry
 void WriteCommand(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
+	uint8_t status;
+	for (int retry=1; retry<10; retry++) {
+		status = WriteCommand2(cmd, data, numBytes);
+		ESP_LOGD(TAG, "status=%02x", status);
+		if (status == 0) break;
+		ESP_LOGW(TAG, "WriteCommand2 status=%02x retry=%d", status, retry);
+	}
+	if (status != 0) {
+		ESP_LOGE(TAG, "SPI Transaction error:0x%02x", status);
+		while(1) { vTaskDelay(1); }
+	}
+}
+
+uint8_t WriteCommand2(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 	// ensure BUSY is low (state meachine ready)
 	WaitForIdle(BUSY_WAIT);
 
 	// start transfer
 	gpio_set_level(SX126x_SPI_SELECT, LOW);
-	//SPI.beginTransaction(SPISettings(2000000, MSBFIRST, SPI_MODE0));
 
 	// send command byte
 	if(debugPrint) {
@@ -969,7 +983,6 @@ void WriteCommand(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 	} 
 
 	// stop transfer
-	//SPI.endTransaction();
 	gpio_set_level(SX126x_SPI_SELECT, HIGH);
 
 	// wait for BUSY to go low
@@ -980,10 +993,13 @@ void WriteCommand(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 	}
 #endif
 
+#if 0
 	if (status != 0) {
-		ESP_LOGE(TAG, "SPI Transaction error:%d", status);
+		ESP_LOGE(TAG, "SPI Transaction error:0x%02x", status);
 		while(1) { vTaskDelay(1); }
 	}
+#endif
+	return status;
 }
 
 
@@ -993,7 +1009,6 @@ void ReadCommand(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 
 	// start transfer
 	gpio_set_level(SX126x_SPI_SELECT, LOW);
-	//SPI.beginTransaction(SPISettings(2000000, MSBFIRST, SPI_MODE0));
 
 	// send command byte
 	if(debugPrint) {
@@ -1010,7 +1025,6 @@ void ReadCommand(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 	}
 
 	// stop transfer
-	//SPI.endTransaction();
 	gpio_set_level(SX126x_SPI_SELECT, HIGH);
 
 	// wait for BUSY to go low
