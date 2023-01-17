@@ -2,6 +2,7 @@
 #include <inttypes.h>
 #include <string.h>
 #include <math.h>
+#include <stdlib.h>
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -37,6 +38,20 @@ static int     SX126x_RXEN;
 // Arduino compatible macros
 #define delayMicroseconds(us) esp_rom_delay_us(us)
 #define delay(ms) esp_rom_delay_us(ms*1000)
+
+
+void LoRaErrorDefault(int error)
+{
+	if (debugPrint) {
+		ESP_LOGE(TAG, "LoRaErrorDefault=%d", error);
+	}
+	while (true) {
+		vTaskDelay(1);
+	}
+}
+
+__attribute__ ((weak, alias ("LoRaErrorDefault"))) void LoRaError(int error);
+
 
 void LoRaInit(void)
 {
@@ -707,7 +722,7 @@ void SetRx(uint32_t timeout)
 	}
 	if ((GetStatus() & 0x70) != 0x50) {
 		ESP_LOGE(TAG, "SetRx Illegal Status");
-		while(1) { vTaskDelay(1); }
+		LoRaError(ERR_INVALID_SETRX_STATE);
 	}
 }
 
@@ -751,7 +766,7 @@ void SetTx(uint32_t timeoutInMs)
 	}
 	if ((GetStatus() & 0x70) != 0x60) {
 		ESP_LOGE(TAG, "SetTx Illegal Status");
-		while(1) { vTaskDelay(1); }
+		LoRaError(ERR_INVALID_SETTX_STATE);
 	}
 }
 
@@ -795,7 +810,8 @@ void WaitForIdle(unsigned long timeout)
 		//if(millis() - start >= timeout) {
 		if(xTaskGetTickCount() - start >= (timeout/portTICK_PERIOD_MS)) {
 			ESP_LOGE(TAG, "WaitForIdle Timeout timeout=%lu", timeout);
-			while(1) { vTaskDelay(1); }
+			LoRaError(ERR_IDLE_TIMEOUT);
+			return;
 		}
 	}
 }
@@ -943,7 +959,7 @@ void WriteCommand(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 	}
 	if (status != 0) {
 		ESP_LOGE(TAG, "SPI Transaction error:0x%02x", status);
-		while(1) { vTaskDelay(1); }
+		LoRaError(ERR_SPI_TRANSACTION);
 	}
 }
 
@@ -996,7 +1012,7 @@ uint8_t WriteCommand2(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 #if 0
 	if (status != 0) {
 		ESP_LOGE(TAG, "SPI Transaction error:0x%02x", status);
-		while(1) { vTaskDelay(1); }
+		LoRaError(ERR_SPI_TRANSACTION);
 	}
 #endif
 	return status;
