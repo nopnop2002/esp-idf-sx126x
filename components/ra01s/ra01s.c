@@ -802,18 +802,17 @@ void GetRxBufferStatus(uint8_t *payloadLength, uint8_t *rxStartBufferPointer)
 
 void WaitForIdle(unsigned long timeout)
 {
-	//unsigned long start = millis();
-	TickType_t start = xTaskGetTickCount();
-	delayMicroseconds(1);
-	while(gpio_get_level(SX126x_BUSY)) {
-		delayMicroseconds(1);
-		//if(millis() - start >= timeout) {
-		if(xTaskGetTickCount() - start >= (timeout/portTICK_PERIOD_MS)) {
-			ESP_LOGE(TAG, "WaitForIdle Timeout timeout=%lu", timeout);
-			LoRaError(ERR_IDLE_TIMEOUT);
-			return;
-		}
-	}
+    //unsigned long start = millis();
+    TickType_t start = xTaskGetTickCount();
+    delayMicroseconds(1);
+    while(xTaskGetTickCount() - start < (timeout/portTICK_PERIOD_MS)) {
+        if (gpio_get_level(SX126x_BUSY) == 0) break;
+        delayMicroseconds(1);
+    }
+    if (gpio_get_level(SX126x_BUSY)) {
+        ESP_LOGE(TAG, "WaitForIdle Timeout timeout=%lu", timeout);
+        LoRaError(ERR_IDLE_TIMEOUT);
+    }
 }
 
 
