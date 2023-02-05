@@ -400,6 +400,7 @@ void     SetRegulatorMode(uint8_t mode);
 void     SetBufferBaseAddress(uint8_t txBaseAddress, uint8_t rxBaseAddress);
 void     SetPowerConfig(int8_t power, uint8_t rampTime);
 void     SetOvercurrentProtection(float currentLimit);
+void     SetSyncWord(int16_t sync);
 void     SetPaConfig(uint8_t paDutyCycle, uint8_t hpMax, uint8_t deviceSel, uint8_t paLut);
 void     SetDioIrqParams(uint16_t irqMask, uint16_t dio1Mask, uint16_t dio2Mask, uint16_t dio3Mask);
 void     SetStopRxTimerOnPreambleDetect(bool enable);
