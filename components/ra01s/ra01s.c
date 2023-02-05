@@ -612,8 +612,9 @@ void SetOvercurrentProtection(float currentLimit)
 
 void SetSyncWord(int16_t sync) {
 	uint8_t buf[2];
-	buf[0] = (sync & 0xFF00) >> 8;
-	buf[1] = (sync & 0x00FF);
+
+	buf[0] = (uint8_t)((sync >> 8) & 0x00FF);
+	buf[1] = (uint8_t)(sync & 0x00FF);
 	WriteRegister(SX126X_REG_LORA_SYNC_WORD_MSB, buf, 2); // 0x0740
 }
 
