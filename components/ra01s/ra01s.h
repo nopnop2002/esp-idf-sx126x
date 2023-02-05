@@ -22,6 +22,10 @@
 #define ERR_INVALID_OUTPUT_POWER        15
 #define ERR_INVALID_MODE                16
 #define ERR_INVALID_TRANCEIVER          17
+#define ERR_INVALID_SETRX_STATE         18
+#define ERR_INVALID_SETTX_STATE         19
+#define ERR_IDLE_TIMEOUT                20
+#define ERR_SPI_TRANSACTION             21
 
 // SX126X physical layer properties
 #define XTAL_FREQ                       ( double )32000000
@@ -423,6 +427,7 @@ void     WriteCommand(uint8_t cmd, uint8_t* data, uint8_t numBytes);
 uint8_t  WriteCommand2(uint8_t cmd, uint8_t* data, uint8_t numBytes);
 void     ReadCommand(uint8_t cmd, uint8_t* data, uint8_t numBytes);
 void     SPItransfer(uint8_t cmd, bool write, uint8_t* dataOut, uint8_t* dataIn, uint8_t numBytes, bool waitForBusy);
+void     LoRaError(int error);
 
 
 #endif
