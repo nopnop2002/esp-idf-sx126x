@@ -264,8 +264,7 @@ Therefore, if the following three parameters are the same, they can communicate 
 - Error Cording Rate (= CR)   
 - Spreading Factor (= SF)   
 
-# Using ebyte E22 900M22S and E22 900M30S
-These use TCXO.   
+# Using ebyte E22 900M22S and E22 900M30S(Using TCXO)
 I don't have this one.   
 With this change it may work.   
 ```
