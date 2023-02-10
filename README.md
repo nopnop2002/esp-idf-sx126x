@@ -65,6 +65,8 @@ However, there are the following restrictions:
 - When BW is 500KHz, SF is in the range of 5-11.   
 
 __When using LLCC68 other than Ra-01SC, it is necessary to set the options appropriately based on the datasheet.__
+I don't have a LLCC68 other than Ra-01SC.
+Therefore, I don't know the settings of LLCC68 other than Ra-01SC.
 
 ![ra01sc](https://user-images.githubusercontent.com/6020549/169180199-12a88938-1d6d-43c7-836d-f3c2081ac10d.JPG)
 
