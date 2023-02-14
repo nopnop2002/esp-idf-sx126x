@@ -270,7 +270,7 @@ EBYTE offers several LoRa modules.
 You can get these on AliExpress and eBay.   
 
 |Model|Interface|Chip|Frequency|Power|Foot-Patten|IPEX-Antena|LoRa-WAN|
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |E22-400M22S|SPI|SX1268|433/470Mhz|160mW|Standard|Yes|No|
 |E22-400M30S|SPI|SX1268|433/470Mhz|1000mW|Standard|Yes|No|
 |E22-400MM22S|SPI|SX1268|433/470Mhz|160mW|Small|Yes|No|
