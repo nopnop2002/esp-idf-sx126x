@@ -269,16 +269,18 @@ Therefore, if the following three parameters are the same, they can communicate 
 EBYTE offers several LoRa modules.   
 You can get these on AliExpress and eBay.   
 
-|Model|Interface|Chip|Frequency|Power|IPEX-Antena|LoRa-WAN|
+|Model|Interface|Chip|Frequency|Power|Foot-Patten|IPEX-Antena|LoRa-WAN|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-|E22-400M22S|SPI|SX1268|433/470Mhz|160mW|Yes|No|
-|E22-400M30S|SPI|SX1268|433/470Mhz|1000mW|Yes|No|
-|E22-900M22S|SPI|SX1262|868/915Mhz|160mW|Yes|No|
-|E22-900M30S|SPI|SX1262|868/915Mhz|1000mW|Yes|No|
-|E220-400M22S|SPI|LLCC68|433/470Mhz|160mW|Yes|No|
-|E220-400M30S|SPI|LLCC68|433/470Mhz|1000mW|Yes|No|
-|E220-900M22S|SPI|LLCC68|868/915Mhz|160mW|Yes|No|
-|E220-900M30S|SPI|LLCC68|868/915Mhz|1000mW|Yes|No|
+|E22-400M22S|SPI|SX1268|433/470Mhz|160mW|Standard|Yes|No|
+|E22-400M30S|SPI|SX1268|433/470Mhz|1000mW|Standard|Yes|No|
+|E22-400MM22S|SPI|SX1268|433/470Mhz|160mW|Small|Yes|No|
+|E22-900M22S|SPI|SX1262|868/915Mhz|160mW|Standard|Yes|No|
+|E22-900M30S|SPI|SX1262|868/915Mhz|1000mW|Standard|Yes|No|
+|E22-900MM22S|SPI|SX1262|868/915Mhz|160mW|Small|Yes|No|
+|E220-400M22S|SPI|LLCC68|433/470Mhz|160mW|Standard|Yes|No|
+|E220-400M30S|SPI|LLCC68|433/470Mhz|1000mW|Standard|Yes|No|
+|E220-900M22S|SPI|LLCC68|868/915Mhz|160mW|Standard|Yes|No|
+|E220-900M30S|SPI|LLCC68|868/915Mhz|1000mW|Standard|Yes|No|
 
 I don't have this one.   
 With this change it may work.   
