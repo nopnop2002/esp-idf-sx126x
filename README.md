@@ -264,7 +264,20 @@ Therefore, if the following three parameters are the same, they can communicate 
 - Error Cording Rate (= CR)   
 - Spreading Factor (= SF)   
 
-# Using ebyte E22 900M22S and E22 900M30S(Using TCXO)
+# Using EBYTE Module
+
+EBYTE offers several LoRa modules.   
+You can get these on AliExpress and eBay.   
+
+|Model|Interface/Core|Chip|Frequency|Power|IPEX-Antena|LoRa-WAN|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|E22-400M22S|SPI|SX1268|433/470Mhz|160mW|Yes|No|
+|E22-400M30S|SPI|SX1268|433/470Mhz|1000mW|Yes|No|
+|E22-900M22S|SPI|SX1262|868/915Mhz|160mW|Yes|No|
+|E22-900M30S|SPI|SX1262|868/915Mhz|1000mW|Yes|No|
+|E220-900M22S|SPI|LLCC68|868/915Mhz|160mW|Yes|No|
+|E220-900M30S|SPI|LLCC68|868/915Mhz|1000mW|Yes|No|
+
 I don't have this one.   
 With this change it may work.   
 ```
