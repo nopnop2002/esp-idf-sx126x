@@ -143,10 +143,6 @@ __You can change it to any pin using menuconfig.__
 - Interrupts is not supported in this library.   
 
 
-# SX1262 and SX1278, SX1276 Comparison
-[This](https://www.ebyte.com/en/new-view-info.aspx?id=303) will be helpful.   
-
-
 # Trouble shooting   
 If it doesn't look like this at boot time, the wirering is incorrect.   
 ```
@@ -293,6 +289,8 @@ Therefore, if the following three parameters are the same, they can communicate 
 - Error Cording Rate (= CR)   
 - Spreading Factor (= SF)   
 
+# SX1262 and SX1278, SX1276 Comparison
+[This](https://www.ebyte.com/en/new-view-info.aspx?id=303) will be helpful.   
 
 # Reference   
 
