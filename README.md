@@ -283,8 +283,10 @@ You can get these on AliExpress and eBay.
 |E220-900M22S|SPI|LLCC68|868/915Mhz|160mW|Standard|Yes|No|
 |E220-900M30S|SPI|LLCC68|868/915Mhz|1000mW|Standard|Yes|No|
 
-I don't have this one.   
-With this change it may work.   
+![EBYTE-1](https://user-images.githubusercontent.com/6020549/221332908-b3796a81-8cb0-4649-b0a8-d809b4172d3c.JPG)
+![EBYTE-2](https://user-images.githubusercontent.com/6020549/221332911-92f45aed-0c4e-4623-b0e7-92575ec0d0a9.JPG)
+
+With this change it work.   
 ```
 	//float tcxoVoltage = 0.0; // don't use TCXO
 	//bool useRegulatorLDO = false; // use only LDO in all modes
