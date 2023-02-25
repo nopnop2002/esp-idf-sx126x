@@ -288,7 +288,7 @@ You can get these on AliExpress and eBay.
 
 With this change it work.   
 No additional wiring required.   
-The pitch conversion base is here.   
+The pitch conversion base is [here](https://github.com/nopnop2002/esp-idf-sx126x/tree/main/ebyte-smd-pcb).   
 ```
 	//float tcxoVoltage = 0.0; // don't use TCXO
 	//bool useRegulatorLDO = false; // use only LDO in all modes
