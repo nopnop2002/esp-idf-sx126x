@@ -287,6 +287,8 @@ You can get these on AliExpress and eBay.
 ![EBYTE-2](https://user-images.githubusercontent.com/6020549/221332911-92f45aed-0c4e-4623-b0e7-92575ec0d0a9.JPG)
 
 With this change it work.   
+No additional wiring required.   
+The pitch conversion base is here.   
 ```
 	//float tcxoVoltage = 0.0; // don't use TCXO
 	//bool useRegulatorLDO = false; // use only LDO in all modes
