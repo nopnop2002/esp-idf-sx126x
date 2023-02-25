@@ -8,7 +8,7 @@ You can order your PCB by yourself.
 ![EBYTE-3](https://user-images.githubusercontent.com/6020549/221338428-9e5c2880-35d6-475d-b9c4-e1db74b9d269.JPG)
 
 # How to order PCB
-You can order by Elecrow/FusionPCB/PCBWay using ```EBYTE-E22-SMD.zip```.   
+You can order by yourself on Elecrow/FusionPCB/PCBWay using ```EBYTE-E22-SMD.zip```.   
 This is my order (to PCBWay) information.   
 I ordered it on 2/17 and it arrived on 2/24.   
 You can repeat my order from [here](https://www.pcbway.com/project/shareproject/EBYTE_SPI_LoRa_module_pitch_converter_6c8c2ec2.html).    
