@@ -138,6 +138,37 @@ Previously it was called HSPI_HOST / VSPI_HOST, but now it is called SPI2_HOST /
 
 __You can change it to any pin using menuconfig.__   
 
+# Using EBYTE Module
+
+EBYTE offers several LoRa modules.   
+You can get these on AliExpress and eBay.   
+
+|Model|Interface|Chip|Frequency|Power|Foot-Patten|IPEX-Antena|LoRa-WAN|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|E22-400M22S|SPI|SX1268|433/470Mhz|160mW|Standard|Yes|No|
+|E22-400M30S|SPI|SX1268|433/470Mhz|1000mW|Standard|Yes|No|
+|E22-400MM22S|SPI|SX1268|433/470Mhz|160mW|Small|No|No|
+|E22-900M22S|SPI|SX1262|868/915Mhz|160mW|Standard|Yes|No|
+|E22-900M30S|SPI|SX1262|868/915Mhz|1000mW|Standard|Yes|No|
+|E22-900MM22S|SPI|SX1262|868/915Mhz|160mW|Small|No|No|
+|E220-400M22S|SPI|LLCC68|433/470Mhz|160mW|Standard|Yes|No|
+|E220-400M30S|SPI|LLCC68|433/470Mhz|1000mW|Standard|Yes|No|
+|E220-900M22S|SPI|LLCC68|868/915Mhz|160mW|Standard|Yes|No|
+|E220-900M30S|SPI|LLCC68|868/915Mhz|1000mW|Standard|Yes|No|
+
+![EBYTE-1](https://user-images.githubusercontent.com/6020549/221332908-b3796a81-8cb0-4649-b0a8-d809b4172d3c.JPG)
+![EBYTE-2](https://user-images.githubusercontent.com/6020549/221332911-92f45aed-0c4e-4623-b0e7-92575ec0d0a9.JPG)
+
+With this change it work.   
+No additional wiring required.   
+The pitch conversion base is [here](https://github.com/nopnop2002/esp-idf-sx126x/tree/main/ebyte-smd-pcb).   
+```
+	//float tcxoVoltage = 0.0; // don't use TCXO
+	//bool useRegulatorLDO = false; // use only LDO in all modes
+
+	float tcxoVoltage = 3.3; // use TCXO
+	bool useRegulatorLDO = true; // use TCXO
+```
 # Limitation
 - The SX126x chip implements FSK, but FSK is not supported in this library.   
 - Interrupts is not supported in this library.   
@@ -250,37 +281,6 @@ I (722) RA01S: ReadCommand: CMD=0xc0
 I (722) RA01S: DataIn:52
 I (732) task_tx: Start
 ```
-# Using EBYTE Module
-
-EBYTE offers several LoRa modules.   
-You can get these on AliExpress and eBay.   
-
-|Model|Interface|Chip|Frequency|Power|Foot-Patten|IPEX-Antena|LoRa-WAN|
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-|E22-400M22S|SPI|SX1268|433/470Mhz|160mW|Standard|Yes|No|
-|E22-400M30S|SPI|SX1268|433/470Mhz|1000mW|Standard|Yes|No|
-|E22-400MM22S|SPI|SX1268|433/470Mhz|160mW|Small|No|No|
-|E22-900M22S|SPI|SX1262|868/915Mhz|160mW|Standard|Yes|No|
-|E22-900M30S|SPI|SX1262|868/915Mhz|1000mW|Standard|Yes|No|
-|E22-900MM22S|SPI|SX1262|868/915Mhz|160mW|Small|No|No|
-|E220-400M22S|SPI|LLCC68|433/470Mhz|160mW|Standard|Yes|No|
-|E220-400M30S|SPI|LLCC68|433/470Mhz|1000mW|Standard|Yes|No|
-|E220-900M22S|SPI|LLCC68|868/915Mhz|160mW|Standard|Yes|No|
-|E220-900M30S|SPI|LLCC68|868/915Mhz|1000mW|Standard|Yes|No|
-
-![EBYTE-1](https://user-images.githubusercontent.com/6020549/221332908-b3796a81-8cb0-4649-b0a8-d809b4172d3c.JPG)
-![EBYTE-2](https://user-images.githubusercontent.com/6020549/221332911-92f45aed-0c4e-4623-b0e7-92575ec0d0a9.JPG)
-
-With this change it work.   
-No additional wiring required.   
-The pitch conversion base is [here](https://github.com/nopnop2002/esp-idf-sx126x/tree/main/ebyte-smd-pcb).   
-```
-	//float tcxoVoltage = 0.0; // don't use TCXO
-	//bool useRegulatorLDO = false; // use only LDO in all modes
-
-	float tcxoVoltage = 3.3; // use TCXO
-	bool useRegulatorLDO = true; // use TCXO
-```
 
 # Communication with SX127X
 LoRa's packet format is strictly specified.   
@@ -291,6 +291,7 @@ Therefore, if the following three parameters are the same, they can communicate 
 
 # SX1262 and SX1278, SX1276 Comparison
 [This](https://www.ebyte.com/en/new-view-info.aspx?id=303) will be helpful.   
+
 
 # Reference   
 
