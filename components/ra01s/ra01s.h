@@ -416,6 +416,7 @@ void     SetTxEnable(void);
 void     SetRxEnable(void);
 void     SetRx(uint32_t timeout);
 void     SetTx(uint32_t timeoutInMs);
+int      GetPacketLost();
 uint8_t  GetRssiInst();
 void     GetRxBufferStatus(uint8_t *payloadLength, uint8_t *rxStartBufferPointer);
 void     Wakeup(void);

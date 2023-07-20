@@ -65,7 +65,7 @@ void task_primary(void *pvParameters)
 
 
 #if CONFIG_SECONDARY
-void task_seconfary(void *pvParameters)
+void task_secondary(void *pvParameters)
 {
 	ESP_LOGI(pcTaskGetName(NULL), "Start");
 	uint8_t txData[255]; // Maximum Payload size of SX1261/62/68 is 255
@@ -119,33 +119,38 @@ void app_main()
 	uint32_t frequencyInHz = 0;
 #if CONFIG_169MHZ
 	frequencyInHz = 169000000;
-	ESP_LOGI(pcTaskGetName(NULL), "Frequency is 169MHz");
+	ESP_LOGI(TAG, "Frequency is 169MHz");
 #elif CONFIG_433MHZ
 	frequencyInHz = 433000000;
-	ESP_LOGI(pcTaskGetName(NULL), "Frequency is 433MHz");
+	ESP_LOGI(TAG, "Frequency is 433MHz");
 #elif CONFIG_470MHZ
 	frequencyInHz = 470000000;
-	ESP_LOGI(pcTaskGetName(NULL), "Frequency is 470MHz");
+	ESP_LOGI(TAG, "Frequency is 470MHz");
 #elif CONFIG_866MHZ
 	frequencyInHz = 866000000;
-	ESP_LOGI(pcTaskGetName(NULL), "Frequency is 866MHz");
+	ESP_LOGI(TAG, "Frequency is 866MHz");
 #elif CONFIG_915MHZ
 	frequencyInHz = 915000000;
-	ESP_LOGI(pcTaskGetName(NULL), "Frequency is 915MHz");
+	ESP_LOGI(TAG, "Frequency is 915MHz");
 #elif CONFIG_OTHER
-	ESP_LOGI(pcTaskGetName(NULL), "Frequency is %dMHz", CONFIG_OTHER_FREQUENCY);
+	ESP_LOGI(TAG, "Frequency is %dMHz", CONFIG_OTHER_FREQUENCY);
 	frequencyInHz = CONFIG_OTHER_FREQUENCY * 1000000;
 #endif
 
 	LoRaInit();
-	//int ret = LoRaBegin(915000000, 22, 0.0, false);
 	int8_t txPowerInDbm = 22;
+#if 1
 	float tcxoVoltage = 0.0;  // don't use TCXO
 	bool useRegulatorLDO = false;  // use only LDO in all modes
+#else
+    float tcxoVoltage = 3.3; // use TCXO
+    bool useRegulatorLDO = true; // use DCDC + LDO
+#endif
+	//LoRaDebugPrint(true);
 	int ret = LoRaBegin(frequencyInHz, txPowerInDbm, tcxoVoltage, useRegulatorLDO);
 	ESP_LOGI(TAG, "LoRaBegin=%d", ret);
 	if (ret != 0) {
-		ESP_LOGE(pcTaskGetName(NULL), "Does not recognize the module");
+		ESP_LOGE(TAG, "Does not recognize the module");
 		while(1) {
 			vTaskDelay(1);
 		}
@@ -165,13 +170,11 @@ void app_main()
 #endif
 	LoRaConfig(spreadingFactor, bandwidth, codingRate, preambleLength, payloadLen, crcOn, invertIrq);
 
-	//LoRaDebugPrint(true);
-
 #if CONFIG_PRIMARY
-	xTaskCreate(&task_primary, "task_primary", 1024*4, NULL, 5, NULL);
+	xTaskCreate(&task_primary, "PRIMARY", 1024*4, NULL, 5, NULL);
 #endif
 #if CONFIG_SECONDARY
-	xTaskCreate(&task_seconfary, "task_seconfary", 1024*4, NULL, 1, NULL);
+	xTaskCreate(&task_secondary, "SECONDARY", 1024*4, NULL, 1, NULL);
 #endif
 }
 

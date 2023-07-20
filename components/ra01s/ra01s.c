@@ -28,6 +28,7 @@ static spi_device_handle_t SpiHandle;
 // Global Stuff
 static uint8_t PacketParams[6];
 static bool    txActive;
+static int     txLost = 0;
 static bool    debugPrint;
 static int     SX126x_SPI_SELECT;
 static int     SX126x_RESET;
@@ -382,6 +383,7 @@ bool LoRaSend(uint8_t *pData, uint8_t len, uint8_t mode)
 	if (debugPrint) {
 		ESP_LOGI(TAG, "Send rv=0x%x", rv);
 	}
+	if (rv == false) txLost++;
 	return rv;
 }
 
@@ -787,6 +789,12 @@ void SetTxEnable(void)
 		gpio_set_level(SX126x_RXEN, LOW);
 		gpio_set_level(SX126x_TXEN, HIGH);
 	}
+}
+
+
+int GetPacketLost()
+{
+	return txLost;
 }
 
 
