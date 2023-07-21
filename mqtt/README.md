@@ -55,4 +55,11 @@ This is LoRa and MQTT gateway application.
 
 ![config-mqtt-4](https://github.com/nopnop2002/esp-idf-sx126x/assets/6020549/8e42db02-98cd-49f4-9402-4ac431781069)
 
+MQTT broker is specified by one of the following.
+- IP address   
+ ```192.168.10.20```   
+- mDNS host name   
+ ```mqtt-broker.local```   
+- Fully Qualified Domain Name   
+ ```broker.emqx.io```
 
