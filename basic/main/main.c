@@ -122,7 +122,7 @@ void app_main()
 	xTaskCreate(&task_tx, "TX", 1024*4, NULL, 5, NULL);
 #endif
 #if CONFIG_RECEIVER
-	xTaskCreate(&task_rx, "RX", 1024*4, NULL, 1, NULL);
+	xTaskCreate(&task_rx, "RX", 1024*4, NULL, 5, NULL);
 #endif
 }
 
