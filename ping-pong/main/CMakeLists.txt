@@ -1,4 +1,4 @@
-set(COMPONENT_SRCS "main.c")
-set(COMPONENT_ADD_INCLUDEDIRS "")
+set(component_srcs "main.c")
 
-register_component()
+idf_component_register(SRCS "${component_srcs}"
+                       INCLUDE_DIRS ".")

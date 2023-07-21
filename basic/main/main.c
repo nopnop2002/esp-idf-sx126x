@@ -31,6 +31,7 @@ void task_tx(void *pvParameters)
 
 		// Do not wait for the transmission to be completed
 		//LoRaSend(txData, txLen, SX126x_TXMODE_ASYNC );
+
 		int lost = GetPacketLost();
 		if (lost != 0) {
 			ESP_LOGW(pcTaskGetName(NULL), "%d packets lost", lost);
@@ -85,6 +86,7 @@ void app_main()
 	frequencyInHz = CONFIG_OTHER_FREQUENCY * 1000000;
 #endif
 
+	// Initialize LoRa
 	LoRaInit();
 	int8_t txPowerInDbm = 22;
 #if 1
@@ -95,9 +97,7 @@ void app_main()
 	bool useRegulatorLDO = true; // use DCDC + LDO
 #endif
 	//LoRaDebugPrint(true);
-	int ret = LoRaBegin(frequencyInHz, txPowerInDbm, tcxoVoltage, useRegulatorLDO);
-	ESP_LOGI(TAG, "LoRaBegin=%d", ret);
-	if (ret != 0) {
+	if (LoRaBegin(frequencyInHz, txPowerInDbm, tcxoVoltage, useRegulatorLDO) != 0) {
 		ESP_LOGE(TAG, "Does not recognize the module");
 		while(1) {
 			vTaskDelay(1);
