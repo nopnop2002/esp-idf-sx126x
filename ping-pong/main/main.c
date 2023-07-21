@@ -36,7 +36,7 @@ void task_primary(void *pvParameters)
 			bool waiting = true;
 			TickType_t startTick = xTaskGetTickCount();
 			while(waiting) {
-				uint8_t rxLen = LoRaReceive(rxData, 255);
+				uint8_t rxLen = LoRaReceive(rxData, sizeof(rxData));
 				TickType_t currentTick = xTaskGetTickCount();
 				TickType_t diffTick = currentTick - startTick;
 				if ( rxLen > 0 ) {
@@ -68,10 +68,10 @@ void task_primary(void *pvParameters)
 void task_secondary(void *pvParameters)
 {
 	ESP_LOGI(pcTaskGetName(NULL), "Start");
-	uint8_t txData[255]; // Maximum Payload size of SX1261/62/68 is 255
+	uint8_t txData[256]; // Maximum Payload size of SX1261/62/68 is 255
 	uint8_t rxData[256]; // Maximum Payload size of SX1261/62/68 is 255
 	while(1) {
-		uint8_t rxLen = LoRaReceive(rxData, 255);
+		uint8_t rxLen = LoRaReceive(rxData, sizeof(rxData));
 		if ( rxLen > 0 ) { 
 			printf("Receive rxLen:%d\n", rxLen);
 			for(int i=0;i< rxLen;i++) {

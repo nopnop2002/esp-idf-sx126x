@@ -18,19 +18,19 @@
 void task_tx(void *pvParameters)
 {
 	ESP_LOGI(pcTaskGetName(NULL), "Start");
-	uint8_t txData[256]; // Maximum Payload size of SX1261/62/68 is 255
+	uint8_t buf[256]; // Maximum Payload size of SX1261/62/68 is 255
 	while(1) {
 		TickType_t nowTick = xTaskGetTickCount();
-		int txLen = sprintf((char *)txData, "Hello World %"PRIu32, nowTick);
+		int txLen = sprintf((char *)buf, "Hello World %"PRIu32, nowTick);
 		ESP_LOGI(pcTaskGetName(NULL), "%d byte packet sent...", txLen);
 
 		// Wait for transmission to complete
-		if (LoRaSend(txData, txLen, SX126x_TXMODE_SYNC) == false) {
+		if (LoRaSend(buf, txLen, SX126x_TXMODE_SYNC) == false) {
 			ESP_LOGE(pcTaskGetName(NULL),"LoRaSend fail");
 		}
 
 		// Do not wait for the transmission to be completed
-		//LoRaSend(txData, txLen, SX126x_TXMODE_ASYNC );
+		//LoRaSend(buf, txLen, SX126x_TXMODE_ASYNC );
 
 		int lost = GetPacketLost();
 		if (lost != 0) {
@@ -48,11 +48,11 @@ void task_tx(void *pvParameters)
 void task_rx(void *pvParameters)
 {
 	ESP_LOGI(pcTaskGetName(NULL), "Start");
-	uint8_t rxData[256]; // Maximum Payload size of SX1261/62/68 is 255
+	uint8_t buf[256]; // Maximum Payload size of SX1261/62/68 is 255
 	while(1) {
-		uint8_t rxLen = LoRaReceive(rxData, 255);
+		uint8_t rxLen = LoRaReceive(buf, sizeof(buf));
 		if ( rxLen > 0 ) { 
-			ESP_LOGI(pcTaskGetName(NULL), "%d byte packet received:[%.*s]", rxLen, rxLen, rxData);
+			ESP_LOGI(pcTaskGetName(NULL), "%d byte packet received:[%.*s]", rxLen, rxLen, buf);
 
 			int8_t rssi, snr;
 			GetPacketStatus(&rssi, &snr);
