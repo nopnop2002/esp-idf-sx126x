@@ -30,13 +30,13 @@ menu "Application Configuration"
 		help
 			Select Communication polarity.
 		config SENDER
-			bool "As the sender"
+			bool "MQTT to LoRa"
 			help
-				As the sender.
+				MQTT to LoRa.
 		config RECEIVER
-			bool "As the receiver"
+			bool "LoRa to MQTT"
 			help
-				As the receiver.
+				LoRa to MQTT.
 	endchoice
 
 	choice FREQUENCY
