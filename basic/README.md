@@ -1,4 +1,4 @@
-# basic Example   
+# Basic Example   
 Simple send or receive.   
 
 # Configuration   

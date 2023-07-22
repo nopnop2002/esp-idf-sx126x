@@ -1,4 +1,4 @@
-# mqtt Example   
+# MQTT Example   
 This is LoRa and MQTT gateway application.   
 ```
            +----------+           +----------+           +----------+           +----------+

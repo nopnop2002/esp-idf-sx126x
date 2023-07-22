@@ -1,4 +1,4 @@
-# ping-pong Example   
+# Ping-pong Example   
 Send data from primary to secondary.   
 In the secondary, the characters are converted and sent back.   
 
