@@ -37,7 +37,7 @@ This is LoRa and MQTT gateway application.
            +----------+           +----------+           +----------+           +----------+
 ```
 
-![config-mqtt-3](https://github.com/nopnop2002/esp-idf-sx126x/assets/6020549/f8fdca9b-fea3-4417-a279-9be5340606cd)
+![config-mqtt-3](https://github.com/nopnop2002/esp-idf-sx126x/assets/6020549/f13f93e4-9a9b-44d0-b154-dd2059d9ced8)
 
 ### MQTT to LoRa   
  Subscribe with MQTT and send to LoRa.   
@@ -53,7 +53,7 @@ This is LoRa and MQTT gateway application.
 ```
 
 
-![config-mqtt-4](https://github.com/nopnop2002/esp-idf-sx126x/assets/6020549/8e42db02-98cd-49f4-9402-4ac431781069)
+![config-mqtt-4](https://github.com/nopnop2002/esp-idf-sx126x/assets/6020549/4876b215-cb75-4bea-9abb-8362b1f8910a)
 
 MQTT broker is specified by one of the following.
 - IP address   
