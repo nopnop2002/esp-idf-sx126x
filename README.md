@@ -170,6 +170,10 @@ The pitch conversion base is [here](https://github.com/nopnop2002/esp-idf-sx126x
 	float tcxoVoltage = 3.3; // use TCXO
 	bool useRegulatorLDO = true; // use TCXO
 ```
+
+# Using Heltec LoRa V3
+Works with the same changes as EBYTE Module.   
+
 # Limitation
 - The SX126x chip implements FSK, but FSK is not supported in this library.   
 - Interrupts is not supported in this library.   
