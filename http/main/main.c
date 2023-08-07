@@ -209,6 +209,20 @@ void task_tx(void *pvParameters)
 		}
 	} // end while
 }
+
+void initialize_mdns(void)
+{
+	//initialize mDNS
+	ESP_ERROR_CHECK( mdns_init() );
+	//set mDNS hostname (required if you want to advertise services)
+	ESP_ERROR_CHECK( mdns_hostname_set(CONFIG_MDNS_HOSTNAME) );
+	ESP_LOGI(TAG, "mdns hostname set to: [%s]", CONFIG_MDNS_HOSTNAME);
+
+#if 0
+	//set default mDNS instance name
+	ESP_ERROR_CHECK( mdns_instance_name_set("ESP32 with mDNS") );
+#endif
+}
 #endif // CONFIG_SENDER
 
 #if CONFIG_RECEIVER
@@ -235,8 +249,8 @@ void task_rx(void *pvParameters)
 }
 #endif // CONFIG_RECEIVER
 
-void mqtt_sub(void *pvParameters);
-void mqtt_pub(void *pvParameters);
+void http_client(void *pvParameters);
+void http_server(void *pvParameters);
 
 void app_main()
 {
@@ -313,14 +327,25 @@ void app_main()
 #endif
 	LoRaConfig(spreadingFactor, bandwidth, codingRate, preambleLength, payloadLen, crcOn, invertIrq);
 
-#if CONFIG_SENDER
-	xTaskCreate(&task_tx, "TX", 1024*4, NULL, 5, NULL);
-	xTaskCreate(&mqtt_sub, "SUB", 1024*4, NULL, 2, NULL);
+	// Get the local IP address
+	esp_netif_ip_info_t ip_info;
+	ESP_ERROR_CHECK(esp_netif_get_ip_info(esp_netif_get_handle_from_ifkey("WIFI_STA_DEF"), &ip_info));
 
+#if CONFIG_SENDER
+	initialize_mdns();
+	char cparam0[64];
+	sprintf(cparam0, IPSTR, IP2STR(&ip_info.ip));
+	ESP_LOGI(TAG, "cparam0=[%s]", cparam0);
+	xTaskCreate(&task_tx, "TX", 1024*4, NULL, 5, NULL);
+	xTaskCreate(&http_server, "HTTP_SERVER", 1024*4, (void *)cparam0, 5, NULL);
 #endif
 #if CONFIG_RECEIVER
 	xTaskCreate(&task_rx, "RX", 1024*4, NULL, 5, NULL);
-	xTaskCreate(&mqtt_pub, "PUB", 1024*4, NULL, 2, NULL);
+	xTaskCreate(&http_client, "HTTP_CLIENT", 1024*4, NULL, 5, NULL);
 #endif
+
+	while(1) {
+		vTaskDelay(10);
+	}
 }
 

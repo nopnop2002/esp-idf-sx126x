@@ -3,13 +3,13 @@ This is LoRa and MQTT gateway application.
 ```
            +----------+           +----------+           +----------+           +----------+
            |          |           |          |           |          |           |          |
-==(LoRa)==>|  SX126x  |--(SPI)--->|  ESP32   |--(MQTT)-->|  Broker  |--(MQTT)-->|Subscriber|
+           |Publisher |--(MQTT)-->|  Broker  |--(MQTT)-->|  ESP32   |--(SPI)--->|  SX126x  |==(LoRa)==>
            |          |           |          |           |          |           |          |
            +----------+           +----------+           +----------+           +----------+
 
            +----------+           +----------+           +----------+           +----------+
            |          |           |          |           |          |           |          |
-           |Publisher |--(MQTT)-->|  Broker  |--(MQTT)-->|  ESP32   |--(SPI)--->|  SX126x  |==(LoRa)==>
+==(LoRa)==>|  SX126x  |--(SPI)--->|  ESP32   |--(MQTT)-->|  Broker  |--(MQTT)-->|Subscriber|
            |          |           |          |           |          |           |          |
            +----------+           +----------+           +----------+           +----------+
 ```
@@ -23,21 +23,6 @@ This is LoRa and MQTT gateway application.
 ![config-mqtt-2](https://github.com/nopnop2002/esp-idf-sx126x/assets/6020549/df4c9cb5-c11d-488f-a951-4c0148e8b847)
 
 ## Radio Setting
-
-### LoRa to MQTT   
- Receive from LoRa and publish as MQTT.   
- You can use mosquitto_sub as Subscriber.   
- ```mosquitto_sub -h broker.emqx.io -p 1883 -t "/topic/lora/test"```
-
-```
-           +----------+           +----------+           +----------+           +----------+
-           |          |           |          |           |          |           |          |
-==(LoRa)==>|  SX126x  |--(SPI)--->|  ESP32   |--(MQTT)-->|  Broker  |--(MQTT)-->|Subscriber|
-           |          |           |          |           |          |           |          |
-           +----------+           +----------+           +----------+           +----------+
-```
-
-![config-mqtt-3](https://github.com/nopnop2002/esp-idf-sx126x/assets/6020549/f13f93e4-9a9b-44d0-b154-dd2059d9ced8)
 
 ### MQTT to LoRa   
  Subscribe with MQTT and send to LoRa.   
@@ -54,6 +39,29 @@ This is LoRa and MQTT gateway application.
 
 
 ![config-mqtt-4](https://github.com/nopnop2002/esp-idf-sx126x/assets/6020549/4876b215-cb75-4bea-9abb-8362b1f8910a)
+
+Communicate with Arduino Environment.   
+Run this sketch.   
+ArduinoCode\Ra01S_RX   
+
+### LoRa to MQTT   
+ Receive from LoRa and publish as MQTT.   
+ You can use mosquitto_sub as Subscriber.   
+ ```mosquitto_sub -h broker.emqx.io -p 1883 -t "/topic/lora/test"```
+
+```
+           +----------+           +----------+           +----------+           +----------+
+           |          |           |          |           |          |           |          |
+==(LoRa)==>|  SX126x  |--(SPI)--->|  ESP32   |--(MQTT)-->|  Broker  |--(MQTT)-->|Subscriber|
+           |          |           |          |           |          |           |          |
+           +----------+           +----------+           +----------+           +----------+
+```
+
+![config-mqtt-3](https://github.com/nopnop2002/esp-idf-sx126x/assets/6020549/f13f93e4-9a9b-44d0-b154-dd2059d9ced8)
+
+Communicate with Arduino Environment.   
+Run this sketch.   
+ArduinoCode\Ra01S_TX   
 
 ### Specifying an MQTT Broker   
 MQTT broker is specified by one of the following.
