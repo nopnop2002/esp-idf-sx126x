@@ -70,7 +70,7 @@ ArduinoCode\Ra01S_TX
 
 
 ### Specifying an HTTP Server   
-HTTP Server is specified by one of the following.   
+You can specify your HTTP Server in one of the following ways:   
 - IP address   
  ```192.168.10.20```   
 - mDNS host name   
