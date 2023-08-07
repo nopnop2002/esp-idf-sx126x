@@ -315,7 +315,7 @@ void LoRaDebugPrint(bool enable)
 }
 
 
-uint8_t LoRaReceive(uint8_t *pData, uint16_t len) 
+uint8_t LoRaReceive(uint8_t *pData, int16_t len) 
 {
 	uint8_t rxLen = 0;
 	uint16_t irqRegs = GetIrqStatus();
@@ -332,7 +332,7 @@ uint8_t LoRaReceive(uint8_t *pData, uint16_t len)
 }
 
 
-bool LoRaSend(uint8_t *pData, uint8_t len, uint8_t mode)
+bool LoRaSend(uint8_t *pData, int16_t len, uint8_t mode)
 {
 	uint16_t irqStatus;
 	bool rv = false;
@@ -831,14 +831,14 @@ void WaitForIdle(unsigned long timeout)
 }
 
 
-uint8_t ReadBuffer(uint8_t *rxData, uint8_t maxLen)
+uint8_t ReadBuffer(uint8_t *rxData, int16_t rxDataLen)
 {
 	uint8_t offset = 0;
 	uint8_t payloadLength = 0;
 	GetRxBufferStatus(&payloadLength, &offset);
-	if( payloadLength > maxLen )
+	if( payloadLength > rxDataLen )
 	{
-		ESP_LOGW(TAG, "ReadBuffer maxLen too small");
+		ESP_LOGW(TAG, "ReadBuffer rxDataLen too small. payloadLength=%d rxDataLen=%d", payloadLength, rxDataLen);
 		return 0;
 	}
 
@@ -851,7 +851,7 @@ uint8_t ReadBuffer(uint8_t *rxData, uint8_t maxLen)
 	spi_transfer(SX126X_CMD_READ_BUFFER); // 0x1E
 	spi_transfer(offset);
 	spi_transfer(SX126X_CMD_NOP);
-	for( uint16_t i = 0; i < payloadLength; i++ )
+	for( int i = 0; i < payloadLength; i++ )
 	{
 		rxData[i] = spi_transfer(SX126X_CMD_NOP);  
 	}
@@ -866,7 +866,7 @@ uint8_t ReadBuffer(uint8_t *rxData, uint8_t maxLen)
 }
 
 
-void WriteBuffer(uint8_t *txData, uint8_t txDataLen)
+void WriteBuffer(uint8_t *txData, int16_t txDataLen)
 {
 	// ensure BUSY is low (state meachine ready)
 	WaitForIdle(BUSY_WAIT);
@@ -876,7 +876,7 @@ void WriteBuffer(uint8_t *txData, uint8_t txDataLen)
 
 	spi_transfer(SX126X_CMD_WRITE_BUFFER); // 0x0E
 	spi_transfer(0); //offset in tx fifo
-	for( uint16_t i = 0; i < txDataLen; i++ )
+	for( int i = 0; i < txDataLen; i++ )
 	{ 
 		 spi_transfer( txData[i]);	
 	}

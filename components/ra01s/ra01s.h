@@ -375,8 +375,8 @@
 void     LoRaInit(void);
 int16_t  LoRaBegin(uint32_t frequencyInHz, int8_t txPowerInDbm, float tcxoVoltage, bool useRegulatorLDO);
 void     LoRaConfig(uint8_t spreadingFactor, uint8_t bandwidth, uint8_t codingRate, uint16_t preambleLength, uint8_t payloadLen, bool crcOn, bool invertIrq);
-uint8_t  LoRaReceive(uint8_t *pData, uint16_t len);
-bool     LoRaSend(uint8_t *pData, uint8_t len, uint8_t mode);
+uint8_t  LoRaReceive(uint8_t *pData, int16_t len);
+bool     LoRaSend(uint8_t *pData, int16_t len, uint8_t mode);
 void     LoRaDebugPrint(bool enable);
 
 // Private function
@@ -421,8 +421,8 @@ uint8_t  GetRssiInst();
 void     GetRxBufferStatus(uint8_t *payloadLength, uint8_t *rxStartBufferPointer);
 void     Wakeup(void);
 void     WaitForIdle(unsigned long timeout);
-uint8_t  ReadBuffer(uint8_t *rxData,  uint8_t maxLen);
-void     WriteBuffer(uint8_t *txData, uint8_t txDataLen);
+uint8_t  ReadBuffer(uint8_t *rxData, int16_t rxDataLen);
+void     WriteBuffer(uint8_t *txData, int16_t txDataLen);
 void     WriteRegister(uint16_t reg, uint8_t* data, uint8_t numBytes);
 void     ReadRegister(uint16_t reg, uint8_t* data, uint8_t numBytes);
 void     WriteCommand(uint8_t cmd, uint8_t* data, uint8_t numBytes);
