@@ -201,12 +201,11 @@ void task_tx(void *pvParameters)
 		// Do not wait for the transmission to be completed
 		//LoRaSend(buf, received, SX126x_TXMODE_ASYNC );
 
+		// Get packet loss count
 		int lost = GetPacketLost();
 		if (lost != 0) {
 			ESP_LOGW(pcTaskGetName(NULL), "%d packets lost", lost);
 		}
-
-		vTaskDelay(pdMS_TO_TICKS(1000));
 	} // end while
 }
 #endif // CONFIG_SENDER
