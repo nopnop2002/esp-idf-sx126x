@@ -28,7 +28,7 @@ static EventGroupHandle_t s_wifi_event_group;
 #define WIFI_CONNECTED_BIT BIT0
 #define WIFI_FAIL_BIT BIT1
 
-#define TAG "MAIN"
+static const char *TAG = "MAIN";
 
 static int s_retry_num = 0;
 

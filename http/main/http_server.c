@@ -88,7 +88,7 @@ esp_err_t start_server(int port)
 		.uri		= "/post",
 		.method		= HTTP_POST,
 		.handler	= root_post_handler,
-		.user_ctx   = NULL,
+		.user_ctx	= NULL,
 	};
 	httpd_register_uri_handler(server, &_root_post_handler);
 
@@ -96,7 +96,7 @@ esp_err_t start_server(int port)
 		.uri		= "/favicon.ico",
 		.method		= HTTP_GET,
 		.handler	= favicon_get_handler,
-		.user_ctx   = NULL,
+		.user_ctx	= NULL,
 	};
 	httpd_register_uri_handler(server, &_favicon_get_handler);
 

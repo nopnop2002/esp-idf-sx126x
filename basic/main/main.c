@@ -13,7 +13,7 @@
 
 #include "ra01s.h"
 
-#define TAG "MAIN"
+static const char *TAG = "MAIN";
 
 #if CONFIG_SENDER
 void task_tx(void *pvParameters)

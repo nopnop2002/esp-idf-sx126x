@@ -14,7 +14,7 @@
 
 #include "ra01s.h"
 
-#define TAG "MAIN"
+static const char *TAG = "MAIN";
 
 #if CONFIG_PRIMARY
 
