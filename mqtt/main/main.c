@@ -16,9 +16,7 @@
 #include "esp_event.h"
 #include "esp_log.h"
 #include "nvs_flash.h"
-#include "esp_sntp.h"
 #include "mdns.h"
-#include "esp_log.h"
 
 #include "ra01s.h"
 
