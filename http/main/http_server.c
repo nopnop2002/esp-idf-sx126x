@@ -79,29 +79,29 @@ esp_err_t start_server(int port)
 
 	// Start the httpd server
 	if (httpd_start(&server, &config) != ESP_OK) {
-		ESP_LOGE(TAG, "Failed to start file server!");
+		ESP_LOGE(TAG, "Failed to starting server!");
 		return ESP_FAIL;
 	}
 
 	// Set URI handlers
 	httpd_uri_t _root_post_handler = {
-		.uri		 = "/post",
-		.method		 = HTTP_POST,
-		.handler	 = root_post_handler,
+		.uri		= "/post",
+		.method		= HTTP_POST,
+		.handler	= root_post_handler,
+		.user_ctx   = NULL,
 	};
 	httpd_register_uri_handler(server, &_root_post_handler);
 
 	httpd_uri_t _favicon_get_handler = {
-		.uri		 = "/favicon.ico",
-		.method		 = HTTP_GET,
-		.handler	 = favicon_get_handler,
+		.uri		= "/favicon.ico",
+		.method		= HTTP_GET,
+		.handler	= favicon_get_handler,
+		.user_ctx   = NULL,
 	};
 	httpd_register_uri_handler(server, &_favicon_get_handler);
 
 	return ESP_OK;
 }
-
-
 
 void http_server(void *pvParameters)
 {
@@ -112,13 +112,6 @@ void http_server(void *pvParameters)
 	sprintf(url, "http://%s:%d", task_parameter, port);
 	ESP_LOGI(TAG, "Starting HTTP server on %s", url);
 	ESP_ERROR_CHECK(start_server(port));
-
-	while(1) {
-		vTaskDelay(1);
-	}
-
-	// Never reach here
-	ESP_LOGI(TAG, "finish");
 	vTaskDelete(NULL);
 }
 #endif
