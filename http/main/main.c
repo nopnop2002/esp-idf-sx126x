@@ -16,9 +16,7 @@
 #include "esp_event.h"
 #include "esp_log.h"
 #include "nvs_flash.h"
-#include "esp_sntp.h"
 #include "mdns.h"
-#include "esp_log.h"
 
 #include "ra01s.h"
 
@@ -185,6 +183,20 @@ void convert_mdns_host(char * from, char * to)
 	ESP_LOGI(__FUNCTION__, "to=[%s]", to);
 }
 
+void initialize_mdns(void)
+{
+	//initialize mDNS
+	ESP_ERROR_CHECK( mdns_init() );
+	//set mDNS hostname (required if you want to advertise services)
+	ESP_ERROR_CHECK( mdns_hostname_set(CONFIG_MDNS_HOSTNAME) );
+	ESP_LOGI(TAG, "mdns hostname set to: [%s]", CONFIG_MDNS_HOSTNAME);
+
+#if 0
+	//set default mDNS instance name
+	ESP_ERROR_CHECK( mdns_instance_name_set("ESP32 with mDNS") );
+#endif
+}
+
 #if CONFIG_SENDER
 void task_tx(void *pvParameters)
 {
@@ -208,20 +220,6 @@ void task_tx(void *pvParameters)
 			ESP_LOGW(pcTaskGetName(NULL), "%d packets lost", lost);
 		}
 	} // end while
-}
-
-void initialize_mdns(void)
-{
-	//initialize mDNS
-	ESP_ERROR_CHECK( mdns_init() );
-	//set mDNS hostname (required if you want to advertise services)
-	ESP_ERROR_CHECK( mdns_hostname_set(CONFIG_MDNS_HOSTNAME) );
-	ESP_LOGI(TAG, "mdns hostname set to: [%s]", CONFIG_MDNS_HOSTNAME);
-
-#if 0
-	//set default mDNS instance name
-	ESP_ERROR_CHECK( mdns_instance_name_set("ESP32 with mDNS") );
-#endif
 }
 #endif // CONFIG_SENDER
 
@@ -272,7 +270,7 @@ void app_main()
 	configASSERT( xMessageBufferRecv );
 
 	// Initialize mDNS
-	ESP_ERROR_CHECK( mdns_init() );
+	initialize_mdns();
 
 	uint32_t frequencyInHz = 0;
 #if CONFIG_169MHZ
@@ -332,7 +330,6 @@ void app_main()
 	ESP_ERROR_CHECK(esp_netif_get_ip_info(esp_netif_get_handle_from_ifkey("WIFI_STA_DEF"), &ip_info));
 
 #if CONFIG_SENDER
-	initialize_mdns();
 	char cparam0[64];
 	sprintf(cparam0, IPSTR, IP2STR(&ip_info.ip));
 	ESP_LOGI(TAG, "cparam0=[%s]", cparam0);
