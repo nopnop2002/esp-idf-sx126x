@@ -20,12 +20,6 @@
 
 #include "ra01s.h"
 
-#if (ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 0, 0))
-#define sntp_setoperatingmode esp_sntp_setoperatingmode
-#define sntp_setservername esp_sntp_setservername
-#define sntp_init esp_sntp_init
-#endif
-
 /* FreeRTOS event group to signal when we are connected*/
 static EventGroupHandle_t s_wifi_event_group;
 
