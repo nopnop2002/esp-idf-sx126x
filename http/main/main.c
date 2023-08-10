@@ -232,8 +232,8 @@ void task_rx(void *pvParameters)
 			ESP_LOGI(pcTaskGetName(NULL), "rssi=%d[dBm] snr=%d[dB]", rssi, snr);
 
 			size_t sended = xMessageBufferSend(xMessageBufferTrans, buf, rxLen, portMAX_DELAY);
-			if (sended == 0) {
-				ESP_LOGE(pcTaskGetName(NULL), "xMessageBufferSend fail");
+			if (sended != rxLen) {
+				ESP_LOGE(pcTaskGetName(NULL), "xMessageBufferSend fail rxLen=%d sended=%d", rxLen, sended);
 			}
 		}
 		vTaskDelay(1); // Avoid WatchDog alerts

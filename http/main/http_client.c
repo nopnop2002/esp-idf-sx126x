@@ -82,15 +82,13 @@ esp_err_t _http_event_handler(esp_http_client_event_t *evt)
 			ESP_LOGI(TAG, "HTTP_EVENT_DISCONNECTED");
 			int mbedtls_err = 0;
 			esp_err_t err = esp_tls_get_and_clear_last_error(evt->data, &mbedtls_err, NULL);
-			if (err != 0) {
-				if (output_buffer != NULL) {
-					free(output_buffer);
-					output_buffer = NULL;
-				}
-				output_len = 0;
-				ESP_LOGI(TAG, "Last esp error code: 0x%x", err);
-				ESP_LOGI(TAG, "Last mbedtls failure: 0x%x", mbedtls_err);
+			ESP_LOGI(TAG, "Last esp error code: 0x%x", err);
+			ESP_LOGI(TAG, "Last mbedtls failure: 0x%x", mbedtls_err);
+			if (output_buffer != NULL) {
+				free(output_buffer);
+				output_buffer = NULL;
 			}
+			output_len = 0;
 			break;
 #if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 0, 0)
 		case HTTP_EVENT_REDIRECT:
@@ -106,7 +104,7 @@ esp_err_t _http_event_handler(esp_http_client_event_t *evt)
 
 #define MAX_HTTP_OUTPUT_BUFFER 128
 
-static void http_post_with_url(char *url, char * post_data, size_t post_len)
+esp_err_t http_post_with_url(char *url, char * post_data, size_t post_len)
 {
 	ESP_LOGI(TAG, "http_post_with_url url=[%s]", url);
 	char local_response_buffer[MAX_HTTP_OUTPUT_BUFFER] = {0};
@@ -138,7 +136,6 @@ static void http_post_with_url(char *url, char * post_data, size_t post_len)
 	};
 #endif
 
-
 	esp_http_client_handle_t client = esp_http_client_init(&config);
 
 	// POST
@@ -157,6 +154,7 @@ static void http_post_with_url(char *url, char * post_data, size_t post_len)
 	}
 
 	esp_http_client_cleanup(client);
+	return err;
 }
 
 esp_err_t query_mdns_host(const char * host_name, char *ip);
@@ -182,10 +180,12 @@ void http_client(void *pvParameters)
 		if (received > 0) {
 			ESP_LOGI(TAG, "xMessageBufferReceive buffer=[%.*s]",received, buffer);
 			//http_post_with_url("http://192.168.10.46:8000", buffer, received);
-			http_post_with_url(url, buffer, received);
+			if (http_post_with_url(url, buffer, received) != ESP_OK) {
+				ESP_LOGE(TAG, "http_post_with_url fail");
+			}
 		} else {
-			 ESP_LOGE(TAG, "xMessageBufferReceive fail");
-			 break;
+			ESP_LOGE(TAG, "xMessageBufferReceive fail");
+			break;
 		}
 	} // end while
 
