@@ -74,8 +74,8 @@ You can specify your WebSocket Server in one of the following ways:
 - IP address   
  ```192.168.10.20```   
 - mDNS host name   
- ```http-server.local```   
+ ```ws-server.local```   
 - Fully Qualified Domain Name   
- ```http-server.public.io```
+ ```ws-server.public.io```
 
 
