@@ -1,0 +1,140 @@
+menu "Application Configuration"
+
+	menu "WiFi Setting"
+
+	config ESP_WIFI_SSID
+		string "WiFi SSID"
+		default "myssid"
+		help
+			SSID (network name) for the example to connect to.
+
+	config ESP_WIFI_PASSWORD
+		string "WiFi Password"
+		default "mypassword"
+		help
+			WiFi password (WPA or WPA2) for the example to use.
+
+	config ESP_MAXIMUM_RETRY
+		int "Maximum retry"
+		default 5
+		help
+			Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.
+
+	config MDNS_HOSTNAME
+		string "mDNS Hostname"
+		default "esp32-server"
+		help
+			The mDNS host name used by the ESP32.
+
+	endmenu
+
+	menu "Radio Setting"
+
+	choice DIRECTION
+		prompt "Communication polarity"
+		default SENDER
+		help
+			Select Communication polarity.
+		config SENDER
+			bool "WS to LoRa"
+			help
+				WS to LoRa.
+		config RECEIVER
+			bool "LoRa to WS"
+			help
+				LoRa to WS.
+	endchoice
+
+	choice FREQUENCY
+		prompt "Frequency to use"
+		default 433MHZ
+		help
+			Select Frequency to use.
+		config 169MHZ
+			bool "169MHz"
+			help
+				Frequency is 169MHz.
+		config 433MHZ
+			bool "433MHz"
+			help
+				Frequency is 433MHz.
+		config 470MHZ
+			bool "470MHz"
+			help
+				Frequency is 470MHz.
+		config 866MHZ
+			bool "866MHz"
+			help
+				Frequency is 866MHz.
+		config 915MHZ
+			bool "915MHz"
+			help
+				Frequency is 915MHz.
+		config OTHER
+			bool "Other"
+			help
+				Other Frequency.
+	endchoice
+
+	config OTHER_FREQUENCY
+		depends on OTHER
+		int "Frequency to use[MHz]"
+		range 1 999
+		default 433
+		help
+			Frequency to use[MHz].
+
+	config ADVANCED
+		bool "Enable Advanced settings"
+		default false
+		help
+			Enable Advanced settings.
+
+	config CODING_RATE
+		depends on ADVANCED
+		int "Error coding rate"
+		range 1 4
+		default 1
+		help
+			Error coding rate.
+
+	config BANDWIDTH
+		depends on ADVANCED
+		int "Signal Bandwidth"
+		range 1 6
+		default 4
+		help
+			Signal Bandwidth.
+
+	config SF_RATE
+		depends on ADVANCED
+		int "Spreading Factor"
+		range 5 12
+		default 7
+		help
+			Spreading Factor.
+
+	config WEB_SERVER_HOST
+		depends on RECEIVER
+		string "server to connect to"
+		default "http-server.local"
+		help
+			server to connect to.
+
+	config WEB_SERVER_PORT
+		depends on RECEIVER
+		int "port to connect to"
+		default 8080
+		help
+			port to connect to.
+
+	config WEB_SERVER_PORT
+		depends on SENDER
+		int "Listening port"
+		default 8080
+		help
+			Listening port.
+
+	endmenu
+
+endmenu 
