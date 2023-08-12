@@ -94,7 +94,7 @@ static void websocket_event_handler(void *handler_args, esp_event_base_t base, i
 			ESP_LOGE(TAG, "Received unknown message");
 		}
 
-		if (data->op_code == 0x01 || data->op_code == 0x08) {
+		if (data->op_code == WS_TRANSPORT_OPCODES_TEXT || data->op_code == WS_TRANSPORT_OPCODES_CLOSE) {
 			ESP_LOGD(TAG, "Total payload length=%d, data_len=%d, current payload offset=%d", data->payload_len, data->data_len, data->payload_offset);
 			socketBuf->data_len = data->data_len;
 			socketBuf->op_code = data->op_code;
@@ -142,6 +142,7 @@ void ws_client(void *pvParameters)
 #if (ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 0, 0))
 	websocket_cfg.reconnect_timeout_ms = 10000;
 	websocket_cfg.network_timeout_ms = 10000;
+	websocket_cfg.ping_interval_sec = 60;
 #endif
 
 	ESP_LOGI(TAG, "Connecting to %s...", websocket_cfg.uri);
@@ -154,6 +155,7 @@ void ws_client(void *pvParameters)
 		if (esp_websocket_client_is_connected(client)) break;
 		vTaskDelay(1);
 	}
+	ESP_LOGI(TAG, "Connected to %s...", websocket_cfg.uri);
 
 	char buffer[xItemSize];
 	while (1) {
@@ -173,10 +175,10 @@ void ws_client(void *pvParameters)
 				} else {
 					ESP_LOGW(TAG, "Receive timeout");
 				}
+				xTimerStop(timeout_signal_timer, 100);
 			} else {
 				ESP_LOGW(TAG, "Not connected server");
 			}
-			xTimerStop(timeout_signal_timer, 100);
 		} else {
 			 ESP_LOGW(TAG, "xMessageBufferReceive fail");
 			 //break;
