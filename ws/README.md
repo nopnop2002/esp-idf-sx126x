@@ -25,7 +25,7 @@ This is LoRa and WebSocket gateway application.
 ![config-wifi](https://github.com/nopnop2002/esp-idf-sx126x/assets/6020549/cff56ea9-773d-4b28-8db6-ad2edbf9e1b4)
 
 
-## Radioi Setting
+## Radio Setting
 
 ### WS to LoRa
 Subscribe with WebSocket and send to LoRa.   

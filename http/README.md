@@ -25,7 +25,7 @@ This is LoRa and HTTP gateway application.
 ![config-wifi](https://github.com/nopnop2002/esp-idf-sx126x/assets/6020549/6560cc80-1a81-4537-8c8a-ffc527ee97fe)
 
 
-## Radioi Setting
+## Radio Setting
 
 ### HTTP to LoRa
 Subscribe with HTTP and send to LoRa.   
