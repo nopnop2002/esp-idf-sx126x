@@ -322,11 +322,11 @@ void app_main()
 	// Get the local IP address
 	esp_netif_ip_info_t ip_info;
 	ESP_ERROR_CHECK(esp_netif_get_ip_info(esp_netif_get_handle_from_ifkey("WIFI_STA_DEF"), &ip_info));
-
-#if CONFIG_SENDER
 	char cparam0[64];
 	sprintf(cparam0, IPSTR, IP2STR(&ip_info.ip));
 	ESP_LOGI(TAG, "cparam0=[%s]", cparam0);
+
+#if CONFIG_SENDER
 	xTaskCreate(&task_tx, "TX", 1024*4, NULL, 5, NULL);
 	xTaskCreate(&ws_server, "WS_SERVER", 1024*4, (void *)cparam0, 5, NULL);
 #endif
