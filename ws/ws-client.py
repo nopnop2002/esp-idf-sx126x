@@ -19,14 +19,13 @@ uri = "ws://{}:{}".format(ip, port)
 print("uri={}".format(uri))
 
 timezone = datetime.timedelta(hours=9)
+websocket = connect("ws://esp32-server.local:8080")
 
 while True:
 	dt_now = datetime.datetime.now(datetime.timezone(timezone))
 	payload = dt_now.strftime('%Y/%m/%d %H:%M:%S')
-	#with connect("ws://esp32-server.local:8080") as websocket:
-	with connect(uri, open_timeout=10) as websocket:
-		websocket.send(payload)
-		responce = websocket.recv()
-		print("{}-->{}".format(payload, responce))
+	websocket.send(payload)
+	responce = websocket.recv()
+	print("{}-->{}".format(payload, responce))
 	time.sleep(1.0)
 
