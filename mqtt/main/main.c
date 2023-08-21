@@ -217,9 +217,15 @@ void task_rx(void *pvParameters)
 			GetPacketStatus(&rssi, &snr);
 			ESP_LOGI(pcTaskGetName(NULL), "rssi=%d[dBm] snr=%d[dB]", rssi, snr);
 
-			size_t sended = xMessageBufferSend(xMessageBufferTrans, buf, rxLen, portMAX_DELAY);
-			if (sended == rxLen) {
-				ESP_LOGE(pcTaskGetName(NULL), "xMessageBufferSend fail rxLen=%d sended=%d", rxLen, sended);
+			size_t spacesAvailable = xMessageBufferSpacesAvailable( xMessageBufferTrans );
+			ESP_LOGI(pcTaskGetName(NULL), "spacesAvailable=%d", spacesAvailable);
+			if (spacesAvailable < rxLen*2) {
+				ESP_LOGW(pcTaskGetName(NULL), "xMessageBuffer available less than %d", rxLen*2);
+			} else {
+				size_t sended = xMessageBufferSend(xMessageBufferTrans, buf, rxLen, portMAX_DELAY);
+				if (sended != rxLen) {
+					ESP_LOGE(pcTaskGetName(NULL), "xMessageBufferSend fail rxLen=%d sended=%d", rxLen, sended);
+				}
 			}
 		}
 		vTaskDelay(1); // Avoid WatchDog alerts
