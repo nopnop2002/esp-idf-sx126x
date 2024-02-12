@@ -90,13 +90,17 @@ void app_main()
 	// Initialize LoRa
 	LoRaInit();
 	int8_t txPowerInDbm = 22;
-#if 1
-	float tcxoVoltage = 0.0; // don't use TCXO
-	bool useRegulatorLDO = false; // use only LDO in all modes
-#else
+
+#if CONFIG_USE_TCXO
+	ESP_LOGW(TAG, "Enable TCXO");
 	float tcxoVoltage = 3.3; // use TCXO
 	bool useRegulatorLDO = true; // use DCDC + LDO
+#else
+	ESP_LOGW(TAG, "Disable TCXO");
+	float tcxoVoltage = 0.0; // don't use TCXO
+	bool useRegulatorLDO = false; // use only LDO in all modes
 #endif
+
 	//LoRaDebugPrint(true);
 	if (LoRaBegin(frequencyInHz, txPowerInDbm, tcxoVoltage, useRegulatorLDO) != 0) {
 		ESP_LOGE(TAG, "Does not recognize the module");

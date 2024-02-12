@@ -93,4 +93,10 @@ menu "SX126X Configuration"
 				USE SPI3_HOST. This is also called VSPI_HOST
 	endchoice
 
+	config USE_TCXO
+		bool "Enable TCXO"
+		default false
+		help
+			Enable Temperature-Compensated Crystal Oscillator.
+
 endmenu

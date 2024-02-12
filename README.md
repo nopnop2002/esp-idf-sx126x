@@ -109,10 +109,10 @@ I used a raw ESP-C3-13 to verify that these pins could be used as SPI clocks.
 # Configuration for Transceiver   
 
 ![config-top](https://user-images.githubusercontent.com/6020549/162125293-9405dae9-fd52-440a-b0e5-19e6b481fcf6.jpg)
-![config-sx126x-1](https://user-images.githubusercontent.com/6020549/168418873-5307ac57-e0b7-48e3-89ac-6a08bde467df.jpg)
+![config-sx126x-1](https://github.com/nopnop2002/esp-idf-sx126x/assets/6020549/090b6df3-4326-414d-bc37-f144ba55d9b8)
 
 # SPI BUS selection   
-![config-sx126x-2](https://user-images.githubusercontent.com/6020549/168418911-88a34ad8-6b20-4082-8216-d42a498cc70d.jpg)
+![config-sx126x-2](https://github.com/nopnop2002/esp-idf-sx126x/assets/6020549/6be0e22d-1eb4-4a48-8084-ecf9c71d6e16)
 
 The ESP32 series has three SPI BUSs.   
 SPI1_HOST is used for communication with Flash memory.   
@@ -161,15 +161,16 @@ You can get these on AliExpress and eBay.
 ![EBYTE-2](https://user-images.githubusercontent.com/6020549/221332911-92f45aed-0c4e-4623-b0e7-92575ec0d0a9.JPG)
 
 With this change it work.   
-No additional wiring required.   
-The pitch conversion base is [here](https://github.com/nopnop2002/esp-idf-sx126x/tree/main/ebyte-smd-pcb).   
-```
-	//float tcxoVoltage = 0.0; // don't use TCXO
-	//bool useRegulatorLDO = false; // use only LDO in all modes
+![config-ebyte](https://github.com/nopnop2002/esp-idf-sx126x/assets/6020549/c451f96d-deb6-4a50-b85c-8636b2a7ee15)
 
-	float tcxoVoltage = 3.3; // use TCXO
-	bool useRegulatorLDO = true; // use TCXO
-```
+Two additional wires are required.   
+|SX126X||ESP32|ESP32-S2/S3|ESP32-C2/C3/C6|
+|:-:|:-:|:-:|:-:|:-:|
+|TXEN|--|5|5|8|
+|RXEN|--|4|4|7|
+
+The pitch conversion base is [here](https://github.com/nopnop2002/esp-idf-sx126x/tree/main/ebyte-smd-pcb).   
+
 
 # Using Heltec LoRa V3
 Works with the same changes as EBYTE Module.   
