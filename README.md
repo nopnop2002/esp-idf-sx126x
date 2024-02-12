@@ -166,8 +166,8 @@ With this change it work.
 Two additional wires are required.   
 |SX126X||ESP32|ESP32-S2/S3|ESP32-C2/C3/C6|
 |:-:|:-:|:-:|:-:|:-:|
-|TXEN|--|5|5|8|
-|RXEN|--|4|4|7|
+|TXEN|--|5|5|1|
+|RXEN|--|4|4|0|
 
 The pitch conversion base is [here](https://github.com/nopnop2002/esp-idf-sx126x/tree/main/ebyte-smd-pcb).   
 
