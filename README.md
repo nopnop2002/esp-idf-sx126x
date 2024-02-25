@@ -171,6 +171,13 @@ Two additional wires are required.
 
 The pitch conversion base is [here](https://github.com/nopnop2002/esp-idf-sx126x/tree/main/ebyte-smd-pcb).   
 
+SX1262 and LLCC68 are compatible, but for some reason they don't work.   
+|Model|Interface|Chip|Frequency|Power|Foot-Patten|IPEX-Antena|LoRa-WAN|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|E220-400M22S|SPI|LLCC68|433/470Mhz|160mW|Standard|Yes|No|
+|E220-400M30S|SPI|LLCC68|433/470Mhz|1000mW|Standard|Yes|No|
+|E220-900M22S|SPI|LLCC68|868/915Mhz|160mW|Standard|Yes|No|
+|E220-900M30S|SPI|LLCC68|868/915Mhz|1000mW|Standard|Yes|No|
 
 # Using Heltec LoRa V3
 Works with the same changes as EBYTE Module.   
