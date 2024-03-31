@@ -21,7 +21,7 @@
 #define LORA_PAYLOADLENGTH                          0         // 0: Variable length packet (explicit header)
                                                               // 1..255  Fixed length packet (implicit header)
 
-
+//#define USE_EBYTE
                                                              
 #if 1
 /*
@@ -34,12 +34,25 @@
  * NSS     5/5
  * RST     6/6
  * BUSY    7/7
+ * TXEN    8/8 for EBYTE
+ * RXEN    9/9 for EBYTE
  */
 
+#ifdef USE_EBYTE
+SX126x  lora(5,               //Port-Pin Output: SPI select
+             6,               //Port-Pin Output: Reset 
+             7,               //Port-Pin Input:  Busy
+             8,               //Port-Pin Output: TXEN
+             9                //Port-Pin Output: RXEN
+             );
+
+#else
 SX126x  lora(5,               //Port-Pin Output: SPI select
              6,               //Port-Pin Output: Reset 
              7                //Port-Pin Input:  Busy
              );
+#endif // USE_EBYTE
+
 #endif // ATmega328/2560
 
 #if 0
@@ -53,12 +66,24 @@ SX126x  lora(5,               //Port-Pin Output: SPI select
  * NSS    GPIO2
  * RST    GPIO0
  * BUSY   GPIO16
+ * TXEN   GPIO4 for EBYTE
+ * RXEN   GPIO5 for EBYTE
  */
  
-SX126x  lora(2,                 //Port-Pin Output: SPI select
-             0,                 //Port-Pin Output: Reset 
-             16                 //Port-Pin Input:  Busy
+#ifdef USE_EBYTE
+SX126x  lora(2,               //Port-Pin Output: SPI select
+             0,               //Port-Pin Output: Reset 
+             16,              //Port-Pin Input:  Busy
+             4,               //Port-Pin Output: TXEN
+             5                //Port-Pin Output: RXEN
              );
+#else
+SX126x  lora(2,               //Port-Pin Output: SPI select
+             0,               //Port-Pin Output: Reset 
+             16               //Port-Pin Input:  Busy
+             );
+#endif // USE_EBYTE
+
 #endif // ESP8266
 
 void setup() 
@@ -68,9 +93,19 @@ void setup()
 
   //lora.DebugPrint(true);
 
+#ifdef USE_EBYTE
+  Serial.println("Enable TCXO");
+  int16_t ret = lora.begin(RF_FREQUENCY,              //frequency in Hz
+                           TX_OUTPUT_POWER,           //tx power in dBm
+                           3.3,                       //use TCXO
+                           true);                     //use TCXO
+  if (ret != ERR_NONE) while(1) {delay(1);}
+#else
+  Serial.println("Disable TCXO");
   int16_t ret = lora.begin(RF_FREQUENCY,              //frequency in Hz
                            TX_OUTPUT_POWER);          //tx power in dBm
   if (ret != ERR_NONE) while(1) {delay(1);}
+#endif // USE_EBYTE
 
   lora.LoRaConfig(LORA_SPREADING_FACTOR, 
                   LORA_BANDWIDTH, 
