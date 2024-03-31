@@ -16,7 +16,7 @@ In the secondary, the characters are converted and sent back.
 
 - ESP32 is Secondary 
 ```
-+-----------+             +-----------+           +-----------+
++-----------+            +-----------+           +-----------+
 |           |            |           |           |           |
 |  Primary  |===(LoRa)==>|  SX126x   |---(SPI)-->|   ESP32   |
 |           |            |           |           | Secondary |
