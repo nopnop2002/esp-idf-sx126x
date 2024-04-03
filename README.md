@@ -182,6 +182,24 @@ Works with the same changes as EBYTE Module.
 - The SX126x chip implements FSK, but FSK is not supported in this library.   
 - Interrupts is not supported in this library.   
 
+# Error Handling   
+If a non-continuable error occurs, this library calls the following function:   
+```
+void LoRaError(int error);
+```
+
+This function is defined as a weak function, so you can change it to whatever you like.   
+```
+void LoRaError(int error)
+{
+    # Place your favorite code
+    ESP_LOGE(TAG, "LoRaError=%d", error);
+    while (true) {
+        vTaskDelay(1);
+    }
+}
+```
+
 
 # Trouble shooting   
 If it doesn't look like this at boot time, the wirering is incorrect.   
