@@ -123,11 +123,10 @@ void loop()
   uint8_t txData[255];
   uint8_t rxData[255];
   //sprintf((char *)txData, "Hello World %d", i);
-  sprintf((char *)txData, "Hello World %lu", millis());
-  uint8_t len = strlen((char *)txData);
+  uint8_t txLen = sprintf((char *)txData, "Hello World %lu", millis());
 
   // Wait for transmission to complete
-  if (lora.Send(txData, len, SX126x_TXMODE_SYNC)) {
+  if (lora.Send(txData, txLen, SX126x_TXMODE_SYNC)) {
     Serial.println("Send success");
 
     // Wait for responce
@@ -136,8 +135,14 @@ void loop()
       uint8_t rxLen = lora.Receive(rxData, 255);
       if ( rxLen > 0 )
       { 
+        unsigned long endMills = millis();
+        unsigned long diffMills = endMills - startMills;
         Serial.print("Receive rxLen:");
-        Serial.println(rxLen);
+        Serial.print(rxLen);
+        Serial.print(" Response time:");
+        Serial.print(diffMills);
+        Serial.println(" millisecond");
+        
         for(int i=0;i< rxLen;i++) {
           Serial.print(rxData[i], HEX);
           Serial.print(" ");
