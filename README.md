@@ -183,7 +183,7 @@ Works with the same changes as EBYTE Module.
 - Interrupts is not supported in this library.   
 
 # Error Handling   
-If a non-continuable error occurs, this library calls the following function:   
+If an error occurs within the library, this library calls the following function:   
 ```
 void LoRaError(int error);
 ```
