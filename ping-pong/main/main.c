@@ -42,7 +42,7 @@ void task_primary(void *pvParameters)
 				TickType_t diffTick = currentTick - startTick;
 				if ( rxLen > 0 ) {
 					ESP_LOGI(pcTaskGetName(NULL), "%d byte packet received:[%.*s]", rxLen, rxLen, rxData);
-					ESP_LOGI(pcTaskGetName(NULL), "Response time is %"PRIu32" MillSecs", diffTick * portTICK_PERIOD_MS);
+					ESP_LOGI(pcTaskGetName(NULL), "Response time is %"PRIu32" millisecond", diffTick * portTICK_PERIOD_MS);
 					waiting = false;
 				}
 				
@@ -104,9 +104,9 @@ void task_secondary(void *pvParameters)
 
 			// Wait for transmission to complete
 			if (LoRaSend(txData, rxLen, SX126x_TXMODE_SYNC)) {
-				//printf("Send success\n");
+				ESP_LOGD(pcTaskGetName(NULL), "Send success");
 			} else {
-				printf("Send fail\n");
+				ESP_LOGE(pcTaskGetName(NULL), "LoRaSend fail");
 			}
 
 		}
