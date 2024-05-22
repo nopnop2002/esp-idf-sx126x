@@ -316,6 +316,20 @@ Therefore, if the following three parameters are the same, they can communicate 
 - Error Cording Rate (= CR)   
 - Spreading Factor (= SF)   
 
+In LoRa modulation mode, the communication speed (bps) and maximum reception sensitivity (RSSI) are determined by a combination of spreading factor (SF), bandwidth (BW), and coding rate (CDR).   
+- SF   
+SF (spreading factor) Increasing SF increases the spreading rate and improves noise resistance.   
+This improves reception sensitivity and extends communication distance, but communication speed decreases.   
+- BW   
+Bandwidth sets the width of the communication band. Setting a larger bandwidth will improve communication speed.   
+However, the radio reception sensitivity (RSSI) will decrease.   
+- CDR   
+CDR (CodingRate) sets the level of error correction rate.   
+The larger the number, the better the correction rate, but the amount of information per packet increases.   
+(No effect on maximum reception sensitivity)   
+You can set whether to use Optimaise for each CDR, and enabling it will improve the correction rate, but will reduce communication speed.   
+
+
 # SX1262 and SX1278, SX1276 Comparison
 [This](https://www.ebyte.com/en/new-view-info.aspx?id=303) will be helpful.   
 
