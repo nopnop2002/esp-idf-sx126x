@@ -316,6 +316,7 @@ Therefore, if the following three parameters are the same, they can communicate 
 - Error Cording Rate (= CR)   
 - Spreading Factor (= SF)   
 
+# About communication speed (bps) and maximum reception sensitivity (RSSI)   
 In LoRa modulation mode, the communication speed (bps) and maximum reception sensitivity (RSSI) are determined by a combination of spreading factor (SF), bandwidth (BW), and coding rate (CDR).   
 - SF   
 SF (spreading factor) Increasing SF increases the spreading rate and improves noise resistance.   
