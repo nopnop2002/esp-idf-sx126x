@@ -30,5 +30,5 @@ I have used several PCB manufacturers in the past, but lately I have only used P
  This is very important to me as English is not my native language.   
 
 - Shipping options   
- I always use the cheaper option and am very happy with the delivery quality and delivery time.
-
+ I always use the cheaper option and am very happy with the delivery quality and delivery time.   
+ It will arrive in Japan in about 7 days.   
