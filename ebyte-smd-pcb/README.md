@@ -9,7 +9,7 @@ You can order the PCB yourself using the publicly available Gerber files.
 
 # How to order PCB
 You can order by yourself on PCBWay using ```EBYTE-E22-SMD.zip```.   
-This is my order (to PCBWay) information.   
+This is my order information to PCBWay.   
 I ordered it on February 17th and it arrived to me on February 24th.   
 You can repeat my order from [here](https://www.pcbway.com/project/shareproject/EBYTE_SPI_LoRa_module_pitch_converter_6c8c2ec2.html).    
 ![PCBWAY-Product-Detail](https://user-images.githubusercontent.com/6020549/221338443-f41ff9bc-7bdd-4623-8f12-cddb5fa80613.jpg)
