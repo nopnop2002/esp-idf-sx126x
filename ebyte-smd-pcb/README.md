@@ -26,6 +26,6 @@ I have used several PCB manufacturers in the past, but lately I have only used P
 - Support for orders   
  English is not my native language. I was worried when I first ordered, but PCBWay supported me.
 
-- Many shipping methods to choose from   
+- Wide range of shipping methods   
  I always use the cheaper option and am very happy with the delivery quality and delivery time.
 
