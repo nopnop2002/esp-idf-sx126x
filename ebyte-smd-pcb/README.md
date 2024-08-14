@@ -31,4 +31,5 @@ I have used several PCB manufacturers in the past, but lately I have only used P
 
 - Shipping options   
  I always use the cheaper option and am very happy with the delivery quality and delivery time.   
- It will arrive in Japan in about 7 days.   
+ It will arrive in Japan in about 7 to 10 days.   
+ You can further reduce delivery time by choosing another option.   
