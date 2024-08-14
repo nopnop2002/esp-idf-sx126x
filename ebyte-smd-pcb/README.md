@@ -26,7 +26,6 @@ I have used several PCB manufacturers in the past, but lately I have only used P
 - Support for orders   
  English is not my native language. I was worried when I first ordered, but PCBWay supported me.
 
-- Share your project   
- You can share your projects in this way for free.
- https://www.pcbway.com/project/shareproject/EBYTE_SPI_LoRa_module_pitch_converter_6c8c2ec2.html
+- Many delivery methods   
+ I always use the cheaper options and am very happy with the delivery times.
 
