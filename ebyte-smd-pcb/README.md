@@ -25,7 +25,7 @@ I have used several PCB manufacturers in the past, but lately I have only used P
 
 - Support for orders   
  Many PCB manufacturers have pages for ordering, but PCBWay's ordering page is the easiest to use.   
- The easiest way to order is to select your PCB size and resist color.   
+ The easiest way to order is to select your PCB size and resist color. Other selections remain default.   
  PCBWay will provide you with a price after verifying the validity of your board manufacturing information.   
  This is very important to me as English is not my native language.   
 
