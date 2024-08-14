@@ -24,7 +24,8 @@ I have used several PCB manufacturers in the past, but lately I have only used P
  They offer extensive customization options, allowing board designers to tailor their PCBs precisely to their project's needs.
 
 - Support for orders   
- Many PCB manufacturers have pages for ordering, but PCBWay's ordering page is the easiest to use. Just choose your PCB size and resist color.
+ Many PCB manufacturers have pages for ordering, but PCBWay's ordering page is the easiest to use. Just choose your PCB size and resist color.   
+ PCBWay will provide you with a price after verifying the validity of your board manufacturing information.
 
 - Shipping options   
  I always use the cheaper option and am very happy with the delivery quality and delivery time.
