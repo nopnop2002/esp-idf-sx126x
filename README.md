@@ -319,7 +319,7 @@ Therefore, if the following three parameters are the same, they can communicate 
 # About communication speed and maximum reception sensitivity   
 In LoRa modulation mode, the communication speed (bps) and maximum reception sensitivity (RSSI) are determined by a combination of spreading factor (SF), bandwidth (BW), and coding rate (CDR).   
 - SF   
-SF (spreading factor) Increasing SF increases the spreading rate and improves noise resistance.   
+Increasing SF increases the spreading factor and improves noise resistance.   
 This improves reception sensitivity and extends communication distance, but communication speed decreases.   
 - BW   
 Bandwidth sets the width of the communication band. Setting a larger bandwidth will improve communication speed.   
