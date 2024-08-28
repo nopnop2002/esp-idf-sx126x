@@ -23,12 +23,9 @@
 
 #include "mqtt.h"
 
-#if CONFIG_SENDER
-
 static const char *TAG = "SUB";
 
 extern MessageBufferHandle_t xMessageBufferRecv;
-extern size_t xItemSize;
 
 #if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 0, 0)
 static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data)
@@ -167,9 +164,13 @@ void mqtt_sub(void *pvParameters)
 		} else if (mqttBuf.event_id == MQTT_EVENT_DATA) {
 			ESP_LOGI(TAG, "TOPIC=[%.*s]\r", mqttBuf.topic_len, mqttBuf.topic);
 			ESP_LOGI(TAG, "DATA=[%.*s]\r", mqttBuf.data_len, mqttBuf.data);
-			size_t sended = xMessageBufferSend(xMessageBufferRecv, mqttBuf.data, mqttBuf.data_len, portMAX_DELAY);
+
+			// Queries a message buffer to see how much free space it contains
+			size_t spacesAvailable = xMessageBufferSpacesAvailable( xMessageBufferRecv );
+			ESP_LOGI(pcTaskGetName(NULL), "spacesAvailable=%d", spacesAvailable);
+			size_t sended = xMessageBufferSend(xMessageBufferRecv, mqttBuf.data, mqttBuf.data_len, 100);
 			if (sended != mqttBuf.data_len) {
-				ESP_LOGE(TAG, "xMessageBufferSend fail");
+				ESP_LOGE(TAG, "xMessageBufferSend fail mqttBuf.data_len=%d sended=%d", mqttBuf.data_len, sended);
 			}
 		} else if (mqttBuf.event_id == MQTT_EVENT_ERROR) {
 			break;
@@ -180,4 +181,3 @@ void mqtt_sub(void *pvParameters)
 	esp_mqtt_client_stop(mqtt_client);
 	vTaskDelete(NULL);
 }
-#endif
