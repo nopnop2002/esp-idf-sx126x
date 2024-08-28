@@ -207,6 +207,7 @@ If it doesn't look like this at boot time, the wirering is incorrect.
 I (3425) RA01S: syncWord=0x1424
 I (3425) RA01S: SX126x installed
 ```
+
 If that doesn't work, enable [LoRaDebugPrint](https://github.com/nopnop2002/esp-idf-sx126x/blob/main/basic/main/main.c#L101).   
 This is my logging.   
 ```
@@ -307,6 +308,11 @@ I (712) RA01S: DataIn:52
 I (722) RA01S: ReadCommand: CMD=0xc0
 I (722) RA01S: DataIn:52
 I (732) task_tx: Start
+```
+
+If this error occurs, check the antenna.   
+```
+E (14993) RA01S: SetTx Illegal Status
 ```
 
 # Communication with SX127X
