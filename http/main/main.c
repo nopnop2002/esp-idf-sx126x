@@ -37,8 +37,6 @@ MessageBufferHandle_t xMessageBufferRecv;
 
 // The total number of bytes (not single messages) the message buffer will be able to hold at any one time.
 size_t xBufferSizeBytes = 1024;
-// The size, in bytes, required to hold each item in the message,
-size_t xItemSize = 256;
 
 static void event_handler(void* arg, esp_event_base_t event_base, int32_t event_id, void* event_data)
 {
@@ -201,6 +199,7 @@ void task_tx(void *pvParameters)
 		ESP_LOGI(pcTaskGetName(NULL), "xMessageBufferReceive received=%d", received);
 
 		// Wait for transmission to complete
+		ESP_LOGD(pcTaskGetName(NULL), "Transmission begin");
 		if (LoRaSend(buf, received, SX126x_TXMODE_SYNC) == false) {
 			ESP_LOGE(pcTaskGetName(NULL),"LoRaSend fail");
 		}
@@ -213,6 +212,7 @@ void task_tx(void *pvParameters)
 		if (lost != 0) {
 			ESP_LOGW(pcTaskGetName(NULL), "%d packets lost", lost);
 		}
+		ESP_LOGD(pcTaskGetName(NULL), "Transmission done");
 	} // end while
 }
 #endif // CONFIG_SENDER
@@ -233,13 +233,9 @@ void task_rx(void *pvParameters)
 
 			size_t spacesAvailable = xMessageBufferSpacesAvailable( xMessageBufferTrans );
 			ESP_LOGI(pcTaskGetName(NULL), "spacesAvailable=%d", spacesAvailable);
-			if (spacesAvailable < rxLen*2) {
-				ESP_LOGW(pcTaskGetName(NULL), "xMessageBuffer available less than %d", rxLen*2);
-			} else {
-				size_t sended = xMessageBufferSend(xMessageBufferTrans, buf, rxLen, portMAX_DELAY);
-				if (sended != rxLen) {
-					ESP_LOGE(pcTaskGetName(NULL), "xMessageBufferSend fail rxLen=%d sended=%d", rxLen, sended);
-				}
+			size_t sended = xMessageBufferSend(xMessageBufferTrans, buf, rxLen, 100);
+			if (sended != rxLen) {
+				ESP_LOGE(pcTaskGetName(NULL), "xMessageBufferSend fail rxLen=%d sended=%d", rxLen, sended);
 			}
 		}
 		vTaskDelay(1); // Avoid WatchDog alerts
@@ -346,7 +342,7 @@ void app_main()
 #endif
 
 	while(1) {
-		vTaskDelay(10);
+		vTaskDelay(100);
 	}
 }
 

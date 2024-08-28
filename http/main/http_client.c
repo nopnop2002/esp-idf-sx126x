@@ -18,13 +18,9 @@
 #include "esp_tls.h"
 #include "esp_http_client.h"
 
-#if CONFIG_RECEIVER
-
 static const char *TAG = "CLIENT";
 
 extern MessageBufferHandle_t xMessageBufferTrans;
-extern size_t xItemSize;
-
 
 esp_err_t _http_event_handler(esp_http_client_event_t *evt)
 {
@@ -173,7 +169,7 @@ void http_client(void *pvParameters)
 	sprintf(url, "http://%s:%d", ip, CONFIG_WEB_SERVER_PORT);
 	ESP_LOGI(TAG, "url=[%s]", url);
 
-	char buffer[xItemSize];
+	char buffer[256]; // Maximum Payload size of SX1261/62/68 is 255
 	while (1) {
 		size_t received = xMessageBufferReceive(xMessageBufferTrans, buffer, sizeof(buffer), portMAX_DELAY);
 		ESP_LOGI(TAG, "xMessageBufferReceive received=%d", received);
@@ -192,4 +188,3 @@ void http_client(void *pvParameters)
 	// Stop connection
 	vTaskDelete(NULL);
 }
-#endif
