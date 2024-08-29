@@ -214,6 +214,7 @@ void task_tx(void *pvParameters)
 		}
 		ESP_LOGD(pcTaskGetName(NULL), "Transmission done");
 	} // end while
+	vTaskDelete(NULL);
 }
 #endif // CONFIG_SENDER
 
@@ -236,10 +237,12 @@ void task_rx(void *pvParameters)
 			size_t sended = xMessageBufferSend(xMessageBufferTrans, buf, rxLen, 100);
 			if (sended != rxLen) {
 				ESP_LOGE(pcTaskGetName(NULL), "xMessageBufferSend fail rxLen=%d sended=%d", rxLen, sended);
+				break;
 			}
 		}
 		vTaskDelay(1); // Avoid WatchDog alerts
 	} // end while
+	vTaskDelete(NULL);
 }
 #endif // CONFIG_RECEIVER
 
