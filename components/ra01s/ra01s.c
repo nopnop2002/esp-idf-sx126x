@@ -435,7 +435,7 @@ void Reset(void)
 	gpio_set_level(SX126x_RESET,1);
 	delay(10);
 	// ensure BUSY is low (state meachine ready)
-	WaitForIdle(BUSY_WAIT, "Reset");
+	WaitForIdle(BUSY_WAIT, "Reset", true);
 }
 
 
@@ -815,7 +815,7 @@ void GetRxBufferStatus(uint8_t *payloadLength, uint8_t *rxStartBufferPointer)
 }
 
 
-void WaitForIdle(unsigned long timeout, char *text)
+void WaitForIdle(unsigned long timeout, char *text, bool stop)
 {
 	TickType_t start = xTaskGetTickCount();
 	delayMicroseconds(1);
@@ -825,7 +825,7 @@ void WaitForIdle(unsigned long timeout, char *text)
 	}
 	if (gpio_get_level(SX126x_BUSY)) {
 		ESP_LOGE(TAG, "WaitForIdle Timeout text=%s timeout=%lu start=%"PRIu32, text, timeout, start);
-		LoRaError(ERR_IDLE_TIMEOUT);
+		if (stop) LoRaError(ERR_IDLE_TIMEOUT);
 	}
 }
 
@@ -841,7 +841,7 @@ uint8_t ReadBuffer(uint8_t *rxData, int16_t rxDataLen)
 	}
 
 	// ensure BUSY is low (state meachine ready)
-	WaitForIdle(BUSY_WAIT, "start ReadBuffer");
+	WaitForIdle(BUSY_WAIT, "start ReadBuffer", true);
 
 	// start transfer
 	gpio_set_level(SX126x_SPI_SELECT, LOW);
@@ -858,7 +858,7 @@ uint8_t ReadBuffer(uint8_t *rxData, int16_t rxDataLen)
 	gpio_set_level(SX126x_SPI_SELECT, HIGH);
 
 	// wait for BUSY to go low
-	WaitForIdle(BUSY_WAIT, "end ReadBuffer");
+	WaitForIdle(BUSY_WAIT, "end ReadBuffer", false);
 
 	return payloadLength;
 }
@@ -867,7 +867,7 @@ uint8_t ReadBuffer(uint8_t *rxData, int16_t rxDataLen)
 void WriteBuffer(uint8_t *txData, int16_t txDataLen)
 {
 	// ensure BUSY is low (state meachine ready)
-	WaitForIdle(BUSY_WAIT, "start WriteBuffer");
+	WaitForIdle(BUSY_WAIT, "start WriteBuffer", true);
 
 	// start transfer
 	gpio_set_level(SX126x_SPI_SELECT, LOW);
@@ -883,13 +883,13 @@ void WriteBuffer(uint8_t *txData, int16_t txDataLen)
 	gpio_set_level(SX126x_SPI_SELECT, HIGH);
 
 	// wait for BUSY to go low
-	WaitForIdle(BUSY_WAIT, "end WriteBuffer");
+	WaitForIdle(BUSY_WAIT, "end WriteBuffer", false);
 }
 
 
 void WriteRegister(uint16_t reg, uint8_t* data, uint8_t numBytes) {
 	// ensure BUSY is low (state meachine ready)
-	WaitForIdle(BUSY_WAIT, "start WriteRegister");
+	WaitForIdle(BUSY_WAIT, "start WriteRegister", true);
 
 	if(debugPrint) {
 		ESP_LOGI(TAG, "WriteRegister: REG=0x%02x", reg);
@@ -915,7 +915,7 @@ void WriteRegister(uint16_t reg, uint8_t* data, uint8_t numBytes) {
 	gpio_set_level(SX126x_SPI_SELECT, HIGH);
 
 	// wait for BUSY to go low
-	WaitForIdle(BUSY_WAIT, "end WriteRegister");
+	WaitForIdle(BUSY_WAIT, "end WriteRegister", false);
 #if 0
 	if(waitForBusy) {
 		WaitForIdle(BUSY_WAIT);
@@ -926,7 +926,7 @@ void WriteRegister(uint16_t reg, uint8_t* data, uint8_t numBytes) {
 
 void ReadRegister(uint16_t reg, uint8_t* data, uint8_t numBytes) {
 	// ensure BUSY is low (state meachine ready)
-	WaitForIdle(BUSY_WAIT, "start ReadRegister");
+	WaitForIdle(BUSY_WAIT, "start ReadRegister", true);
 
 	if(debugPrint) {
 		ESP_LOGI(TAG, "ReadRegister: REG=0x%02x", reg);
@@ -952,7 +952,7 @@ void ReadRegister(uint16_t reg, uint8_t* data, uint8_t numBytes) {
 	gpio_set_level(SX126x_SPI_SELECT, HIGH);
 
 	// wait for BUSY to go low
-	WaitForIdle(BUSY_WAIT, "end ReadRegister");
+	WaitForIdle(BUSY_WAIT, "end ReadRegister", false);
 #if 0
 	if(waitForBusy) {
 		WaitForIdle(BUSY_WAIT);
@@ -977,7 +977,7 @@ void WriteCommand(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 
 uint8_t WriteCommand2(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 	// ensure BUSY is low (state meachine ready)
-	WaitForIdle(BUSY_WAIT, "start WriteCommand2");
+	WaitForIdle(BUSY_WAIT, "start WriteCommand2", true);
 
 	// start transfer
 	gpio_set_level(SX126x_SPI_SELECT, LOW);
@@ -1014,7 +1014,7 @@ uint8_t WriteCommand2(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 	gpio_set_level(SX126x_SPI_SELECT, HIGH);
 
 	// wait for BUSY to go low
-	WaitForIdle(BUSY_WAIT, "end WriteCommand2");
+	WaitForIdle(BUSY_WAIT, "end WriteCommand2", false);
 #if 0
 	if(waitForBusy) {
 		WaitForIdle(BUSY_WAIT);
@@ -1033,7 +1033,7 @@ uint8_t WriteCommand2(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 
 void ReadCommand(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 	// ensure BUSY is low (state meachine ready)
-	WaitForIdle(BUSY_WAIT, "start ReadCommand");
+	WaitForIdle(BUSY_WAIT, "start ReadCommand", true);
 
 	// start transfer
 	gpio_set_level(SX126x_SPI_SELECT, LOW);
@@ -1057,14 +1057,10 @@ void ReadCommand(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 
 	// wait for BUSY to go low
 	vTaskDelay(1);
-	WaitForIdle(BUSY_WAIT, "end ReadCommand");
+	WaitForIdle(BUSY_WAIT, "end ReadCommand", false);
 #if 0
 	if(waitForBusy) {
 		WaitForIdle(BUSY_WAIT);
 	}
 #endif
 }
-
-
-
-
