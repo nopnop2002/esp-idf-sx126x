@@ -222,6 +222,7 @@ void task_rx(void *pvParameters)
 			size_t sended = xMessageBufferSend(xMessageBufferTrans, buf, rxLen, 100);
 			if (sended != rxLen) {
 				ESP_LOGE(pcTaskGetName(NULL), "xMessageBufferSend fail rxLen=%d sended=%d", rxLen, sended);
+				break;
 			}
 		}
 		vTaskDelay(1); // Avoid WatchDog alerts

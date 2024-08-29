@@ -171,13 +171,13 @@ void mqtt_sub(void *pvParameters)
 			size_t sended = xMessageBufferSend(xMessageBufferRecv, mqttBuf.data, mqttBuf.data_len, 100);
 			if (sended != mqttBuf.data_len) {
 				ESP_LOGE(TAG, "xMessageBufferSend fail mqttBuf.data_len=%d sended=%d", mqttBuf.data_len, sended);
+				break;
 			}
 		} else if (mqttBuf.event_id == MQTT_EVENT_ERROR) {
 			break;
 		}
 	} // end while
 
-	ESP_LOGI(TAG, "Task Delete");
 	esp_mqtt_client_stop(mqtt_client);
 	vTaskDelete(NULL);
 }
