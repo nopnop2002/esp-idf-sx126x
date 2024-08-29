@@ -338,7 +338,7 @@ You can set whether to use Optimaise for each CDR, and enabling it will improve 
 
 
 # SX1262 and SX1278, SX1276 Comparison
-[This](https://www.ebyte.com/en/new-view-info.aspx?id=303) will be helpful.   
+[This](https://www.cdebyte.com/news/580) will be helpful.   
 
 
 # Reference   
