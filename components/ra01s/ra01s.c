@@ -28,13 +28,13 @@ static spi_device_handle_t SpiHandle;
 // Global Stuff
 static uint8_t PacketParams[6];
 static bool txActive;
-static int  txLost = 0;
+static int txLost = 0;
 static bool debugPrint;
-static int  SX126x_SPI_SELECT;
-static int  SX126x_RESET;
-static int  SX126x_BUSY;
-static int  SX126x_TXEN;
-static int  SX126x_RXEN;
+static int SX126x_SPI_SELECT;
+static int SX126x_RESET;
+static int SX126x_BUSY;
+static int SX126x_TXEN;
+static int SX126x_RXEN;
 
 // Arduino compatible macros
 #define delayMicroseconds(us) esp_rom_delay_us(us)
@@ -815,8 +815,22 @@ void GetRxBufferStatus(uint8_t *payloadLength, uint8_t *rxStartBufferPointer)
 }
 
 
-void WaitForIdle(unsigned long timeout, char *text, bool stop)
+void WaitForIdleBegin(unsigned long timeout, char *text) {
+	// ensure BUSY is low (state meachine ready)
+	bool stop = false;
+	for (int retry=0;retry<10;retry++) {
+		if (retry == 9) stop = true;
+		bool ret = WaitForIdle(BUSY_WAIT, text, stop);
+		if (ret == true) break;
+		ESP_LOGW(TAG, "WaitForIdle fail retry=%d", retry);
+		vTaskDelay(1);
+	}
+}
+
+
+bool WaitForIdle(unsigned long timeout, char *text, bool stop)
 {
+	bool ret = true;
 	TickType_t start = xTaskGetTickCount();
 	delayMicroseconds(1);
 	while(xTaskGetTickCount() - start < (timeout/portTICK_PERIOD_MS)) {
@@ -824,10 +838,17 @@ void WaitForIdle(unsigned long timeout, char *text, bool stop)
 		delayMicroseconds(1);
 	}
 	if (gpio_get_level(SX126x_BUSY)) {
-		ESP_LOGE(TAG, "WaitForIdle Timeout text=%s timeout=%lu start=%"PRIu32, text, timeout, start);
-		if (stop) LoRaError(ERR_IDLE_TIMEOUT);
+		if (stop) {
+			ESP_LOGE(TAG, "WaitForIdle Timeout text=%s timeout=%lu start=%"PRIu32, text, timeout, start);
+			LoRaError(ERR_IDLE_TIMEOUT);
+		} else {
+			ESP_LOGW(TAG, "WaitForIdle Timeout text=%s timeout=%lu start=%"PRIu32, text, timeout, start);
+			ret = false;
+		}
 	}
+	return ret;
 }
+
 
 uint8_t ReadBuffer(uint8_t *rxData, int16_t rxDataLen)
 {
@@ -1033,7 +1054,8 @@ uint8_t WriteCommand2(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 
 void ReadCommand(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 	// ensure BUSY is low (state meachine ready)
-	WaitForIdle(BUSY_WAIT, "start ReadCommand", true);
+	//WaitForIdle(BUSY_WAIT, "start ReadCommand", true);
+	WaitForIdleBegin(BUSY_WAIT, "start ReadCommand");
 
 	// start transfer
 	gpio_set_level(SX126x_SPI_SELECT, LOW);
