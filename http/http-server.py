@@ -3,6 +3,7 @@
 #
 # https://qiita.com/tkj/items/210a66213667bc038110
 
+import argparse
 from http.server import HTTPServer
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import urlparse
@@ -27,11 +28,16 @@ class class1(BaseHTTPRequestHandler):
 		self.end_headers()
 		self.wfile.write(body.encode())
 
-#host = '127.0.0.1'
-host = '0.0.0.0'
-port = 8080
+if __name__=='__main__':
+	parser = argparse.ArgumentParser()
+	parser.add_argument('--port', type=int, help='tcp port', default=8080)
+	args = parser.parse_args()
+	print("args.port={}".format(args.port))
 
-print("Listening on port {}". format(port))
-server = HTTPServer((host, port), class1)
+	#host = '127.0.0.1'
+	host = '0.0.0.0'
 
-server.serve_forever()
+	print("Listening on port {}". format(args.port))
+	server = HTTPServer((host, args.port), class1)
+
+	server.serve_forever()

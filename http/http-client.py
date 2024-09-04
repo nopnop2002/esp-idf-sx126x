@@ -1,32 +1,44 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import time
-import datetime
 import socket
 import requests
+import argparse
+import signal
 
-server = "esp32-server.local"
-port = 8080
-try:
-    ip = socket.gethostbyname(server)
-except socket.gaierror as e:
-    print(f'Invalid hostname, error raised is {e}')
-    exit()
-ip = socket.gethostbyname(server)
-print("ip={}".format(ip))
-uri = "http://{}:{}/post".format(ip, port)
-print("uri={}".format(uri))
+def handler(signal, frame):
+	global running
+	print('handler')
+	running = False
 
-timezone = datetime.timedelta(hours=9)
+if __name__=='__main__':
+	signal.signal(signal.SIGINT, handler)
+	running = True
 
-while True:
-	dt_now = datetime.datetime.now(datetime.timezone(timezone))
-	#payload = "{}".format(datetime.datetime.now())
-	#payload = "{}".format(datetime.datetime.now(datetime.timezone(timezone)))
-	payload = dt_now.strftime('%Y/%m/%d %H:%M:%S')
-	#print(payload)
-	response = requests.post(uri, data=payload)
-	#print(response.status_code)
-	print("{}-->{}".format(payload, response.text))
-	#print(response.text)
-	time.sleep(1)
+	parser = argparse.ArgumentParser()
+	parser.add_argument('--host', help='tcp host', default="esp32-server.local")
+	parser.add_argument('--port', type=int, help='tcp port', default=8080)
+	args = parser.parse_args()
+	print("args.host={}".format(args.host))
+	print("args.port={}".format(args.port))
+
+	try:
+		ip = socket.gethostbyname(args.host)
+		print("ip={}".format(ip))
+	except socket.gaierror as e:
+		print(f'Invalid hostname, error raised is {e}')
+		exit()
+	uri = "http://{}:{}/post".format(ip, args.port)
+	print("uri={}".format(uri))
+
+	while running:
+		t = time.time()
+		local_time = time.localtime(t)
+		payload = time.asctime(local_time)
+		print("payload=[{}]".format(payload))
+		#print(type(payload))
+		response = requests.post(uri, data=payload)
+		#print(response.status_code)
+		print("{}-->{}".format(payload, response.text))
+		#print(response.text)
+		time.sleep(1)
