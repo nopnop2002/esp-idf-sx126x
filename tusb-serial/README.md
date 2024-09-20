@@ -43,11 +43,11 @@ You can use this script as USB Writer.
 ```python3 ./write.py```
 
 ```
-           +------------+          +------------+           +------------+
-           |            |          |            |           |            |
-           | USB Writer |--(USB)-->|    ESP32   |--(SPI)--->|   SX126x   |==(LoRa)==>
-           |            |          |            |           |            |
-           +------------+          +------------+           +------------+
+           +------------+          +------------+          +------------+
+           |            |          |            |          |            |
+           | USB Writer |--(USB)-->|    ESP32   |--(SPI)-->|   SX126x   |==(LoRa)==>
+           |            |          |            |          |            |
+           +------------+          +------------+          +------------+
 ```
 
 ![config-radio-1](https://github.com/user-attachments/assets/f4e943d1-6401-4875-b92b-d3d26b0b0113)
