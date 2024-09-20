@@ -227,6 +227,7 @@ void task_rx(void *pvParameters)
 		}
 		vTaskDelay(1); // Avoid WatchDog alerts
 	} // end while
+	vTaskDelete(NULL);
 }
 #endif // CONFIG_RECEIVER
 
