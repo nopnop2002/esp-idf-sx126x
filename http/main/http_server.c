@@ -45,7 +45,7 @@ static esp_err_t root_post_handler(httpd_req_t *req)
 
 	// Queries a message buffer to see how much free space it contains
 	size_t spacesAvailable = xMessageBufferSpacesAvailable( xMessageBufferRecv );
-	ESP_LOGI(pcTaskGetName(NULL), "spacesAvailable=%d", spacesAvailable);
+	ESP_LOGI(TAG, "spacesAvailable=%d", spacesAvailable);
 	size_t sended = xMessageBufferSend(xMessageBufferRecv, buf, req->content_len, 100);
 	if (sended != req->content_len) {
 		ESP_LOGE(TAG, "xMessageBufferSend fail. req->content_len=%d sended=%d", req->content_len, sended);
