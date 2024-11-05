@@ -166,7 +166,7 @@ Two additional wires are required.
 
 The pitch conversion base is [here](https://github.com/nopnop2002/esp-idf-sx126x/tree/main/ebyte-smd-pcb).   
 
-SX1262 and LLCC68 are compatible, but for some reason they don't work.   
+SX1262 and LLCC68 are compatible, but the following modules do not work for some reason.
 |Model|Interface|Chip|Frequency|Power|Foot-Patten|IPEX-Antena|LoRa-WAN|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |E220-400M22S|SPI|LLCC68|433/470Mhz|160mW|Standard|Yes|No|
