@@ -13,12 +13,10 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/message_buffer.h"
-//#include "esp_system.h"
 #include "esp_log.h"
 #include "mdns.h"
 
 #include "lwip/sockets.h"
-#include <netdb.h> // for hostent
 
 static const char *TAG = "TCP-CLIENT";
 
@@ -49,26 +47,26 @@ esp_err_t query_mdns_host(const char * host_name, char *ip)
 
 void convert_mdns_host(char * from, char * to)
 {
-    ESP_LOGI(__FUNCTION__, "from=[%s]",from);
-    strcpy(to, from);
-    char *sp;
-    sp = strstr(from, ".local");
-    if (sp == NULL) return;
+	ESP_LOGI(__FUNCTION__, "from=[%s]",from);
+	strcpy(to, from);
+	char *sp;
+	sp = strstr(from, ".local");
+	if (sp == NULL) return;
 
-    int _len = sp - from;
-    ESP_LOGD(__FUNCTION__, "_len=%d", _len);
-    char _from[128];
-    strcpy(_from, from);
-    _from[_len] = 0;
-    ESP_LOGI(__FUNCTION__, "_from=[%s]", _from);
+	int _len = sp - from;
+	ESP_LOGD(__FUNCTION__, "_len=%d", _len);
+	char _from[128];
+	strcpy(_from, from);
+	_from[_len] = 0;
+	ESP_LOGI(__FUNCTION__, "_from=[%s]", _from);
 
-    char _ip[128];
-    esp_err_t ret = query_mdns_host(_from, _ip);
-    ESP_LOGI(__FUNCTION__, "query_mdns_host=%d _ip=[%s]", ret, _ip);
-    if (ret != ESP_OK) return;
+	char _ip[128];
+	esp_err_t ret = query_mdns_host(_from, _ip);
+	ESP_LOGI(__FUNCTION__, "query_mdns_host=%d _ip=[%s]", ret, _ip);
+	if (ret != ESP_OK) return;
 
-    strcpy(to, _ip);
-    ESP_LOGI(__FUNCTION__, "to=[%s]", to);
+	strcpy(to, _ip);
+	ESP_LOGI(__FUNCTION__, "to=[%s]", to);
 }
 
 int connectServer(struct sockaddr_in dest_addr) {
