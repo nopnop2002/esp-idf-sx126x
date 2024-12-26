@@ -9,6 +9,73 @@ menu "SX126X Configuration"
 		default 19 if IDF_TARGET_ESP32C3
 		default 30 if IDF_TARGET_ESP32C6
 
+	choice FREQUENCY
+		prompt "Frequency to use"
+		default 433MHZ
+		help
+			Select Frequency to use.
+		config 433MHZ
+			bool "433MHz"
+			help
+				Frequency is 433MHz.
+		config 866MHZ
+			bool "866MHz"
+			help
+				Frequency is 866MHz.
+		config 915MHZ
+			bool "915MHz"
+			help
+				Frequency is 915MHz.
+		config OTHER
+			bool "Other"
+			help
+				Other Frequency.
+	endchoice
+
+	config OTHER_FREQUENCY
+		depends on OTHER
+		int "Frequency to use[MHz]"
+		range 1 999
+		default 433
+		help
+			Frequency to use[MHz].
+
+	config ADVANCED
+		bool "Enable Advanced settings"
+		default false
+		help
+			Enable Advanced settings.
+
+	config CODING_RATE
+		depends on ADVANCED
+		int "Error coding rate"
+		range 1 4
+		default 1
+		help
+			Error coding rate.
+
+	config BANDWIDTH
+		depends on ADVANCED
+		int "Signal Bandwidth"
+		range 1 6
+		default 4
+		help
+			Signal Bandwidth.
+
+	config SF_RATE
+		depends on ADVANCED
+		int "Spreading Factor"
+		range 5 12
+		default 7
+		help
+			Spreading Factor.
+
+	config USE_TCXO
+		bool "Enable TCXO"
+		default false
+		help
+			Enable Temperature-Compensated Crystal Oscillator.
+
 	config MISO_GPIO
 		int "SX126X MISO GPIO"
 		range 0 GPIO_RANGE_MAX
@@ -92,11 +159,5 @@ menu "SX126X Configuration"
 			help
 				USE SPI3_HOST. This is also called VSPI_HOST
 	endchoice
-
-	config USE_TCXO
-		bool "Enable TCXO"
-		default false
-		help
-			Enable Temperature-Compensated Crystal Oscillator.
 
 endmenu

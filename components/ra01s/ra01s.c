@@ -183,7 +183,6 @@ int16_t LoRaBegin(uint32_t frequencyInHz, int8_t txPowerInDbm, float tcxoVoltage
 		txPowerInDbm = -3;
 	
 	Reset();
-	ESP_LOGI(TAG, "Reset");
 	
 	uint8_t wk[2];
 	ReadRegister(SX126X_REG_LORA_SYNC_WORD_MSB, wk, 2); // 0x0740
