@@ -39,11 +39,66 @@ menu "Application Configuration"
 				LoRa to MQTT.
 	endchoice
 
+	choice MQTT_TRANSPORT
+		prompt "MQTT Transport"
+		default MQTT_TRANSPORT_OVER_TCP
+		help
+			Select MQTT Transport.
+		config MQTT_TRANSPORT_OVER_TCP
+			bool "Using Over TCP"
+			help
+				Using Over TCP
+		config MQTT_TRANSPORT_OVER_SSL
+			bool "Using over SSL"
+			help
+				Using over SSL
+		config MQTT_TRANSPORT_OVER_WS
+			bool "Using over WS"
+			help
+				Using over WS
+		config MQTT_TRANSPORT_OVER_WSS
+			bool "Using over WSS"
+			help
+				Using over WSS
+	endchoice
+
 	config MQTT_BROKER
 		string "MQTT Broker"
 		default "broker.emqx.io"
 		help
 			Host name or IP address of the broker to connect to
+
+	config MQTT_PORT_TCP
+		depends on MQTT_TRANSPORT_OVER_TCP
+		int "MQTT Port"
+		range 0 65535
+		default 1883
+		help
+			Port number of the broker to connect to.
+
+	config MQTT_PORT_SSL
+		depends on MQTT_TRANSPORT_OVER_SSL
+		int "MQTT Port"
+		range 0 65535
+		default 8883
+		help
+			Port number of the broker to connect to.
+
+	config MQTT_PORT_WS
+		depends on MQTT_TRANSPORT_OVER_WS
+		int "MQTT Port"
+		range 0 65535
+		default 8083
+		help
+			Port number of the broker to connect to.
+
+	config MQTT_PORT_WSS
+		depends on MQTT_TRANSPORT_OVER_WSS
+		int "MQTT Port"
+		range 0 65535
+		default 8084
+		help
+			Port number of the broker to connect to.
 
 	config BROKER_AUTHENTICATION
 		bool "Server requests for password when connecting"

@@ -38,7 +38,7 @@ This is LoRa and MQTT gateway application.
 ```
 
 
-![config-mqtt-3](https://github.com/user-attachments/assets/8c64f566-909b-467a-9876-30663ed74367)
+![config-mqtt-3](https://github.com/user-attachments/assets/d902cf81-716f-45d2-8d08-7be9a6da9647)
 
 Communicate with Arduino Environment.   
 Run this sketch.   
@@ -57,11 +57,57 @@ ArduinoCode\Ra01S_RX
            +----------+           +----------+           +----------+           +----------+
 ```
 
-![config-mqtt-4](https://github.com/user-attachments/assets/b4bf930e-fd7a-4f99-a226-49e31465aa03)
+![config-mqtt-4](https://github.com/user-attachments/assets/3ec456da-8c5e-45dc-bd41-37d7c4b551e3)
 
 Communicate with Arduino Environment.   
 Run this sketch.   
 ArduinoCode\Ra01S_TX   
+
+### Select Transport   
+This project supports TCP,SSL/TLS,WebSocket and WebSocket Secure Port.   
+- Using TCP Port.   
+ ![config-mqtt-tcp](https://github.com/user-attachments/assets/a22795ff-9af5-4327-bf7f-debc366dde19)
+
+- Using SSL/TLS Port.   
+ SSL/TLS Port uses the MQTTS protocol instead of the MQTT protocol.   
+ ![config-mqtt-ssl](https://github.com/user-attachments/assets/7e66cda8-961d-4a48-893c-c248cd053fb5)
+
+- Using WebSocket Port.   
+ WebSocket Port uses the WS protocol instead of the MQTT protocol.   
+ ![config-mqtt-ws](https://github.com/user-attachments/assets/969e7ccc-a77e-4e1b-9485-4b10531ade5e)
+
+- Using WebSocket Secure Port.   
+ WebSocket Secure Port uses the WSS protocol instead of the MQTT protocol.   
+ ![config-mqtt-wss](https://github.com/user-attachments/assets/37de4b31-2ec7-49e2-8f38-2be2786dd16b)
+
+__Note for using secure port.__   
+The default MQTT server is ```broker.emqx.io```.   
+If you use a different server, you will need to modify ```getpem.sh``` to run.   
+```
+chmod 777 getpem.sh
+./getpem.sh
+```
+
+WebSocket/WebSocket Secure Port may differ depending on the broker used.   
+If you use a different server, you will need to change the port number from the default.   
+
+__Note for using MQTTS/WS/WSS transport.__   
+If you use MQTTS/WS/WSS transport, you can still publish and subscribe using MQTT transport.   
+```
++----------+                   +----------+           +----------+
+|          |                   |          |           |          |
+|  ESP32   | ---MQTTS/WS/WSS-->|  Broker  | ---MQTT-->|Subsctiber|
+|          |                   |          |           |          |
++----------+                   +----------+           +----------+
+
++----------+                   +----------+           +----------+
+|          |                   |          |           |          |
+|  ESP32   | <--MQTTS/WS/WSS---|  Broker  | <--MQTT---|Publisher |
+|          |                   |          |           |          |
++----------+                   +----------+           +----------+
+```
+
+
 
 ### Specifying an MQTT Broker   
 You can specify your MQTT broker in one of the following ways:   
@@ -74,3 +120,8 @@ You can specify your MQTT broker in one of the following ways:
 
 You can use this as broker.   
 https://github.com/nopnop2002/esp-idf-mqtt-broker
+
+### Secure Option
+Specifies the username and password if the server requires a password when connecting.   
+[Here's](https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-the-mosquitto-mqtt-messaging-broker-on-debian-10) how to install and secure the Mosquitto MQTT messaging broker on Debian 10.   
+![config-mqtt-5](https://github.com/user-attachments/assets/58555299-f9f0-424f-9d2f-a76b6fbe8da7)

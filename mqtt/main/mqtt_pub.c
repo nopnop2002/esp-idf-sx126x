@@ -21,20 +21,17 @@
 
 static const char *TAG = "PUB";
 
+extern const uint8_t root_cert_pem_start[] asm("_binary_root_cert_pem_start");
+extern const uint8_t root_cert_pem_end[] asm("_binary_root_cert_pem_end");
+
 EventGroupHandle_t mqtt_status_event_group;
 #define MQTT_CONNECTED_BIT BIT2
 
 extern MessageBufferHandle_t xMessageBufferTrans;
 
-#if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 0, 0)
 static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data)
-#else
-static esp_err_t mqtt_event_handler(esp_mqtt_event_handle_t event)
-#endif
 {
-#if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 0, 0)
 	esp_mqtt_event_handle_t event = event_data;
-#endif
 	switch (event->event_id) {
 		case MQTT_EVENT_CONNECTED:
 			ESP_LOGI(TAG, "MQTT_EVENT_CONNECTED");
@@ -63,9 +60,7 @@ static esp_err_t mqtt_event_handler(esp_mqtt_event_handle_t event)
 			ESP_LOGI(TAG, "Other event id:%d", event->event_id);
 			break;
 	}
-#if ESP_IDF_VERSION < ESP_IDF_VERSION_VAL(5, 0, 0)
-	return ESP_OK;
-#endif
+	return;
 }
 
 esp_err_t query_mdns_host(const char * host_name, char *ip);
@@ -92,42 +87,44 @@ void mqtt_pub(void *pvParameters)
 
 	// Resolve mDNS host name
 	char ip[128];
+	char uri[138];
 	ESP_LOGI(TAG, "CONFIG_MQTT_BROKER=[%s]", CONFIG_MQTT_BROKER);
 	convert_mdns_host(CONFIG_MQTT_BROKER, ip);
 	ESP_LOGI(TAG, "ip=[%s]", ip);
-	char uri[138];
-	sprintf(uri, "mqtt://%s", ip);
+#if CONFIG_MQTT_TRANSPORT_OVER_TCP
+	ESP_LOGI(TAG, "MQTT_TRANSPORT_OVER_TCP");
+	sprintf(uri, "mqtt://%.60s:%d", ip, CONFIG_MQTT_PORT_TCP);
+#elif CONFIG_MQTT_TRANSPORT_OVER_SSL
+	ESP_LOGI(TAG, "MQTT_TRANSPORT_OVER_SSL");
+	sprintf(uri, "mqtts://%.60s:%d", ip, CONFIG_MQTT_PORT_SSL);
+#elif CONFIG_MQTT_TRANSPORT_OVER_WS
+	ESP_LOGI(TAG, "MQTT_TRANSPORT_OVER_WS");
+	sprintf(uri, "ws://%.60s:%d/mqtt", ip, CONFIG_MQTT_PORT_WS);
+#elif CONFIG_MQTT_TRANSPORT_OVER_WSS
+	ESP_LOGI(TAG, "MQTT_TRANSPORT_OVER_WSS");
+	sprintf(uri, "wss://%.60s:%d/mqtt", ip, CONFIG_MQTT_PORT_WSS);
+#endif
 	ESP_LOGI(TAG, "uri=[%s]", uri);
 
-#if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 0, 0)
+	// Initialize MQTT configuration structure
 	esp_mqtt_client_config_t mqtt_cfg = {
 		.broker.address.uri = uri,
-		.broker.address.port = 1883,
+#if CONFIG_MQTT_TRANSPORT_OVER_TCP
+#elif CONFIG_MQTT_TRANSPORT_OVER_SSL
+		.broker.verification.certificate = (const char *)root_cert_pem_start,
+#elif CONFIG_MQTT_TRANSPORT_OVER_WS
+#elif CONFIG_MQTT_TRANSPORT_OVER_WSS
+		.broker.verification.certificate = (const char *)root_cert_pem_start,
+#endif
 #if CONFIG_BROKER_AUTHENTICATION
 		.credentials.username = CONFIG_AUTHENTICATION_USERNAME,
 		.credentials.authentication.password = CONFIG_AUTHENTICATION_PASSWORD,
 #endif
 		.credentials.client_id = client_id
 	};
-#else
-	esp_mqtt_client_config_t mqtt_cfg = {
-		.uri = uri,
-		.port = 1883,
-		.event_handle = mqtt_event_handler,
-#if CONFIG_BROKER_AUTHENTICATION
-		.username = CONFIG_AUTHENTICATION_USERNAME,
-		.password = CONFIG_AUTHENTICATION_PASSWORD,
-#endif
-		.client_id = client_id
-	};
-#endif
 
 	esp_mqtt_client_handle_t mqtt_client = esp_mqtt_client_init(&mqtt_cfg);
-
-#if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 0, 0)
 	esp_mqtt_client_register_event(mqtt_client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
-#endif
-
 	esp_mqtt_client_start(mqtt_client);
 	xEventGroupWaitBits(mqtt_status_event_group, MQTT_CONNECTED_BIT, false, true, portMAX_DELAY);
 	ESP_LOGI(TAG, "Connected to MQTT Broker");
