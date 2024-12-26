@@ -50,7 +50,7 @@ You can use this script as USB Writer.
            +------------+          +------------+          +------------+
 ```
 
-![config-radio-1](https://github.com/user-attachments/assets/f4e943d1-6401-4875-b92b-d3d26b0b0113)
+![config-radio-1](https://github.com/user-attachments/assets/6b75c21a-5cec-4af8-8b75-f6a541d4900a)
 
 Communicate with Arduino Environment.   
 Run this sketch.   
@@ -71,7 +71,7 @@ You can use this script as USB Reader.
            +------------+          +------------+          +------------+
 ```
 
-![config-radio-2](https://github.com/user-attachments/assets/26e8178c-079d-432b-bf28-7229d2ce27f0)
+![config-radio-2](https://github.com/user-attachments/assets/0d685209-a8bd-4925-a1e3-4c4add64ca83)
 
 Communicate with Arduino Environment.   
 Run this sketch.   

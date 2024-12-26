@@ -79,6 +79,7 @@ void task_tx(void *pvParameters)
 
 void usb_rx(void *pvParameters)
 {
+	ESP_LOGI(pcTaskGetName(NULL), "Start");
 	char buffer[256]; // Maximum Payload size of SX1261/62/68 is 255
 	int index = 0;
 	while(1) {
@@ -183,16 +184,14 @@ void app_main()
 	xQueueTinyusb = xQueueCreate(100, sizeof(char));
 	configASSERT( xQueueTinyusb );
 
+	// Initialize LoRa
+	LoRaInit();
+	int8_t txPowerInDbm = 22;
+
 	uint32_t frequencyInHz = 0;
-#if CONFIG_169MHZ
-	frequencyInHz = 169000000;
-	ESP_LOGI(TAG, "Frequency is 169MHz");
-#elif CONFIG_433MHZ
+#if CONFIG_433MHZ
 	frequencyInHz = 433000000;
 	ESP_LOGI(TAG, "Frequency is 433MHz");
-#elif CONFIG_470MHZ
-	frequencyInHz = 470000000;
-	ESP_LOGI(TAG, "Frequency is 470MHz");
 #elif CONFIG_866MHZ
 	frequencyInHz = 866000000;
 	ESP_LOGI(TAG, "Frequency is 866MHz");
@@ -203,10 +202,6 @@ void app_main()
 	ESP_LOGI(TAG, "Frequency is %dMHz", CONFIG_OTHER_FREQUENCY);
 	frequencyInHz = CONFIG_OTHER_FREQUENCY * 1000000;
 #endif
-
-	// Initialize LoRa
-	LoRaInit();
-	int8_t txPowerInDbm = 22;
 
 #if CONFIG_USE_TCXO
 	ESP_LOGW(TAG, "Enable TCXO");
