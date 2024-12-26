@@ -40,7 +40,7 @@ You can use this script as TCP Client.
            +------------+           +------------+           +------------+
 ```
 
-![config-radio-1](https://github.com/user-attachments/assets/ecb584a7-bd22-4312-884f-0b6b2bfe4a38)
+![config-radio-1](https://github.com/user-attachments/assets/3f17d630-2587-4736-b43f-3973b06428f2)
 
 Communicate with Arduino Environment.   
 Run this sketch.   
@@ -61,7 +61,7 @@ You can use this script as TCP Server.
            +------------+           +------------+           +------------+
 ```
 
-![config-radio-2](https://github.com/user-attachments/assets/346a2f00-bec1-49b7-9b9c-654d67befd64)
+![config-radio-2](https://github.com/user-attachments/assets/647012f5-3a67-47fe-9dca-008d01a005f7)
 
 Communicate with Arduino Environment.   
 Run this sketch.   
