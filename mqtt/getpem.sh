@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Extract the root certificate from smtp.googlemail.com.
+# Extract the root certificate from ${HOST}:${PORT}.
 
 #set -x
 
