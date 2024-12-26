@@ -40,7 +40,7 @@ You can use this script as UDP Client.
            +------------+           +------------+           +------------+
 ```
 
-![config-radio-1](https://github.com/user-attachments/assets/afdbd0e2-3e75-42e5-b7e3-0e0016206ece)
+![config-radio-1](https://github.com/user-attachments/assets/f4c3319f-2460-43a1-9a75-be1f366084c7)
 
 Communicate with Arduino Environment.   
 Run this sketch.   
@@ -61,7 +61,7 @@ You can use this script as UDP Server.
            +------------+           +------------+           +------------+
 ```
 
-![config-radio-2](https://github.com/user-attachments/assets/258c0832-ca89-4404-9198-2e22ea3a5ff9)
+![config-radio-2](https://github.com/user-attachments/assets/2d902dd0-494e-4e41-9385-45519f1b834b)
 
 Communicate with Arduino Environment.   
 Run this sketch.   
