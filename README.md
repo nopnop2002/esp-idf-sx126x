@@ -119,13 +119,13 @@ I used a raw ESP-C3-13 to verify that these pins could be used as SPI clocks.
 ![config-sx126x-3](https://github.com/user-attachments/assets/d498e31f-a593-4e63-807a-115bd8b7fe43)
 
 LoRa mode has the following three communication parameters.   
-1.Signal Bandwidth (= BW)   
-2.Error Cording Rate (= CR)   
+1.Error Cording Rate (= CR)   
+2.Signal Bandwidth (= BW)   
 3.Spreading Factor (= SF)   
 The communication speed is faster when BW is large, CR is small, and SF is small.   
 However, as the communication speed increases, the reception sensitivity deteriorates, so select the one that best suits your needs.   
 
-- Error coding rate   
+- Error Coding Rate   
 1:4/5(Default)   
 2:4/6   
 3:4/7   
@@ -139,7 +139,7 @@ However, as the communication speed increases, the reception sensitivity deterio
 5:250 kHz   
 6:500 kHz   
 
-- SF rate   
+- Spreading Factor   
 5:SF5   
 6:SF6   
 7:SF7(Default)   
