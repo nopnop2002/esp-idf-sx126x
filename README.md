@@ -108,10 +108,47 @@ I used a raw ESP-C3-13 to verify that these pins could be used as SPI clocks.
 # Configuration for Transceiver   
 
 ![config-top](https://user-images.githubusercontent.com/6020549/162125293-9405dae9-fd52-440a-b0e5-19e6b481fcf6.jpg)
-![config-sx126x-1](https://github.com/nopnop2002/esp-idf-sx126x/assets/6020549/090b6df3-4326-414d-bc37-f144ba55d9b8)
+![config-sx126x-1](https://github.com/user-attachments/assets/4618931b-a0ad-4db4-b870-34d59adc876a)
 
-# SPI BUS selection   
-![config-sx126x-2](https://github.com/nopnop2002/esp-idf-sx126x/assets/6020549/6be0e22d-1eb4-4a48-8084-ecf9c71d6e16)
+## Using a transceiver other than 433MHz / 866MHz / 915MHz:   
+
+![config-sx126x-2](https://github.com/user-attachments/assets/f6a52627-39fd-4c96-ade9-2a7f75bba06b)
+![config-sx126x-3](https://github.com/user-attachments/assets/d498e31f-a593-4e63-807a-115bd8b7fe43)
+
+## advanced settings   
+LoRa mode has the following three communication parameters.   
+1.Signal Bandwidth (= BW)   
+2.Error Cording Rate (= CR)   
+3.Spreading Factor (= SF)   
+The communication speed is faster when BW is large, CR is small, and SF is small.   
+However, as the communication speed increases, the reception sensitivity deteriorates, so select the one that best suits your needs.   
+
+- Error coding rate   
+1:4/5(Default)   
+2:4/6   
+3:4/7   
+4:4/8   
+
+- Signal Bandwidth   
+1:15.63 kHz   
+2:31.25 kHz   
+3:62.50 kHz   
+4:125 kHz(Default)   
+5:250 kHz   
+6:500 kHz   
+
+- SF rate   
+5:SF5   
+6:SF6   
+7:SF7(Default)   
+8:SF8   
+9:SF9   
+10:SF10   
+11:SF11   
+12:SF12   
+
+## SPI BUS selection   
+![config-sx126x-4](https://github.com/user-attachments/assets/6a60fdff-5e70-4483-89a9-a1394992ba2e)
 
 The ESP32 series has three SPI BUSs.   
 SPI1_HOST is used for communication with Flash memory.   
@@ -156,7 +193,7 @@ You can get these on AliExpress and eBay.
 ![EBYTE-2](https://user-images.githubusercontent.com/6020549/221332911-92f45aed-0c4e-4623-b0e7-92575ec0d0a9.JPG)
 
 With this change it work.   
-![config-ebyte](https://github.com/nopnop2002/esp-idf-sx126x/assets/6020549/c451f96d-deb6-4a50-b85c-8636b2a7ee15)
+![config-ebyte](https://github.com/user-attachments/assets/69ab8000-c6c0-4de5-8cdf-74308ec3edc5)
 
 Two additional wires are required.   
 |SX126X||ESP32|ESP32-S2/S3|ESP32-C2/C3/C6|
