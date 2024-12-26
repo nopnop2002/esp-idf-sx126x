@@ -38,7 +38,7 @@ This is LoRa and MQTT gateway application.
 ```
 
 
-![config-mqtt-4](https://github.com/nopnop2002/esp-idf-sx126x/assets/6020549/4876b215-cb75-4bea-9abb-8362b1f8910a)
+![config-mqtt-3](https://github.com/user-attachments/assets/8c64f566-909b-467a-9876-30663ed74367)
 
 Communicate with Arduino Environment.   
 Run this sketch.   
@@ -57,7 +57,7 @@ ArduinoCode\Ra01S_RX
            +----------+           +----------+           +----------+           +----------+
 ```
 
-![config-mqtt-3](https://github.com/nopnop2002/esp-idf-sx126x/assets/6020549/f13f93e4-9a9b-44d0-b154-dd2059d9ced8)
+![config-mqtt-4](https://github.com/user-attachments/assets/b4bf930e-fd7a-4f99-a226-49e31465aa03)
 
 Communicate with Arduino Environment.   
 Run this sketch.   

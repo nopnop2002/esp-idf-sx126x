@@ -256,16 +256,14 @@ void app_main()
 	// Initialize mDNS
 	ESP_ERROR_CHECK( mdns_init() );
 
+	// Initialize LoRa
+	LoRaInit();
+	int8_t txPowerInDbm = 22;
+
 	uint32_t frequencyInHz = 0;
-#if CONFIG_169MHZ
-	frequencyInHz = 169000000;
-	ESP_LOGI(TAG, "Frequency is 169MHz");
-#elif CONFIG_433MHZ
+#if CONFIG_433MHZ
 	frequencyInHz = 433000000;
 	ESP_LOGI(TAG, "Frequency is 433MHz");
-#elif CONFIG_470MHZ
-	frequencyInHz = 470000000;
-	ESP_LOGI(TAG, "Frequency is 470MHz");
 #elif CONFIG_866MHZ
 	frequencyInHz = 866000000;
 	ESP_LOGI(TAG, "Frequency is 866MHz");
@@ -276,10 +274,6 @@ void app_main()
 	ESP_LOGI(TAG, "Frequency is %dMHz", CONFIG_OTHER_FREQUENCY);
 	frequencyInHz = CONFIG_OTHER_FREQUENCY * 1000000;
 #endif
-
-	// Initialize LoRa
-	LoRaInit();
-	int8_t txPowerInDbm = 22;
 
 #if CONFIG_USE_TCXO
 	ESP_LOGW(TAG, "Enable TCXO");
