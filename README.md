@@ -108,10 +108,11 @@ I used a raw ESP-C3-13 to verify that these pins could be used as SPI clocks.
 # Configuration for Transceiver   
 
 ![config-top](https://user-images.githubusercontent.com/6020549/162125293-9405dae9-fd52-440a-b0e5-19e6b481fcf6.jpg)
+
+## Frequency used   
 ![config-sx126x-1](https://github.com/user-attachments/assets/4618931b-a0ad-4db4-b870-34d59adc876a)
 
-## Using a transceiver other than 433MHz / 866MHz / 915MHz:   
-
+## Using a transceiver other than 433MHz / 866MHz / 915MHz   
 ![config-sx126x-2](https://github.com/user-attachments/assets/f6a52627-39fd-4c96-ade9-2a7f75bba06b)
 
 ## advanced settings   
