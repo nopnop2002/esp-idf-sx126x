@@ -139,15 +139,15 @@ However, as the communication speed increases, the reception sensitivity deterio
 5:250 kHz   
 6:500 kHz   
 
-- Spreading Factor   
-5:SF5   
-6:SF6   
-7:SF7(Default)   
-8:SF8   
-9:SF9   
-10:SF10   
-11:SF11   
-12:SF12   
+- Spreading Factor (expressed as a base-2 logarithm)   
+5:32 chips / symbol   
+6:64 chips / symbol   
+7:128 chips / symbol(Default)   
+8:256 chips / symbol   
+9:512 chips / symbol   
+10:1024 chips / symbol   
+11:2048 chips / symbol   
+12:4096 chips / symbol   
 
 ## SPI BUS selection   
 ![config-sx126x-4](https://github.com/user-attachments/assets/6a60fdff-5e70-4483-89a9-a1394992ba2e)
