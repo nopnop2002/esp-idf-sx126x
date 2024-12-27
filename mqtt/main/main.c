@@ -300,7 +300,7 @@ void app_main()
 	uint8_t payloadLen = 0;
 	bool crcOn = true;
 	bool invertIrq = false;
-#if CONFIF_ADVANCED
+#if CONFIG_ADVANCED
 	spreadingFactor = CONFIG_SF_RATE;
 	bandwidth = CONFIG_BANDWIDTH;
 	codingRate = CONFIG_CODING_RATE
