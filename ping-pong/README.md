@@ -34,8 +34,8 @@ When using Arduino, use Ra01S-Ping.
 ![config-ping-pong-1](https://github.com/user-attachments/assets/18961170-c5f9-40d5-81af-ea8468f0b51a)
 
 
-# Response time
-Time from Start to Finish.   
+# Response time   
+Time required from Start to Finish.   
 ```
 +-----------+           +-----------+            +-----------+           +-----------+
 |           |Start      |           |            |           |           |           |
