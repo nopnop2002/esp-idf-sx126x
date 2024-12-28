@@ -5,28 +5,28 @@ In the secondary, the characters are converted and sent back.
 - ESP32 is Primary   
 When using Arduino, use Ra01S-Pong.   
 ```
-+-----------+            +-----------+           +-----------+
-|           |            |           |           |           |
-|   ESP32   |===(LoRa)==>|  SX126x   |---(SPI)-->| Secondary |
-|  Primary  |            |           |           |           |
-|           |            |           |           |           |
-|           |<==(LoRa)===|           |<--(SPI)---|           |
-|           |            |           |           |           |
-+-----------+            +-----------+           +-----------+
++-----------+           +-----------+            +-----------+           +-----------+
+|           |           |           |            |           |           |           |
+|  Primary  |===(SPI)==>|  SX126x   |---(LoRa)-->|  SX126x   |===(SPI)==>| Secondary |
+|   ESP32   |           |           |            |           |           |           |
+|           |           |           |            |           |           |           |
+|           |<==(SPI)===|           |<--(LoRa)---|           |<==(SPI)===|           |
+|           |           |           |            |           |           |           |
++-----------+           +-----------+            +-----------+           +-----------+
 ```
 
 - ESP32 is Secondary   
 When using Arduino, use Ra01S-Ping.   
 
 ```
-+-----------+            +-----------+           +-----------+
-|           |            |           |           |           |
-|  Primary  |===(LoRa)==>|  SX126x   |---(SPI)-->|   ESP32   |
-|           |            |           |           | Secondary |
-|           |            |           |           |           |
-|           |<==(LoRa)===|           |<--(SPI)---|           |
-|           |            |           |           |           |
-+-----------+            +-----------+           +-----------+
++-----------+           +-----------+            +-----------+           +-----------+
+|           |           |           |            |           |           |           |
+|  Primary  |===(SPI)==>|  SX126x   |---(LoRa)-->|  SX126x   |===(SPI)==>| Secondary |
+|           |           |           |            |           |           |   ESP32   |
+|           |           |           |            |           |           |           |
+|           |<==(SPI)===|           |<--(LoRa)---|           |<==(SPI)===|           |
+|           |           |           |            |           |           |           |
++-----------+           +-----------+            +-----------+           +-----------+
 ```
 
 # Configuration   
@@ -35,16 +35,16 @@ When using Arduino, use Ra01S-Ping.
 
 
 # Response time
-Time from Start to End.   
+Time from Start to Finish.   
 ```
-+-----------+            +-----------+           +-----------+
-|           |Start       |           |           |           |
-|   ESP32   |===(LoRa)==>|  SX126x   |---(SPI)-->|  ESP32    |
-|  Primary  |            |           |           | Secondary |
-|           |End         |           |           |           |
-|           |<==(LoRa)===|           |<--(SPI)---|           |
-|           |            |           |           |           |
-+-----------+            +-----------+           +-----------+
++-----------+           +-----------+            +-----------+           +-----------+
+|           |Start      |           |            |           |           |           |
+|  Primary  |===(SPI)==>|  SX126x   |---(LoRa)-->|  SX126x   |===(SPI)==>| Secondary |
+|   ESP32   |           |           |            |           |           |   ESP32   |
+|           |Finish     |           |            |           |           |           |
+|           |<==(SPI)===|           |<--(LoRa)---|           |<==(SPI)===|           |
+|           |           |           |            |           |           |           |
++-----------+           +-----------+            +-----------+           +-----------+
 ```
 
 ### With varying Signal Bandwidth(BW) (Unit=MillSecs)
