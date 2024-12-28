@@ -36,7 +36,6 @@ When using Arduino, use Ra01S-Ping.
 
 # Response time
 Time from Start to End.   
-ESP32@160/433MHz/CR=1/SF=7   
 ```
 +-----------+            +-----------+           +-----------+
 |           |Start       |           |           |           |
@@ -49,6 +48,7 @@ ESP32@160/433MHz/CR=1/SF=7
 ```
 
 ### With varying Signal Bandwidth(BW) (Unit=MillSecs)
+ESP32@160/433MHz/CR=1/SF=7   
 |Payload|BW=0(7.8KHz)|BW=1(15.6KHz)|BW=2(31.25KHz)|BW=3(62.5KHz)|BW=4(125KHz)|BW=5(250KHz)|BW=6(500KHz)|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |255Bytes|*|*|3340|1740|940|550|350|
