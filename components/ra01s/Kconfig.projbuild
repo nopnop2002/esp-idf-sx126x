@@ -57,7 +57,7 @@ menu "SX126X Configuration"
 	config BANDWIDTH
 		depends on ADVANCED
 		int "Signal Bandwidth"
-		range 1 6
+		range 0 6
 		default 4
 		help
 			Signal Bandwidth.
