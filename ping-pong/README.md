@@ -46,6 +46,7 @@ ESP32@160/433MHz/CR=1/SF=7
 |           |<==(LoRa)===|           |<--(SPI)---|           |
 |           |            |           |           |           |
 +-----------+            +-----------+           +-----------+
+```
 
 ### With varying Signal Bandwidth(BW) (Unit=MillSecs)
 ```
