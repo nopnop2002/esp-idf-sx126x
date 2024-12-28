@@ -34,3 +34,16 @@ When using Arduino, use Ra01S-Ping.
 ![config-ping-pong-1](https://github.com/user-attachments/assets/18961170-c5f9-40d5-81af-ea8468f0b51a)
 
 
+# Response time with varying Signal Bandwidth(BW) (Unit=MillSecs)   
+ESP32@160/433MHz/CR=1/SF=7   
+|Payload|BW=0(7.8KHz)|BW=1(15.6KHz)|BW=2(31.25KHz)|BW=3(62.5KHz)|BW=4(125KHz)|BW=5(250KHz)|BW=6(500KHz)|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|255Bytes|*|*|3340|1740|940|550|350|
+
+(*)The sent data does not match the received data.   
+
+# Response time with varying Error coding rate(CR) (Unit=MillSecs)   
+ESP32@160/433MHz/BW=7/SF=7   
+|Payload|CR=1(4/5)|CR=2(4/6)|CR=3(4/7)|CR=4(4/8)|
+|:-:|:-:|:-:|:-:|:-:|
+|255Bytes|940|1080|1240|1390|
