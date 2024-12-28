@@ -164,7 +164,7 @@ void app_main()
 #if CONFIG_ADVANCED
 	spreadingFactor = CONFIG_SF_RATE;
 	bandwidth = CONFIG_BANDWIDTH;
-	codingRate = CONFIG_CODING_RATE
+	codingRate = CONFIG_CODING_RATE;
 #endif
 	LoRaConfig(spreadingFactor, bandwidth, codingRate, preambleLength, payloadLen, crcOn, invertIrq);
 
