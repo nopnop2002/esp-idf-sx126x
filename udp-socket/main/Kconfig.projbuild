@@ -48,7 +48,7 @@ menu "Application Configuration"
     choice UDP_ADDRESS
 		depends on RECEIVER
         bool "Select UDP Addrss"
-        default UDP_ADDRESS_LIMITED
+        default UDP_LIMITED_BROADCAST
         help
             Select Send Addrss.
         config UDP_LIMITED_BROADCAST
