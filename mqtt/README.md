@@ -66,6 +66,7 @@ ArduinoCode\Ra01S_TX
 ### Select Transport   
 This project supports TCP,SSL/TLS,WebSocket and WebSocket Secure Port.   
 - Using TCP Port.   
+ TCP Port uses the MQTT protocol.   
  ![config-mqtt-tcp](https://github.com/user-attachments/assets/a22795ff-9af5-4327-bf7f-debc366dde19)
 
 - Using SSL/TLS Port.   
