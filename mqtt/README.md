@@ -122,7 +122,7 @@ You can specify your MQTT broker in one of the following ways:
 You can use this as broker.   
 https://github.com/nopnop2002/esp-idf-mqtt-broker
 
-### Secure Option
+### Enable Secure Option
 Specifies the username and password if the server requires a password when connecting.   
 [Here's](https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-the-mosquitto-mqtt-messaging-broker-on-debian-10) how to install and secure the Mosquitto MQTT messaging broker on Debian 10.   
 ![config-mqtt-5](https://github.com/user-attachments/assets/58555299-f9f0-424f-9d2f-a76b6fbe8da7)
