@@ -533,7 +533,7 @@ void CalibrateImage(uint32_t frequency)
 	else if( frequency > 850000000 )
 	{
 			calFreq[0] = 0xD7;
-			calFreq[1] = 0xD8;
+			calFreq[1] = 0xDB;
 	}
 	else if( frequency > 770000000 )
 	{
