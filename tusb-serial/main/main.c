@@ -91,7 +91,7 @@ void usb_rx(void *pvParameters)
 					ESP_LOGI(pcTaskGetName(NULL), "[%.*s]", index, buffer);
 					size_t spacesAvailable = xMessageBufferSpacesAvailable( xMessageBufferRecv );
 					ESP_LOGI(pcTaskGetName(NULL), "spacesAvailable=%d", spacesAvailable);
-					size_t sended = xMessageBufferSend(xMessageBufferRecv, &buffer, index, 100);
+					size_t sended = xMessageBufferSend(xMessageBufferRecv, buffer, index, 100);
 					if (sended != index) {
 						ESP_LOGE(pcTaskGetName(NULL), "xMessageBufferSend fail index=%d sended=%d", index, sended);
 						break;
