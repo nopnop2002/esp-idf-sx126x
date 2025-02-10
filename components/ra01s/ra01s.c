@@ -283,9 +283,9 @@ void LoRaConfig(uint8_t spreadingFactor, uint8_t bandwidth, uint8_t codingRate, 
 	}
 
 	if ( crcOn )
-		PacketParams[4] = SX126X_LORA_IQ_INVERTED;
+		PacketParams[4] = SX126X_LORA_CRC_ON;
 	else
-		PacketParams[4] = SX126X_LORA_IQ_STANDARD;
+		PacketParams[4] = SX126X_LORA_CRC_OFF;
 
 	if ( invertIrq )
 		PacketParams[5] = 0x01; // Inverted LoRa I and Q signals setup
