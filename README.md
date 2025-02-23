@@ -196,7 +196,7 @@ You can get these on AliExpress and eBay.
 ![EBYTE-2](https://user-images.githubusercontent.com/6020549/221332911-92f45aed-0c4e-4623-b0e7-92575ec0d0a9.JPG)
 
 With this change it work.   
-![config-ebyte](https://github.com/user-attachments/assets/69ab8000-c6c0-4de5-8cdf-74308ec3edc5)
+![Image](https://github.com/user-attachments/assets/757ce3b9-7a16-4111-b39a-53acdca4d479)
 
 Two additional wires are required.   
 |SX126X||ESP32|ESP32-S2/S3|ESP32-C2/C3/C6|
