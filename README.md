@@ -392,6 +392,31 @@ You can set whether to use Optimaise for each CDR, and enabling it will improve 
 # SX1262 and SX1278, SX1276 Comparison
 [This](https://www.cdebyte.com/news/580) will be helpful.   
 
+# How to use this component in your project   
+Create idf_component.yml in the same directory as main.c.   
+```
+YourProject --+-- CMakeLists.txt
+              +-- main --+-- main.c
+                         +-- CMakeLists.txt
+                         +-- idf_component.yml
+```
+
+Contents of idf_component.yml.
+```
+dependencies:
+  nopnop2002/sx126x:
+    path: components/ra01s/
+    git: https://github.com/nopnop2002/esp-idf-sx126x.git
+```
+
+When you build a projects esp-idf will automaticly fetch repository to managed_components dir and link with your code.   
+```
+YourProject --+-- CMakeLists.txt
+              +-- main --+-- main.c
+              |          +-- CMakeLists.txt
+              |          +-- idf_component.yml
+              +-- managed_components ----- nopnop2002__sx126x
+```
 
 # Reference   
 
