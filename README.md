@@ -384,7 +384,7 @@ You can set whether to use Optimaise for each CDR, and enabling it will improve 
 	|41.32|81.85|160.73|309.65|578.89|1022.04|1650.49|
 
 - With varying Error coding rate(CR) (Unit=Bytes/Sec)   
-	ESP32@160/433MHz/BW=7/SF=7   
+	ESP32@160/433MHz/BW=4/SF=7   
 	|CR=1(4/5)|CR=2(4/6)|CR=3(4/7)|CR=4(4/8)|
 	|:-:|:-:|:-:|:-:|
 	|578.89|493.71|429.65|386.07|
