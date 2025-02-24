@@ -22,7 +22,6 @@
 #define HOST_ID SPI3_HOST
 #endif
 
-static const int SPI_Frequency = 2000000;
 static spi_device_handle_t SpiHandle;
 
 // Global Stuff
@@ -107,34 +106,21 @@ void LoRaInit(void)
 	ESP_LOGI(TAG, "spi_bus_initialize=%d",ret);
 	assert(ret==ESP_OK);
 
-	spi_device_interface_config_t devcfg;
-	memset( &devcfg, 0, sizeof( spi_device_interface_config_t ) );
-	devcfg.clock_speed_hz = SPI_Frequency;
-	// It does not work with hardware CS control.
-	//devcfg.spics_io_num = SX126x_SPI_SELECT;
-	// It does work with software CS control.
-	devcfg.spics_io_num = -1;
-	devcfg.queue_size = 7;
-	devcfg.mode = 0;
-	devcfg.flags = SPI_DEVICE_NO_DUMMY;
-
+	spi_device_interface_config_t devcfg = {
+		.clock_speed_hz = 9000000,
+		.mode = 0,
+		.spics_io_num = CONFIG_NSS_GPIO,
+		.queue_size = 7,
+		.flags = 0,
+		.pre_cb = NULL
+	};
 	//spi_device_handle_t handle;
 	ret = spi_bus_add_device( HOST_ID, &devcfg, &SpiHandle);
 	ESP_LOGI(TAG, "spi_bus_add_device=%d",ret);
 	assert(ret==ESP_OK);
-
-#if 0
-	pinMode(SX126x_SPI_SELECT, OUTPUT);
-	pinMode(SX126x_RESET, OUTPUT);
-	pinMode(SX126x_BUSY, INPUT);
-	if (SX126x_TXEN != -1) pinMode(SX126x_TXEN, OUTPUT);
-	if (SX126x_RXEN != -1) pinMode(SX126x_RXEN, OUTPUT);
-
-	SPI.begin();
-#endif
 }
 
-bool spi_write_byte(uint8_t* Dataout, size_t DataLength )
+void spi_write_byte(uint8_t* Dataout, size_t DataLength )
 {
 	spi_transaction_t SPITransaction;
 
@@ -146,10 +132,10 @@ bool spi_write_byte(uint8_t* Dataout, size_t DataLength )
 		spi_device_transmit( SpiHandle, &SPITransaction );
 	}
 
-	return true;
+	return;
 }
 
-bool spi_read_byte(uint8_t* Datain, uint8_t* Dataout, size_t DataLength )
+void spi_read_byte(uint8_t* Datain, uint8_t* Dataout, size_t DataLength )
 {
 	spi_transaction_t SPITransaction;
 
@@ -161,7 +147,7 @@ bool spi_read_byte(uint8_t* Datain, uint8_t* Dataout, size_t DataLength )
 		spi_device_transmit( SpiHandle, &SPITransaction );
 	}
 
-	return true;
+	return;
 }
 
 uint8_t spi_transfer(uint8_t address)
@@ -204,13 +190,13 @@ int16_t LoRaBegin(uint32_t frequencyInHz, int8_t txPowerInDbm, float tcxoVoltage
 	}
 
 	Calibrate(	SX126X_CALIBRATE_IMAGE_ON
-				| SX126X_CALIBRATE_ADC_BULK_P_ON
-				| SX126X_CALIBRATE_ADC_BULK_N_ON
-				| SX126X_CALIBRATE_ADC_PULSE_ON
-				| SX126X_CALIBRATE_PLL_ON
-				| SX126X_CALIBRATE_RC13M_ON
-				| SX126X_CALIBRATE_RC64K_ON
-				);
+		| SX126X_CALIBRATE_ADC_BULK_P_ON
+		| SX126X_CALIBRATE_ADC_BULK_N_ON
+		| SX126X_CALIBRATE_ADC_PULSE_ON
+		| SX126X_CALIBRATE_PLL_ON
+		| SX126X_CALIBRATE_RC13M_ON
+		| SX126X_CALIBRATE_RC64K_ON
+	);
 
 	ESP_LOGI(TAG, "useRegulatorLDO=%d", useRegulatorLDO);
 	if (useRegulatorLDO) {
@@ -298,10 +284,11 @@ void LoRaConfig(uint8_t spreadingFactor, uint8_t bandwidth, uint8_t codingRate, 
 	WriteCommand(SX126X_CMD_SET_PACKET_PARAMS, PacketParams, 6); // 0x8C
 
 	// Do not use DIO interruptst
-	SetDioIrqParams(SX126X_IRQ_ALL,   //all interrupts enabled
-					SX126X_IRQ_NONE,  //interrupts on DIO1
-					SX126X_IRQ_NONE,  //interrupts on DIO2
-					SX126X_IRQ_NONE); //interrupts on DIO3
+	SetDioIrqParams(SX126X_IRQ_ALL, //all interrupts enabled
+		SX126X_IRQ_NONE, //interrupts on DIO1
+		SX126X_IRQ_NONE, //interrupts on DIO2
+		SX126X_IRQ_NONE //interrupts on DIO3
+	);
 
 	// Receive state no receive timeoout
 	SetRx(0xFFFFFF);
@@ -527,28 +514,28 @@ void CalibrateImage(uint32_t frequency)
 
 	if( frequency> 900000000 )
 	{
-			calFreq[0] = 0xE1;
-			calFreq[1] = 0xE9;
+		calFreq[0] = 0xE1;
+		calFreq[1] = 0xE9;
 	}
 	else if( frequency > 850000000 )
 	{
-			calFreq[0] = 0xD7;
-			calFreq[1] = 0xDB;
+		calFreq[0] = 0xD7;
+		calFreq[1] = 0xDB;
 	}
 	else if( frequency > 770000000 )
 	{
-			calFreq[0] = 0xC1;
-			calFreq[1] = 0xC5;
+		calFreq[0] = 0xC1;
+		calFreq[1] = 0xC5;
 	}
 	else if( frequency > 460000000 )
 	{
-			calFreq[0] = 0x75;
-			calFreq[1] = 0x81;
+		calFreq[0] = 0x75;
+		calFreq[1] = 0x81;
 	}
 	else if( frequency > 425000000 )
 	{
-			calFreq[0] = 0x6B;
-			calFreq[1] = 0x6F;
+		calFreq[0] = 0x6B;
+		calFreq[1] = 0x6F;
 	}
 	WriteCommand(SX126X_CMD_CALIBRATE_IMAGE, calFreq, 2); // 0x98
 }
@@ -577,11 +564,11 @@ void SetPowerConfig(int8_t power, uint8_t rampTime)
 
 	if( power > 22 )
 	{
-			power = 22;
+		power = 22;
 	}
 	else if( power < -3 )
 	{
-			power = -3;
+		power = -3;
 	}
 		
 	buf[0] = power;
@@ -864,18 +851,20 @@ uint8_t ReadBuffer(uint8_t *rxData, int16_t rxDataLen)
 	WaitForIdle(BUSY_WAIT, "start ReadBuffer", true);
 
 	// start transfer
-	gpio_set_level(SX126x_SPI_SELECT, LOW);
-
-	spi_transfer(SX126X_CMD_READ_BUFFER); // 0x1E
-	spi_transfer(offset);
-	spi_transfer(SX126X_CMD_NOP);
-	for( int i = 0; i < payloadLength; i++ )
-	{
-		rxData[i] = spi_transfer(SX126X_CMD_NOP);  
+	uint8_t *buf;
+	buf = malloc(payloadLength+3);
+	if (buf != NULL) {
+		buf[0] = SX126X_CMD_READ_BUFFER; // 0x1E
+		buf[1] = offset; // offset in rx fifo
+		buf[2] = SX126X_CMD_NOP;
+		memset(&buf[3], SX126X_CMD_NOP, payloadLength);
+		spi_read_byte(buf, buf, payloadLength+3);
+		memcpy(rxData, &buf[3], payloadLength);
+		free(buf);
+	} else {
+		ESP_LOGE(TAG, "ReadBuffer malloc fail");
+		payloadLength = 0;
 	}
-
-	// stop transfer
-	gpio_set_level(SX126x_SPI_SELECT, HIGH);
 
 	// wait for BUSY to go low
 	WaitForIdle(BUSY_WAIT, "end ReadBuffer", false);
@@ -890,17 +879,17 @@ void WriteBuffer(uint8_t *txData, int16_t txDataLen)
 	WaitForIdle(BUSY_WAIT, "start WriteBuffer", true);
 
 	// start transfer
-	gpio_set_level(SX126x_SPI_SELECT, LOW);
-
-	spi_transfer(SX126X_CMD_WRITE_BUFFER); // 0x0E
-	spi_transfer(0); //offset in tx fifo
-	for( int i = 0; i < txDataLen; i++ )
-	{ 
-		 spi_transfer( txData[i]);	
+	uint8_t *buf;
+	buf = malloc(txDataLen+2);
+	if (buf != NULL) {
+		buf[0] = SX126X_CMD_WRITE_BUFFER; // 0x0E
+		buf[1] = 0; // offset in tx fifo
+		memcpy(&buf[2], txData, txDataLen);
+		spi_write_byte(buf, txDataLen+2);
+		free(buf);
+	} else {
+		ESP_LOGE(TAG, "WriteBuffer malloc fail");
 	}
-
-	// stop transfer
-	gpio_set_level(SX126x_SPI_SELECT, HIGH);
 
 	// wait for BUSY to go low
 	WaitForIdle(BUSY_WAIT, "end WriteBuffer", false);
@@ -913,34 +902,21 @@ void WriteRegister(uint16_t reg, uint8_t* data, uint8_t numBytes) {
 
 	if(debugPrint) {
 		ESP_LOGI(TAG, "WriteRegister: REG=0x%02x", reg);
-	}
-	// start transfer
-	gpio_set_level(SX126x_SPI_SELECT, LOW);
-
-	// send command byte
-	spi_transfer(SX126X_CMD_WRITE_REGISTER); // 0x0D
-	spi_transfer((reg & 0xFF00) >> 8);
-	spi_transfer(reg & 0xff);
-	
-	for(uint8_t n = 0; n < numBytes; n++) {
-		uint8_t in = spi_transfer(data[n]);
-		(void)in;
-		if(debugPrint) {
-			ESP_LOGI(TAG, "%02x --> %02x", data[n], in);
-			//ESP_LOGI(TAG, "DataOut:%02x ", data[n]);
+		for(uint8_t n = 0; n < numBytes; n++) {
+			ESP_LOGI(TAG, "DataOut:%02x ", data[n]);
 		}
 	}
 
-	// stop transfer
-	gpio_set_level(SX126x_SPI_SELECT, HIGH);
+	// start transfer
+	uint8_t buf[16];
+	buf[0] = SX126X_CMD_WRITE_REGISTER;
+	buf[1] = (reg & 0xFF00) >> 8;
+	buf[2] = reg & 0xff;
+	memcpy(&buf[3], data, numBytes);
+	spi_write_byte(buf, 3 + numBytes);
 
 	// wait for BUSY to go low
 	WaitForIdle(BUSY_WAIT, "end WriteRegister", false);
-#if 0
-	if(waitForBusy) {
-		WaitForIdle(BUSY_WAIT);
-	}
-#endif
 }
 
 
@@ -953,31 +929,21 @@ void ReadRegister(uint16_t reg, uint8_t* data, uint8_t numBytes) {
 	}
 
 	// start transfer
-	gpio_set_level(SX126x_SPI_SELECT, LOW);
-
-	// send command byte
-	spi_transfer(SX126X_CMD_READ_REGISTER); // 0x1D
-	spi_transfer((reg & 0xFF00) >> 8);
-	spi_transfer(reg & 0xff);
-	spi_transfer(SX126X_CMD_NOP);
-
-	for(uint8_t n = 0; n < numBytes; n++) {
-		data[n] = spi_transfer(SX126X_CMD_NOP);
-		if(debugPrint) {
+	uint8_t buf[16];
+	memset(buf, SX126X_CMD_NOP, sizeof(buf));
+	buf[0] = SX126X_CMD_READ_REGISTER;
+	buf[1] = (reg & 0xFF00) >> 8;
+	buf[2] = reg & 0xff;
+	spi_read_byte(buf, buf, 4 + numBytes);
+	memcpy(data, &buf[4], numBytes);
+	if(debugPrint) {
+		for(uint8_t n = 0; n < numBytes; n++) {
 			ESP_LOGI(TAG, "DataIn:%02x ", data[n]);
 		}
 	}
 
-	// stop transfer
-	gpio_set_level(SX126x_SPI_SELECT, HIGH);
-
 	// wait for BUSY to go low
 	WaitForIdle(BUSY_WAIT, "end ReadRegister", false);
-#if 0
-	if(waitForBusy) {
-		WaitForIdle(BUSY_WAIT);
-	}
-#endif
 }
 
 // WriteCommand with retry
@@ -999,89 +965,56 @@ uint8_t WriteCommand2(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 	// ensure BUSY is low (state meachine ready)
 	WaitForIdle(BUSY_WAIT, "start WriteCommand2", true);
 
-	// start transfer
-	gpio_set_level(SX126x_SPI_SELECT, LOW);
-
-	// send command byte
 	if(debugPrint) {
 		ESP_LOGI(TAG, "WriteCommand: CMD=0x%02x", cmd);
 	}
-	spi_transfer(cmd);
 
-	// variable to save error during SPI transfer
+	// start transfer
+	uint8_t buf[16];
+	buf[0] = cmd;
+	memcpy(&buf[1], data, numBytes);
+	spi_read_byte(buf, buf, numBytes + 1);
+
 	uint8_t status = 0;
+	uint8_t cmd_status = buf[1] & 0xe;
 
-	// send/receive all bytes
-	for(uint8_t n = 0; n < numBytes; n++) {
-		uint8_t in = spi_transfer(data[n]);
-		if(debugPrint) {
-			ESP_LOGI(TAG, "%02x --> %02x", data[n], in);
-		}
-
-		// check status
-		if(((in & 0b00001110) == SX126X_STATUS_CMD_TIMEOUT) ||
-		 ((in & 0b00001110) == SX126X_STATUS_CMD_INVALID) ||
-		 ((in & 0b00001110) == SX126X_STATUS_CMD_FAILED)) {
-			status = in & 0b00001110;
+	switch(cmd_status){
+		case SX126X_STATUS_CMD_TIMEOUT:
+		case SX126X_STATUS_CMD_INVALID:
+		case SX126X_STATUS_CMD_FAILED:
+			status = cmd_status;
 			break;
-		} else if(in == 0x00 || in == 0xFF) {
+
+		case 0:
+		case 7:
 			status = SX126X_STATUS_SPI_FAILED;
 			break;
-		}
-	} 
-
-	// stop transfer
-	gpio_set_level(SX126x_SPI_SELECT, HIGH);
+			// default: break; // success
+	}
 
 	// wait for BUSY to go low
 	WaitForIdle(BUSY_WAIT, "end WriteCommand2", false);
-#if 0
-	if(waitForBusy) {
-		WaitForIdle(BUSY_WAIT);
-	}
-#endif
-
-#if 0
-	if (status != 0) {
-		ESP_LOGE(TAG, "SPI Transaction error:0x%02x", status);
-		LoRaError(ERR_SPI_TRANSACTION);
-	}
-#endif
 	return status;
 }
 
 
 void ReadCommand(uint8_t cmd, uint8_t* data, uint8_t numBytes) {
 	// ensure BUSY is low (state meachine ready)
-	//WaitForIdle(BUSY_WAIT, "start ReadCommand", true);
 	WaitForIdleBegin(BUSY_WAIT, "start ReadCommand");
 
-	// start transfer
-	gpio_set_level(SX126x_SPI_SELECT, LOW);
-
-	// send command byte
 	if(debugPrint) {
 		ESP_LOGI(TAG, "ReadCommand: CMD=0x%02x", cmd);
 	}
-	spi_transfer(cmd);
 
-	// send/receive all bytes
-	for(uint8_t n = 0; n < numBytes; n++) {
-		data[n] = spi_transfer(SX126X_CMD_NOP);
-		if(debugPrint) {
-			ESP_LOGI(TAG, "DataIn:%02x", data[n]);
-		}
-	}
-
-	// stop transfer
-	gpio_set_level(SX126x_SPI_SELECT, HIGH);
+	// start transfer
+	uint8_t buf[16];
+	memset(buf, SX126X_CMD_NOP, sizeof(buf));
+	buf[0] = cmd;
+	spi_read_byte(buf, buf, 1 + numBytes);
+	if (data != NULL && numBytes)
+		memcpy(data, &buf[1], numBytes);
 
 	// wait for BUSY to go low
 	vTaskDelay(1);
 	WaitForIdle(BUSY_WAIT, "end ReadCommand", false);
-#if 0
-	if(waitForBusy) {
-		WaitForIdle(BUSY_WAIT);
-	}
-#endif
 }

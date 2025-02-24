@@ -380,8 +380,8 @@ bool     LoRaSend(uint8_t *pData, int16_t len, uint8_t mode);
 void     LoRaDebugPrint(bool enable);
 
 // Private function
-bool     spi_write_byte(uint8_t* Dataout, size_t DataLength );
-bool     spi_read_byte(uint8_t* Datain, uint8_t* Dataout, size_t DataLength );
+void     spi_write_byte(uint8_t* Dataout, size_t DataLength );
+void     spi_read_byte(uint8_t* Datain, uint8_t* Dataout, size_t DataLength );
 uint8_t  spi_transfer(uint8_t address);
 
 bool     ReceiveMode(void);
