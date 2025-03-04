@@ -326,8 +326,9 @@ bool LoRaSend(uint8_t *pData, int16_t len, uint8_t mode)
 	if ( txActive == false )
 	{
 		txActive = true;
-		PacketParams[2] = 0x00; //Variable length packet (explicit header)
-		PacketParams[3] = len;
+		if (PacketParams[2] == 0x00) { // Variable length packet (explicit header)
+			PacketParams[3] = len;
+		}
 		WriteCommand(SX126X_CMD_SET_PACKET_PARAMS, PacketParams, 6); // 0x8C
 		
 		//ClearIrqStatus(SX126X_IRQ_TX_DONE | SX126X_IRQ_TIMEOUT);
