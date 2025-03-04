@@ -126,4 +126,4 @@ https://github.com/nopnop2002/esp-idf-mqtt-broker
 ### Enable Secure Option
 Specifies the username and password if the server requires a password when connecting.   
 [Here's](https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-the-mosquitto-mqtt-messaging-broker-on-debian-10) how to install and secure the Mosquitto MQTT messaging broker on Debian 10.   
-![Image](https://github.com/user-attachments/assets/2d10faa0-81d3-458d-a0d6-402cae59f5ad)
+![Image](https://github.com/user-attachments/assets/7ddef936-af97-419f-a71e-602fe3f22252)
