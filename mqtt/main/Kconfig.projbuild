@@ -39,10 +39,6 @@ menu "Application Configuration"
 				LoRa to MQTT.
 	endchoice
 
-	endmenu
-
-	menu "Broker Setting"
-
 	choice MQTT_TRANSPORT
 		prompt "MQTT Transport"
 		default MQTT_TRANSPORT_OVER_TCP
