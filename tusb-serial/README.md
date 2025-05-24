@@ -19,7 +19,7 @@ This is LoRa and tinyusb gateway application.
 Because the ESP32-S2/S3 does support USB OTG.   
 
 2. USB Connector   
-I used this:   
+I used this USB Mini femail:   
 ![usb-connector](https://user-images.githubusercontent.com/6020549/124848149-3714ba00-dfd7-11eb-8344-8b120790c5c5.JPG)
 
 ```
