@@ -74,19 +74,21 @@ There are the following four methods for specifying the UDP Address.
 - Limited broadcast address   
  The address represented by 255.255.255.255, or \<broadcast\>, cannot cross the router.   
  Both the sender and receiver must specify a Limited broadcast address.   
+ ![Image](https://github.com/user-attachments/assets/fe52824a-7075-46df-bf6a-ce3d9a4faa73)
 
 - Directed broadcast address   
  It is possible to cross the router with an address that represents only the last octet as 255, such as 192.168.10.255.   
  Both the sender and receiver must specify the Directed broadcast address.   
  __Note that it is possible to pass through the router.__   
+ ![Image](https://github.com/user-attachments/assets/7d0ebeb9-e046-42ee-be79-bc8374095569)
 
 - Multicast address   
  Data is sent to all PCs belonging to a specific group using a special address (224.0.0.0 to 239.255.255.255) called a multicast address.   
  I've never used it, so I don't know anything more.
+ ![Image](https://github.com/user-attachments/assets/d6285e26-d37d-41d7-9b2a-615f54fe125d)
 
 - Unicast address   
  It is possible to cross the router with an address that specifies all octets, such as 192.168.10.41.   
  Both the sender and receiver must specify the Unicast address.
-
-
+ ![Image](https://github.com/user-attachments/assets/3ea8d43b-22ce-40fd-885c-c8f3646e09e9)
 
