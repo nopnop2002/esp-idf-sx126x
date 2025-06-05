@@ -819,10 +819,12 @@ bool WaitForIdle(unsigned long timeout, char *text, bool stop)
 {
 	bool ret = true;
 	TickType_t start = xTaskGetTickCount();
-	delayMicroseconds(1);
+	//delayMicroseconds(1);
 	while(xTaskGetTickCount() - start < (timeout/portTICK_PERIOD_MS)) {
 		if (gpio_get_level(SX126x_BUSY) == 0) break;
-		delayMicroseconds(1);
+		//delayMicroseconds(1);
+		// Give up CPU execution rights
+		vTaskDelay(1);
 	}
 	if (gpio_get_level(SX126x_BUSY)) {
 		if (stop) {
