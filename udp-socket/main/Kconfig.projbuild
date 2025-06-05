@@ -50,7 +50,7 @@ menu "Application Configuration"
 		bool "Select UDP Address"
 		default UDP_LIMITED_BROADCAST
 		help
-			Select Send Addrss.
+			Select Send Address.
 		config UDP_LIMITED_BROADCAST
 			bool "Limited broadcast address"
 		config UDP_DIRECTED_BROADCAST
