@@ -45,31 +45,31 @@ menu "Application Configuration"
 				LoRa to UDP.
 	endchoice
 
-    choice UDP_ADDRESS
+	choice UDP_ADDRESS
 		depends on RECEIVER
-        bool "Select UDP Addrss"
-        default UDP_LIMITED_BROADCAST
-        help
-            Select Send Addrss.
-        config UDP_LIMITED_BROADCAST
-            bool "Limited broadcast address"
-        config UDP_DIRECTED_BROADCAST
-            bool "Directed broadcast address"
-        config UDP_MULTICAST
-            bool "Multicast address"
-        config UDP_UNICAST
-            bool "Unicast address"
-    endchoice
+		bool "Select UDP Address"
+		default UDP_LIMITED_BROADCAST
+		help
+			Select Send Addrss.
+		config UDP_LIMITED_BROADCAST
+			bool "Limited broadcast address"
+		config UDP_DIRECTED_BROADCAST
+			bool "Directed broadcast address"
+		config UDP_MULTICAST
+			bool "Multicast address"
+		config UDP_UNICAST
+			bool "Unicast address"
+	endchoice
 
-    config UDP_MULTICAST_ADDRESS
-        depends on UDP_MULTICAST
-        string "Multicast address"
-        default "239.255.255.255"
+	config UDP_MULTICAST_ADDRESS
+		depends on UDP_MULTICAST
+		string "Multicast address"
+		default "239.255.255.255"
 
-    config UDP_UNICAST_ADDRESS
-        depends on UDP_UNICAST
-        string "Unicast address"
-        default "192.168.10.20"
+	config UDP_UNICAST_ADDRESS
+		depends on UDP_UNICAST
+		string "Unicast address"
+		default "192.168.10.20"
 
 	config UDP_PORT
 		int "UDP Port"
