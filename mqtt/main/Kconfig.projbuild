@@ -2,137 +2,156 @@ menu "Application Configuration"
 
 	menu "WiFi Setting"
 
-	config ESP_WIFI_SSID
-		string "WiFi SSID"
-		default "myssid"
-		help
-			SSID (network name) for the example to connect to.
+		config ESP_WIFI_SSID
+			string "WiFi SSID"
+			default "myssid"
+			help
+				SSID (network name) for the example to connect to.
 
-	config ESP_WIFI_PASSWORD
-		string "WiFi Password"
-		default "mypassword"
-		help
-			WiFi password (WPA or WPA2) for the example to use.
+		config ESP_WIFI_PASSWORD
+			string "WiFi Password"
+			default "mypassword"
+			help
+				WiFi password (WPA or WPA2) for the example to use.
 
-	config ESP_MAXIMUM_RETRY
-		int "Maximum retry"
-		default 5
-		help
-			Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.
+		config ESP_MAXIMUM_RETRY
+			int "Maximum retry"
+			default 5
+			help
+				Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.
 
 	endmenu
 
 	menu "Radio Setting"
 
-	choice DIRECTION
-		prompt "Communication polarity"
-		default SENDER
-		help
-			Select Communication polarity.
-		config SENDER
-			bool "MQTT to LoRa"
+		choice DIRECTION
+			prompt "Communication polarity"
+			default SENDER
 			help
-				MQTT to LoRa.
-		config RECEIVER
-			bool "LoRa to MQTT"
+				Select Communication polarity.
+			config SENDER
+				bool "MQTT to LoRa"
+				help
+					MQTT to LoRa.
+			config RECEIVER
+				bool "LoRa to MQTT"
+				help
+					LoRa to MQTT.
+		endchoice
+
+	endmenu
+
+	menu "Broker Setting"
+
+		choice MQTT_TRANSPORT
+			prompt "MQTT Transport"
+			default MQTT_TRANSPORT_OVER_TCP
 			help
-				LoRa to MQTT.
-	endchoice
+				Select MQTT Transport.
+			config MQTT_TRANSPORT_OVER_TCP
+				bool "Using Over TCP"
+				help
+					Using Over TCP
+			config MQTT_TRANSPORT_OVER_SSL
+				bool "Using over SSL"
+				help
+					Using over SSL
+			config MQTT_TRANSPORT_OVER_WS
+				bool "Using over WS"
+				help
+					Using over WS
+			config MQTT_TRANSPORT_OVER_WSS
+				bool "Using over WSS"
+				help
+					Using over WSS
+		endchoice
 
-	choice MQTT_TRANSPORT
-		prompt "MQTT Transport"
-		default MQTT_TRANSPORT_OVER_TCP
-		help
-			Select MQTT Transport.
-		config MQTT_TRANSPORT_OVER_TCP
-			bool "Using Over TCP"
+		config MQTT_BROKER
+			string "MQTT Broker"
+			default "broker.emqx.io"
 			help
-				Using Over TCP
-		config MQTT_TRANSPORT_OVER_SSL
-			bool "Using over SSL"
+				Host name or IP address of the broker to connect to
+
+		config MQTT_PORT_TCP
+			depends on MQTT_TRANSPORT_OVER_TCP
+			int "MQTT Port"
+			range 0 65535
+			default 1883
 			help
-				Using over SSL
-		config MQTT_TRANSPORT_OVER_WS
-			bool "Using over WS"
+				Port number of the broker to connect to.
+
+		config MQTT_PORT_SSL
+			depends on MQTT_TRANSPORT_OVER_SSL
+			int "MQTT Port"
+			range 0 65535
+			default 8883
 			help
-				Using over WS
-		config MQTT_TRANSPORT_OVER_WSS
-			bool "Using over WSS"
+				Port number of the broker to connect to.
+
+		config MQTT_PORT_WS
+			depends on MQTT_TRANSPORT_OVER_WS
+			int "MQTT Port"
+			range 0 65535
+			default 8083
 			help
-				Using over WSS
-	endchoice
+				Port number of the broker to connect to.
 
-	config MQTT_BROKER
-		string "MQTT Broker"
-		default "broker.emqx.io"
-		help
-			Host name or IP address of the broker to connect to
+		config MQTT_PORT_WSS
+			depends on MQTT_TRANSPORT_OVER_WSS
+			int "MQTT Port"
+			range 0 65535
+			default 8084
+			help
+				Port number of the broker to connect to.
 
-	config MQTT_PORT_TCP
-		depends on MQTT_TRANSPORT_OVER_TCP
-		int "MQTT Port"
-		range 0 65535
-		default 1883
-		help
-			Port number of the broker to connect to.
+		choice MQTT_PROTOCOL
+			prompt "MQTT Protocol"
+			default MQTT_PROTOCOL_V_3_1_1
+			help
+				Select Protocol.
+			config MQTT_PROTOCOL_V_3_1_1
+				bool "PROTOCOL_V_3_1_1"
+				help
+					PROTOCOL_V_3_1_1
+			config MQTT_PROTOCOL_V_5
+				bool "PROTOCOL_V_5"
+				help
+					PROTOCOL_V_5.
+		endchoice
 
-	config MQTT_PORT_SSL
-		depends on MQTT_TRANSPORT_OVER_SSL
-		int "MQTT Port"
-		range 0 65535
-		default 8883
-		help
-			Port number of the broker to connect to.
+		config MQTT_PUB_TOPIC
+			depends on RECEIVER
+			string "Publish Topic"
+			default "/topic/lora/test"
+			help
+				Topic of publish
 
-	config MQTT_PORT_WS
-		depends on MQTT_TRANSPORT_OVER_WS
-		int "MQTT Port"
-		range 0 65535
-		default 8083
-		help
-			Port number of the broker to connect to.
+		config MQTT_SUB_TOPIC
+			depends on SENDER
+			string "Subscribe Topic"
+			default "/topic/lora/test"
+			help
+				Topic of subscribe
 
-	config MQTT_PORT_WSS
-		depends on MQTT_TRANSPORT_OVER_WSS
-		int "MQTT Port"
-		range 0 65535
-		default 8084
-		help
-			Port number of the broker to connect to.
+		config BROKER_AUTHENTICATION
+			bool "Server requests for password when connecting"
+			default false
+			help
+				Server requests for password when connecting.
 
-	config BROKER_AUTHENTICATION
-		bool "Server requests for password when connecting"
-		default false
-		help
-			Server requests for password when connecting.
+		config AUTHENTICATION_USERNAME
+			depends on BROKER_AUTHENTICATION
+			string "Username used for connecting to the broker"
+			default "user"
+			help
+				Username used for connecting to the broker.
 
-	config AUTHENTICATION_USERNAME
-		depends on BROKER_AUTHENTICATION
-		string "Username used for connecting to the broker"
-		default "user"
-		help
-			Username used for connecting to the broker.
-
-	config AUTHENTICATION_PASSWORD
-		depends on BROKER_AUTHENTICATION
-		string "Password used for connecting to the broker"
-		default "password"
-		help
-			Username used for connecting to the broker.
-
-	config MQTT_PUB_TOPIC
-		depends on RECEIVER
-		string "Publish Topic"
-		default "/topic/lora/test"
-		help
-			Topic of publish
-
-	config MQTT_SUB_TOPIC
-		depends on SENDER
-		string "Subscribe Topic"
-		default "/topic/lora/test"
-		help
-			Topic of subscribe
+		config AUTHENTICATION_PASSWORD
+			depends on BROKER_AUTHENTICATION
+			string "Password used for connecting to the broker"
+			default "password"
+			help
+				Username used for connecting to the broker.
 
 	endmenu
 

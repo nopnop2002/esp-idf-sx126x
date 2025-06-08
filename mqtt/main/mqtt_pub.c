@@ -123,6 +123,14 @@ void mqtt_pub(void *pvParameters)
 		.credentials.client_id = client_id
 	};
 
+#if CONFIG_MQTT_PROTOCOL_V_3_1_1
+	ESP_LOGI(TAG, "MQTT_PROTOCOL_V_3_1_1");
+	mqtt_cfg.session.protocol_ver = MQTT_PROTOCOL_V_3_1_1;
+#elif CONFIG_MQTT_PROTOCOL_V_5
+	ESP_LOGI(TAG, "MQTT_PROTOCOL_V_5");
+	mqtt_cfg.session.protocol_ver = MQTT_PROTOCOL_V_5;
+#endif
+
 	esp_mqtt_client_handle_t mqtt_client = esp_mqtt_client_init(&mqtt_cfg);
 	esp_mqtt_client_register_event(mqtt_client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
 	esp_mqtt_client_start(mqtt_client);

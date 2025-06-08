@@ -139,10 +139,10 @@ esp_err_t query_mdns_host(const char * host_name, char *ip)
 	esp_err_t err = mdns_query_a(host_name, 10000,	&addr);
 	if(err){
 		if(err == ESP_ERR_NOT_FOUND){
-			ESP_LOGW(__FUNCTION__, "%s: Host was not found!", esp_err_to_name(err));
-			return ESP_FAIL;
+			ESP_LOGW(__FUNCTION__, "%s: Host was not found!", host_name);
+		} else {
+			ESP_LOGE(__FUNCTION__, "Query Failed: %s", esp_err_to_name(err));
 		}
-		ESP_LOGE(__FUNCTION__, "Query Failed: %s", esp_err_to_name(err));
 		return ESP_FAIL;
 	}
 
