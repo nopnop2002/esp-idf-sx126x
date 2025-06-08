@@ -27,7 +27,7 @@ Set the information of your access point.
 Set the wireless communication direction.
 ![Image](https://github.com/user-attachments/assets/51f1b34c-51c1-4164-8244-b1b989cc13f0)
 
-## MQTT to LoRa   
+### MQTT to LoRa   
 Subscribe with MQTT and send to LoRa.   
 You can use mosquitto_pub as Publisher.   
 ```mosquitto_pub -h broker.emqx.io -p 1883 -t "/topic/lora/test" -m "test"```
