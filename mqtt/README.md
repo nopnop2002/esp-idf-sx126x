@@ -63,7 +63,7 @@ Run this sketch.
 ArduinoCode\Ra01S_TX   
 
 ## Broker Setting
-Set the information of your MQTT broker.
+Set the information of your MQTT broker.   
 ![Image](https://github.com/user-attachments/assets/e49991a2-6fcf-4ea5-9de2-fcac5d2bfe23)
 
 ### Select Transport   
