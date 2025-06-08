@@ -20,6 +20,7 @@ This is LoRa and MQTT gateway application.
 ![Image](https://github.com/user-attachments/assets/8c8ecc11-4f60-466c-996b-ac085c69d924)
 
 ## WiFi Setting
+Set the information of your access point.
 ![Image](https://github.com/user-attachments/assets/d2c0a00b-5d33-4828-9ffc-920c32298f5d)
 
 ## Radio Setting
