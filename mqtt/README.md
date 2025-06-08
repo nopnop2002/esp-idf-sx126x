@@ -19,11 +19,11 @@ This is LoRa and MQTT gateway application.
 ![Image](https://github.com/user-attachments/assets/ad2cf3fc-447e-4744-b238-5cbd1fe07a91)
 ![Image](https://github.com/user-attachments/assets/8c8ecc11-4f60-466c-996b-ac085c69d924)
 
-## WiFi Setting
+## WiFi Setting   
 Set the information of your access point.
 ![Image](https://github.com/user-attachments/assets/d2c0a00b-5d33-4828-9ffc-920c32298f5d)
 
-## Radio Setting
+## Radio Setting   
 Set the wireless communication direction.
 ![Image](https://github.com/user-attachments/assets/51f1b34c-51c1-4164-8244-b1b989cc13f0)
 
