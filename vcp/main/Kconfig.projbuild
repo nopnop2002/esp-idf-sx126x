@@ -1,0 +1,53 @@
+menu "Application Configuration"
+
+	menu "Radio Setting"
+
+		choice DIRECTION
+			prompt "Communication polarity"
+			default SENDER
+			help
+				Select Communication polarity.
+			config SENDER
+				bool "VCP to LoRa"
+				help
+					VCP to LoRa.
+			config RECEIVER
+				bool "LoRa to VCP"
+				help
+					LoRa to VCP.
+		endchoice
+
+	endmenu
+
+	menu "VCP Setting"
+
+		config VCP_BAUDRATE
+			int "VCP communication speed"
+			range 1200 115200
+			default 115200
+			help
+				VCP communication speed.
+
+		config VCP_STOP_BITS
+			int "VCP communication stop bits"
+			range 0 2
+			default 0
+			help
+				VCP communication stop bits. 0: 1 stopbit, 1: 1.5 stopbits, 2: 2 stopbits
+
+		config VCP_PARITY
+			int "VCP communication parity"
+			range 0 4
+			default 0
+			help
+				VCP communication parity. 0: None, 1: Odd, 2: Even, 3: Mark, 4: Space
+
+		config VCP_DATA_BITS
+			int "VCP communication data bits"
+			default 8
+			help
+				VCP communication data bits.
+
+	endmenu
+
+endmenu 
