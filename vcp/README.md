@@ -23,7 +23,7 @@ Other UART-USB converter chips are not supported.
            +------------+          +------------+          +------------+
            |            |          |            |          | VCP device |
 ==(LoRa)==>|   SX126x   |--(SPI)-->|    ESP32   |--(USB)-->|Arduino Uno |
-           |            |          |            |          |Arduino MEGA|
+           |            |          |            |          |Arduino Mega|
            +------------+          +------------+          +------------+
 ```
 
@@ -72,7 +72,7 @@ ESP32 acts as the VCP host.
            +------------+          +------------+          +------------+
            |            |          |            |          | VCP device |
 ==(LoRa)==>|   SX126x   |--(SPI)-->|    ESP32   |--(USB)-->|Arduino Uno |
-           |            |          |            |          |Arduino MEGA|
+           |            |          |            |          |Arduino Mega|
            +------------+          +------------+          +------------+
 ```
 
