@@ -16,13 +16,13 @@ Other UART-USB converter chips are not supported.
 ```
            +------------+          +------------+          +------------+
            | VCP device |          |            |          |            |           |
-           |Arduino UNO |--(USB)-->|    ESP32   |--(SPI)-->|   SX126x   |==(LoRa)==>
+           |Arduino Uno |--(USB)-->|    ESP32   |--(SPI)-->|   SX126x   |==(LoRa)==>
            |Arduino Mega|          |            |          |            |
            +------------+          +------------+          +------------+
 
            +------------+          +------------+          +------------+
            |            |          |            |          | VCP device |
-==(LoRa)==>|   SX126x   |--(SPI)-->|    ESP32   |--(USB)-->|Arduino UNO |
+==(LoRa)==>|   SX126x   |--(SPI)-->|    ESP32   |--(USB)-->|Arduino Uno |
            |            |          |            |          |Arduino MEGA|
            +------------+          +------------+          +------------+
 ```
@@ -57,7 +57,7 @@ ESP32 acts as the VCP host.
 ```
            +------------+          +------------+          +------------+
            | VCP device |          |            |          |            |           |
-           |Arduino UNO |--(USB)-->|    ESP32   |--(SPI)-->|   SX126x   |==(LoRa)==>
+           |Arduino Uno |--(USB)-->|    ESP32   |--(SPI)-->|   SX126x   |==(LoRa)==>
            |Arduino Mega|          |            |          |            |
            +------------+          +------------+          +------------+
 ```
@@ -71,7 +71,7 @@ ESP32 acts as the VCP host.
 ```
            +------------+          +------------+          +------------+
            |            |          |            |          | VCP device |
-==(LoRa)==>|   SX126x   |--(SPI)-->|    ESP32   |--(USB)-->|Arduino UNO |
+==(LoRa)==>|   SX126x   |--(SPI)-->|    ESP32   |--(USB)-->|Arduino Uno |
            |            |          |            |          |Arduino MEGA|
            +------------+          +------------+          +------------+
 ```
