@@ -14,17 +14,17 @@ Other UART-USB converter chips are not supported.
 
 
 ```
-           +-----------+          +-----------+          +-----------+
-           |           |          |           |          |           |
-           |VCP  device|--(USB)-->|   ESP32   |--(SPI)-->|  SX126x   |==(LoRa)==>
-           |           |          |           |          |           |
-           +-----------+          +-----------+          +-----------+
+           +------------+          +------------+          +------------+
+           |VCP  device |          |            |          |            |           |
+           |Arduino UNO |--(USB)-->|    ESP32   |--(SPI)-->|   SX126x   |==(LoRa)==>
+           |Arduino Mega|          |            |          |            |
+           +------------+          +------------+          +------------+
 
-           +-----------+          +-----------+          +-----------+
-           |           |          |           |          |           |
-==(LoRa)==>|  SX126x   |--(SPI)-->|   ESP32   |--(USB)-->|VCP  device|
-           |           |          |           |          |           |
-           +-----------+          +-----------+          +-----------+
+           +------------+          +------------+          +------------+
+           |            |          |            |          |VCP  device |
+==(LoRa)==>|   SX126x   |--(SPI)-->|    ESP32   |--(USB)-->|Arduino UNO |
+           |            |          |            |          |Arduino MEGA|
+           +------------+          +------------+          +------------+
 ```
 
 
@@ -55,11 +55,11 @@ We can buy this breakout on Ebay or AliExpress.
 Receive from VCP and send to LoRa.   
 ESP32 acts as the VCP host.   
 ```
-           +-----------+          +-----------+          +-----------+
-           |           |          |           |          |           |
-           |VCP  device|--(USB)-->|   ESP32   |--(SPI)-->|  SX126x   |==(LoRa)==>
-           |           |          |           |          |           |
-           +-----------+          +-----------+          +-----------+
+           +------------+          +------------+          +------------+
+           |VCP  device |          |            |          |            |           |
+           |Arduino UNO |--(USB)-->|    ESP32   |--(SPI)-->|   SX126x   |==(LoRa)==>
+           |Arduino Mega|          |            |          |            |
+           +------------+          +------------+          +------------+
 ```
 
 ![Image](https://github.com/user-attachments/assets/75a8d620-fdf5-439f-a99b-e77e8d549324)
@@ -69,11 +69,11 @@ ESP32 acts as the VCP host.
 Receive from LoRa and send to VCP.   
 ESP32 acts as the VCP host.   
 ```
-           +-----------+          +-----------+          +-----------+
-           |           |          |           |          |           |
-==(LoRa)==>|  SX126x   |--(SPI)-->|   ESP32   |--(USB)-->|VCP  device|
-           |           |          |           |          |           |
-           +-----------+          +-----------+          +-----------+
+           +------------+          +------------+          +------------+
+           |            |          |            |          |VCP  device |
+==(LoRa)==>|   SX126x   |--(SPI)-->|    ESP32   |--(USB)-->|Arduino UNO |
+           |            |          |            |          |Arduino MEGA|
+           +------------+          +------------+          +------------+
 ```
 
 ![Image](https://github.com/user-attachments/assets/f59f37b5-c77d-4f2a-b910-02a489f0a42b)
