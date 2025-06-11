@@ -52,7 +52,7 @@ We can buy this breakout on Ebay or AliExpress.
 ## Radio Setting
 
 ### VCP to LoRa
-Receive from VCP and send to LoRa.   
+Receive from VCP device and send to LoRa.   
 ESP32 acts as the VCP host.   
 ```
            +------------+          +------------+          +------------+
@@ -66,7 +66,7 @@ ESP32 acts as the VCP host.
 
 
 ### LoRa to VCP
-Receive from LoRa and send to VCP.   
+Receive from LoRa and send to VCP device.   
 ESP32 acts as the VCP host.   
 ```
            +------------+          +------------+          +------------+
