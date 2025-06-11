@@ -1,17 +1,21 @@
-# tinyusb Example   
-This is LoRa and tinyusb gateway application.   
-```
-           +------------+          +------------+          +------------+
-           |            |          |            |          |            |
-           | USB Writer |--(USB)-->|    ESP32   |--(SPI)-->|   SX126x   |==(LoRa)==>
-           |            |          |            |          |            |
-           +------------+          +------------+          +------------+
+# USB Serial Device Example   
+This is LoRa and USB Serial Device gateway application.   
 
-           +------------+          +------------+          +------------+
-           |            |          |            |          |            |
-==(LoRa)==>|   SX126x   |--(SPI)-->|    ESP32   |--(USB)-->| USB Reader |
-           |            |          |            |          |            |
-           +------------+          +------------+          +------------+
+ESP-IDF supports USB Serial Device.   
+As a USB stack, a TinyUSB component is used.   
+
+```
+           +---------------+          +---------------+          +---------------+
+           |               |          |               |          |               |
+           |USB Serial Host|--(USB)-->|     ESP32     |--(SPI)-->|     SX126x    |==(LoRa)==>
+           |               |          |               |          |               |
+           +---------------+          +---------------+          +---------------+
+
+           +---------------+          +---------------+          +---------------+
+           |               |          |               |          |               |
+==(LoRa)==>|     SX126x    |--(SPI)-->|     ESP32     |--(USB)-->|USB Serial Host|
+           |               |          |               |          |               |
+           +---------------+          +---------------+          +---------------+
 ```
 
 # Hardware requirements
@@ -37,17 +41,17 @@ ESP32-S2/S3 BOARD          USB CONNECTOR
 ![config-top](https://github.com/user-attachments/assets/64725b68-2185-4848-9e90-34f47decb81d)
 
 ### USB to LoRa
-Subscribe with USB and send to LoRa.   
-ESP32 acts as USB Reader.   
-You can use this script as USB Writer.   
+Receive from USB and send to LoRa.   
+ESP32 acts as USB Serial Device for reading.   
+You can use this script as USB Serial Host for writing.   
 ```python3 ./write.py```
 
 ```
-           +------------+          +------------+          +------------+
-           |            |          |            |          |            |
-           | USB Writer |--(USB)-->|    ESP32   |--(SPI)-->|   SX126x   |==(LoRa)==>
-           |            |          |            |          |            |
-           +------------+          +------------+          +------------+
+           +---------------+          +---------------+          +---------------+
+           |               |          |               |          |               |
+           |USB Serial Host|--(USB)-->|     ESP32     |--(SPI)-->|     SX126x    |==(LoRa)==>
+           |               |          |               |          |               |
+           +---------------+          +---------------+          +---------------+
 ```
 
 ![config-radio-1](https://github.com/user-attachments/assets/6b75c21a-5cec-4af8-8b75-f6a541d4900a)
@@ -58,17 +62,17 @@ ArduinoCode\Ra01S_RX
 
 
 ### LoRa to USB
-Receive from LoRa and publish as USB.   
-ESP32 acts as USB Writer.   
-You can use this script as USB Reader.   
+Receive from LoRa and send to  USB.   
+ESP32 acts as USB Serial Device for writing.   
+You can use this script as USB Serial Host for reading.   
 ```python3 ./read.py```
 
 ```
-           +------------+          +------------+          +------------+
-           |            |          |            |          |            |
-==(LoRa)==>|   SX126x   |--(SPI)-->|    ESP32   |--(USB)-->| USB Reader |
-           |            |          |            |          |            |
-           +------------+          +------------+          +------------+
+           +---------------+          +---------------+          +---------------+
+           |               |          |               |          |               |
+==(LoRa)==>|     SX126x    |--(SPI)-->|     ESP32     |--(USB)-->|USB Serial Host|
+           |               |          |               |          |               |
+           +---------------+          +---------------+          +---------------+
 ```
 
 ![config-radio-2](https://github.com/user-attachments/assets/0d685209-a8bd-4925-a1e3-4c4add64ca83)
