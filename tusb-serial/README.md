@@ -2,6 +2,7 @@
 This is LoRa and USB Serial Device gateway application.   
 
 ESP-IDF supports USB Serial Device.   
+USB Serial Device can communicate with the USB Serial Host.   
 As a USB stack, a TinyUSB component is used.   
 
 ```
