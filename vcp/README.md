@@ -53,8 +53,7 @@ We can buy this breakout on Ebay or AliExpress.
 
 ### VCP to LoRa
 Receive from VCP and send to LoRa.   
-ESP32 acts as VCP Server.   
-
+ESP32 acts as the VCP host.   
 ```
            +-----------+          +-----------+          +-----------+
            |           |          |           |          |           |
@@ -68,8 +67,7 @@ ESP32 acts as VCP Server.
 
 ### LoRa to VCP
 Receive from LoRa and send to VCP.   
-ESP32 acts as VCP Server.   
-
+ESP32 acts as the VCP host.   
 ```
            +-----------+          +-----------+          +-----------+
            |           |          |           |          |           |
