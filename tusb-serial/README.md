@@ -85,6 +85,7 @@ ArduinoCode\Ra01S_TX
 # Using Windows Terminal Software
 When you connect the USB cable to the USB port on your Windows machine and build the firmware, a new COM port will appear.   
 Open a new COM port in the terminal software.   
+When set to LoRa to USB, the data received from LoRa will be displayed on the terminal.   
 When set to USB to LoRa, input data from the keyboard is sent to LoRa.   
 I used TeraTerm.   
 ![tusb-TeraTerm](https://github.com/user-attachments/assets/b5eea94e-5228-45b4-bcad-81cce8c52479)
@@ -93,6 +94,7 @@ I used TeraTerm.
 When you connect the USB cable to the USB port on your Linux machine and build the firmware, a new /dev/tty device will appear.   
 Open a new tty device in the terminal software.   
 Most occasions, the device is /dev/ttyACM0.   
+When set to LoRa to USB, the data received from LoRa will be displayed on the terminal.   
 When set to USB to LoRa, input data from the keyboard is sent to LoRa.   
 I used screen.   
 ![tusb-screen](https://github.com/user-attachments/assets/18a6e519-9250-4109-b05d-6bcd418bfb5b)
