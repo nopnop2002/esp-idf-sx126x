@@ -15,13 +15,13 @@ Other UART-USB converter chips are not supported.
 
 ```
            +------------+          +------------+          +------------+
-           |VCP  device |          |            |          |            |           |
+           | VCP device |          |            |          |            |           |
            |Arduino UNO |--(USB)-->|    ESP32   |--(SPI)-->|   SX126x   |==(LoRa)==>
            |Arduino Mega|          |            |          |            |
            +------------+          +------------+          +------------+
 
            +------------+          +------------+          +------------+
-           |            |          |            |          |VCP  device |
+           |            |          |            |          | VCP device |
 ==(LoRa)==>|   SX126x   |--(SPI)-->|    ESP32   |--(USB)-->|Arduino UNO |
            |            |          |            |          |Arduino MEGA|
            +------------+          +------------+          +------------+
@@ -56,7 +56,7 @@ Receive from VCP and send to LoRa.
 ESP32 acts as the VCP host.   
 ```
            +------------+          +------------+          +------------+
-           |VCP  device |          |            |          |            |           |
+           | VCP device |          |            |          |            |           |
            |Arduino UNO |--(USB)-->|    ESP32   |--(SPI)-->|   SX126x   |==(LoRa)==>
            |Arduino Mega|          |            |          |            |
            +------------+          +------------+          +------------+
@@ -70,7 +70,7 @@ Receive from LoRa and send to VCP.
 ESP32 acts as the VCP host.   
 ```
            +------------+          +------------+          +------------+
-           |            |          |            |          |VCP  device |
+           |            |          |            |          | VCP device |
 ==(LoRa)==>|   SX126x   |--(SPI)-->|    ESP32   |--(USB)-->|Arduino UNO |
            |            |          |            |          |Arduino MEGA|
            +------------+          +------------+          +------------+
