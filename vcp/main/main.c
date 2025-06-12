@@ -58,10 +58,10 @@ void task_tx(void *pvParameters)
 		}
 		ESP_LOGD(pcTaskGetName(NULL), "Transmission done");
 	} // end while
+
+	vTaskDelete( NULL );
 }
 #endif // CONFIG_SENDER
-
-
 
 #if CONFIG_RECEIVER
 void task_rx(void *pvParameters)
@@ -78,20 +78,23 @@ void task_rx(void *pvParameters)
 			GetPacketStatus(&rssi, &snr);
 			ESP_LOGI(pcTaskGetName(NULL), "rssi=%d[dBm] snr=%d[dB]", rssi, snr);
 
-			if (buf[rxLen-1] != 0x0a) {
-				buf[rxLen] = 0x0a;
-				rxLen++;
+			int txLen = rxLen;
+			if (buf[txLen-1] != 0x0a) {
+				buf[txLen] = 0x0a;
+				txLen++;
 			}
 			size_t spacesAvailable = xMessageBufferSpacesAvailable( xMessageBufferTx );
 			ESP_LOGI(pcTaskGetName(NULL), "spacesAvailable=%d", spacesAvailable);
-			size_t sended = xMessageBufferSend(xMessageBufferTx, buf, rxLen, 100);
-			if (sended != rxLen) {
+			size_t sended = xMessageBufferSend(xMessageBufferTx, buf, txLen, 100);
+			if (sended != txLen) {
 				ESP_LOGE(pcTaskGetName(NULL), "xMessageBufferSend fail rxLen=%d sended=%d", rxLen, sended);
 				break;
 			}
 		}
 		vTaskDelay(1); // Avoid WatchDog alerts
 	} // end while
+
+	vTaskDelete( NULL );
 }
 #endif // CONFIG_RECEIVER
 

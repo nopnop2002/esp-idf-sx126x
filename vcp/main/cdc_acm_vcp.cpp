@@ -1,10 +1,10 @@
-/*  USB CDC-ACM Virtual COM Port example
+/*	USB CDC-ACM Virtual COM Port example
 
-    This example code is in the Public Domain (or CC0 licensed, at your option.)
+	This example code is in the Public Domain (or CC0 licensed, at your option.)
 
-    Unless required by applicable law or agreed to in writing, this
-    software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-    CONDITIONS OF ANY KIND, either express or implied.
+	Unless required by applicable law or agreed to in writing, this
+	software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+	CONDITIONS OF ANY KIND, either express or implied.
 */
 
 #include <stdio.h>
@@ -67,7 +67,11 @@ static bool handle_rx(const uint8_t *data, size_t data_len, void *arg)
 
 	// Send to radio task
 	char buffer[xItemSize];
-	strncpy(buffer, (char *)data, data_len);
+	size_t _data_len = data_len;
+	if (data_len > xItemSize) {
+		_data_len = xItemSize;
+	}
+	memcpy(buffer, (char *)data, _data_len);
 	size_t sended = xMessageBufferSendFromISR(xMessageBufferRx, buffer, data_len, NULL);
 	if (sended != data_len) {
 		ESP_LOGE(__FUNCTION__, "xMessageBufferSendFromISR Fail");
