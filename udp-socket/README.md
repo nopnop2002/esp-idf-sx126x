@@ -21,10 +21,11 @@ This is LoRa and UDP-SOCKET gateway application.
 ![config-app](https://github.com/user-attachments/assets/8fa7cf71-be12-4b00-a2ab-0e566be66d54)
 
 ## WiFi Setting
-
+Set the information of your access point.   
 ![config-wifi](https://github.com/user-attachments/assets/2f8f4437-9fa5-4c67-8604-8c5ad1069db6)
 
 ## Radio Setting
+Set the wireless communication direction.   
 
 ### UDP to LoRa
 Subscribe with UDP and send to LoRa.   
