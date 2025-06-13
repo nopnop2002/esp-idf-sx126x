@@ -28,7 +28,7 @@ Set the information of your access point.
 Set the wireless communication direction.   
 
 ### WebSocket to LoRa
-Subscribe with WebSocket and send to LoRa.   
+Receive from WebSocket and send to LoRa.   
 ESP32 acts as Web Server.   
 You can use ws-client.py as Web Client.   
 You need to install websockets from here.   
@@ -50,7 +50,7 @@ ArduinoCode\LoRaReceiver
 
 
 ### LoRa to WebSocket
-Receive from LoRa and publish as WebSocket.   
+Receive from LoRa and send to WebSocket.   
 ESP32 acts as Web Client.   
 You can use ws-server.py as Web Server.   
 You need to install websocket-server from here.   
