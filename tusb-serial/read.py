@@ -21,12 +21,12 @@ if __name__=='__main__':
 	print("args.device={}".format(args.device))
 
 	try:
-		#ser = serial.Serial(args.device, 115200, timeout=None)
 		ser = serial.Serial(args.device, 115200, timeout=1)
 	except:
 		print("Unable to open {}".format(args.device))
 		sys.exit()
 
+	ser.reset_input_buffer()
 	while running:
 		msg = ser.readline()
 		#print(len(msg))
