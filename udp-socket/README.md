@@ -28,7 +28,7 @@ Set the information of your access point.
 Set the wireless communication direction.   
 
 ### UDP to LoRa
-Subscribe with UDP and send to LoRa.   
+Receive from UDP and send to LoRa.   
 ESP32 acts as UDP Server.   
 You can use this script as UDP Client.   
 ```python3 ./udp-client.py```
@@ -49,7 +49,7 @@ ArduinoCode\Ra01S_RX
 
 
 ### LoRa to UDP
-Receive from LoRa and publish as UDP.   
+Receive from LoRa and send to UDP.   
 ESP32 acts as UDP Client.   
 You can use this script as UDP Server.   
 ```python3 ./udp-server.py```
