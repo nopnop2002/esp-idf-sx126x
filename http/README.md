@@ -28,7 +28,7 @@ Set the information of your access point.
 Set the wireless communication direction.   
 
 ### HTTP to LoRa
-Subscribe with HTTP and send to LoRa.   
+Receive from HTTP and send to LoRa.   
 ESP32 acts as HTTP Server.   
 You can use curl as HTTP Client.   
 ```sh ./http-client.sh```
@@ -49,7 +49,7 @@ ArduinoCode\Ra01S_RX
 
 
 ### LoRa to HTTP
-Receive from LoRa and publish as HTTP.   
+Receive from LoRa and send to HTTP.   
 ESP32 acts as HTTP Client.   
 You can use nc(netcat) as HTTP Server.   
 ```sh ./http-server.sh```
