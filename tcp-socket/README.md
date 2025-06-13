@@ -21,10 +21,11 @@ This is LoRa and TCP-SOCKET gateway application.
 ![config-app](https://github.com/user-attachments/assets/9af9ab0a-2f30-409c-a1fe-0503b8a3b12e)
 
 ## WiFi Setting
-
+Set the information of your access point.   
 ![config-wifi](https://github.com/user-attachments/assets/b2698dc6-ad2e-4fc5-84a4-897a2bcaa389)
 
 ## Radio Setting
+Set the wireless communication direction.   
 
 ### TCP to LoRa
 Subscribe with TCP and send to LoRa.   
