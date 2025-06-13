@@ -21,10 +21,11 @@ This is LoRa and WebSocket gateway application.
 ![config-app](https://github.com/user-attachments/assets/6657f933-c038-46e3-9991-a1ce2c7ff7eb)
 
 ## WiFi Setting
-
+Set the information of your access point.   
 ![config-wifi](https://github.com/user-attachments/assets/9d573857-b6f3-4c13-aa20-1812c97d6fb9)
 
 ## Radio Setting
+Set the wireless communication direction.   
 
 ### WebSocket to LoRa
 Subscribe with WebSocket and send to LoRa.   
