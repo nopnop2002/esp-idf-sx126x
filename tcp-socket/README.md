@@ -28,7 +28,7 @@ Set the information of your access point.
 Set the wireless communication direction.   
 
 ### TCP to LoRa
-Subscribe with TCP and send to LoRa.   
+Receive from TCP and send to LoRa.   
 ESP32 acts as TCP Server.   
 You can use this script as TCP Client.   
 ```python3 ./tcp-client.py```
@@ -49,7 +49,7 @@ ArduinoCode\Ra01S_RX
 
 
 ### LoRa to TCP
-Receive from LoRa and publish as TCP.   
+Receive from LoRa and send to TCP.   
 ESP32 acts as TCP Client.   
 You can use this script as TCP Server.   
 ```python3 ./tcp-server.py```
