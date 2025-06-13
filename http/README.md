@@ -21,11 +21,11 @@ This is LoRa and HTTP gateway application.
 ![config-app](https://github.com/nopnop2002/esp-idf-sx126x/assets/6020549/1263691f-30f9-4522-a4b9-a0f910057991)
 
 ## WiFi Setting
-
+Set the information of your access point.   
 ![config-wifi](https://github.com/nopnop2002/esp-idf-sx126x/assets/6020549/6560cc80-1a81-4537-8c8a-ffc527ee97fe)
 
-
 ## Radio Setting
+Set the wireless communication direction.   
 
 ### HTTP to LoRa
 Subscribe with HTTP and send to LoRa.   
