@@ -24,6 +24,8 @@ QueueHandle_t xQueueTinyusb;
 
 // The total number of bytes (not single messages) the message buffer will be able to hold at any one time.
 size_t xBufferSizeBytes = 1024;
+// The size, in bytes, required to hold each item in the message,
+size_t xItemSize = 255; // Maximum Payload size of SX1261/62/68 is 255
 
 void tinyusb_cdc_rx_callback(int itf, cdcacm_event_t *event)
 {
@@ -56,7 +58,7 @@ void tinyusb_cdc_line_state_changed_callback(int itf, cdcacm_event_t *event)
 void task_tx(void *pvParameters)
 {
 	ESP_LOGI(pcTaskGetName(NULL), "Start");
-	uint8_t buf[256]; // Maximum Payload size of SX1261/62/68 is 255
+	uint8_t buf[xItemSize];
 	while(1) {
 		size_t received = xMessageBufferReceive(xMessageBufferRecv, buf, sizeof(buf), portMAX_DELAY);
 		ESP_LOGI(pcTaskGetName(NULL), "xMessageBufferReceive received=%d", received);
@@ -80,7 +82,7 @@ void task_tx(void *pvParameters)
 void usb_rx(void *pvParameters)
 {
 	ESP_LOGI(pcTaskGetName(NULL), "Start");
-	char buffer[256]; // Maximum Payload size of SX1261/62/68 is 255
+	char buffer[xItemSize];
 	int index = 0;
 	while(1) {
 		char ch;
@@ -99,7 +101,7 @@ void usb_rx(void *pvParameters)
 					index = 0;
 				}
 			} else {
-				if (index == 255) continue;
+				if (index == xItemSize) continue;
 				buffer[index++] = ch;
 			}
 		}
@@ -112,7 +114,7 @@ void usb_rx(void *pvParameters)
 void task_rx(void *pvParameters)
 {
 	ESP_LOGI(pcTaskGetName(NULL), "Start");
-	uint8_t buf[256]; // Maximum Payload size of SX1261/62/68 is 255
+	uint8_t buf[xItemSize];
 	while(1) {
 		uint8_t rxLen = LoRaReceive(buf, sizeof(buf));
 		if ( rxLen > 0 ) { 
@@ -138,7 +140,7 @@ void task_rx(void *pvParameters)
 void usb_tx(void *pvParameters)
 {
 	ESP_LOGI(pcTaskGetName(NULL), "Start");
-	uint8_t buf[256]; // Maximum Payload size of SX1261/62/68 is 255
+	uint8_t buf[xItemSize];
 	uint8_t crlf[2] = { 0x0d, 0x0a };
 	while(1) {
 		size_t received = xMessageBufferReceive(xMessageBufferTrans, buf, sizeof(buf), portMAX_DELAY);
@@ -149,7 +151,6 @@ void usb_tx(void *pvParameters)
 	} // end while
 	vTaskDelete(NULL);
 }
-
 #endif // CONFIG_RECEIVER
 
 void app_main()
