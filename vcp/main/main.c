@@ -22,30 +22,21 @@ MessageBufferHandle_t xMessageBufferRx;
 // The total number of bytes (not messages) the message buffer will be able to hold at any one time.
 size_t xBufferSizeBytes = 1024;
 // The size, in bytes, required to hold each item in the message,
-size_t xItemSize = 256; // Maximum Payload size of SX1261/62/68 is 255
+size_t xItemSize = 255; // Maximum Payload size of SX1261/62/68 is 255
 
 #if CONFIG_SENDER
 void task_tx(void *pvParameters)
 {
 	ESP_LOGI(pcTaskGetName(NULL), "Start");
-	uint8_t buf[256]; // Maximum Payload size of SX1261/62/68 is 255
+	uint8_t buf[xItemSize];
 	while(1) {
 		size_t received = xMessageBufferReceive(xMessageBufferRx, buf, sizeof(buf), portMAX_DELAY);
 		ESP_LOGI(pcTaskGetName(NULL), "xMessageBufferReceive received=%d", received);
 		ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(NULL), buf, received, ESP_LOG_DEBUG);
 
-		// The VCP termination character is CR+LF. So Remove CR/LF.
-		int sending = 0;
-		for (int i=0;i<received;i++) {
-			if (buf[i] == 0x0d) continue;
-			if (buf[i] == 0x0a) continue;
-			sending++;
-		}
-		ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(NULL), buf, sending, ESP_LOG_INFO);
-
 		// Wait for transmission to complete
 		ESP_LOGD(pcTaskGetName(NULL), "Transmission begin");
-		if (LoRaSend(buf, sending, SX126x_TXMODE_SYNC) == false) {
+		if (LoRaSend(buf, received, SX126x_TXMODE_SYNC) == false) {
 			ESP_LOGE(pcTaskGetName(NULL),"LoRaSend fail");
 		}
 
@@ -67,7 +58,7 @@ void task_tx(void *pvParameters)
 void task_rx(void *pvParameters)
 {
 	ESP_LOGI(pcTaskGetName(NULL), "Start");
-	uint8_t buf[256]; // Maximum Payload size of SX1261/62/68 is 255
+	uint8_t buf[xItemSize];
 	while(1) {
 		uint8_t rxLen = LoRaReceive(buf, sizeof(buf));
 		if ( rxLen > 0 ) { 
@@ -78,15 +69,10 @@ void task_rx(void *pvParameters)
 			GetPacketStatus(&rssi, &snr);
 			ESP_LOGI(pcTaskGetName(NULL), "rssi=%d[dBm] snr=%d[dB]", rssi, snr);
 
-			int txLen = rxLen;
-			if (buf[txLen-1] != 0x0a) {
-				buf[txLen] = 0x0a;
-				txLen++;
-			}
 			size_t spacesAvailable = xMessageBufferSpacesAvailable( xMessageBufferTx );
 			ESP_LOGI(pcTaskGetName(NULL), "spacesAvailable=%d", spacesAvailable);
-			size_t sended = xMessageBufferSend(xMessageBufferTx, buf, txLen, 100);
-			if (sended != txLen) {
+			size_t sended = xMessageBufferSend(xMessageBufferTx, buf, rxLen, 100);
+			if (sended != rxLen) {
 				ESP_LOGE(pcTaskGetName(NULL), "xMessageBufferSend fail rxLen=%d sended=%d", rxLen, sended);
 				break;
 			}
