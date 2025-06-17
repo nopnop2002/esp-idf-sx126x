@@ -20,12 +20,12 @@
 #include "freertos/message_buffer.h"
 #include "esp_event.h"
 #include "esp_log.h"
-//#include "esp_transport_ws.h"
 #include "esp_websocket_client.h"
 
 static const char *TAG = "CLIENT";
 
 extern MessageBufferHandle_t xMessageBufferTrans;
+extern size_t xItemSize;
 
 typedef struct {
 	TaskHandle_t taskHandle;
@@ -141,8 +141,8 @@ void ws_client(void *pvParameters)
 		vTaskDelay(100);
 	}
 	ESP_LOGI(TAG, "Connected to %s...", websocket_cfg.uri);
-	
-	char buffer[256]; // Maximum Payload size of SX1261/62/68 is 255
+
+	char buffer[xItemSize];
 	while (1) {
 		size_t received = xMessageBufferReceive(xMessageBufferTrans, buffer, sizeof(buffer), portMAX_DELAY);
 		ESP_LOGI(TAG, "xMessageBufferReceive received=%d", received);
