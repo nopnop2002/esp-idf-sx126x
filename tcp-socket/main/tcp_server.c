@@ -21,6 +21,7 @@
 static const char *TAG = "TCP-SERVER";
 
 extern MessageBufferHandle_t xMessageBufferRecv;
+extern size_t xItemSize;
 
 void tcp_server(void *pvParameters)
 {
@@ -84,7 +85,7 @@ void tcp_server(void *pvParameters)
 		ESP_LOGI(TAG, "Socket accepted");
 
 		while (1) {
-			char rx_buf[256]; // Maximum Payload size of SX1261/62/68 is 255
+			char rx_buf[xItemSize];
 			int rx_len = recv(sock, rx_buf, sizeof(rx_buf), 0);
 			ESP_LOGI(TAG, "recv rx_len=%d errno=%d", rx_len, errno);
 

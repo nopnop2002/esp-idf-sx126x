@@ -21,6 +21,7 @@
 static const char *TAG = "TCP-CLIENT";
 
 extern MessageBufferHandle_t xMessageBufferTrans;
+extern size_t xItemSize;
 
 esp_err_t query_mdns_host(const char * host_name, char *ip)
 {
@@ -108,7 +109,7 @@ void tcp_client(void *pvParameters)
 	dest_addr.sin_addr.s_addr = inet_addr(ip);
 
 	while (1) {
-		char buffer[256]; // Maximum Payload size of SX1261/62/68 is 255
+		char buffer[xItemSize];
 		size_t received = xMessageBufferReceive(xMessageBufferTrans, buffer, sizeof(buffer), portMAX_DELAY);
 		ESP_LOGI(TAG, "xMessageBufferReceive received=%d", received);
 		if (received > 0) {
