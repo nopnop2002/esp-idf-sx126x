@@ -57,7 +57,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
 			break;
 		case MQTT_EVENT_DATA:
 			ESP_LOGI(TAG, "MQTT_EVENT_DATA");
-			ESP_LOGI(TAG, "TOPIC=[%.*s] DATA=[%.*s]\r", event->topic_len, event->topic, event->data_len, event->data);
+			ESP_LOGI(TAG, "TOPIC=[%.*s] DATA=[%.*s]", event->topic_len, event->topic, event->data_len, event->data);
 
 			mqttBuf->topic_len = event->topic_len;
 			for(int i=0;i<event->topic_len;i++) {
@@ -171,7 +171,7 @@ void mqtt_sub(void *pvParameters)
 
 			// Queries a message buffer to see how much free space it contains
 			size_t spacesAvailable = xMessageBufferSpacesAvailable( xMessageBufferRecv );
-			ESP_LOGI(pcTaskGetName(NULL), "spacesAvailable=%d", spacesAvailable);
+			ESP_LOGI(TAG, "spacesAvailable=%d", spacesAvailable);
 			if (mqttBuf.data_len > xItemSize) mqttBuf.data_len = xItemSize;
 			size_t sended = xMessageBufferSend(xMessageBufferRecv, mqttBuf.data, mqttBuf.data_len, 100);
 			if (sended != mqttBuf.data_len) {
