@@ -63,7 +63,7 @@ ArduinoCode\Ra01S_RX
 
 
 ### LoRa to USB
-Receive from LoRa and send to  USB.   
+Receive from LoRa and send to USB.   
 ESP32 acts as USB Serial Device for writing.   
 You can use this script as USB Serial Host for reading.   
 ```python3 ./read.py```
