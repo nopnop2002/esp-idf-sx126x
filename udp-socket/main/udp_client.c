@@ -21,6 +21,7 @@
 static const char *TAG = "UDP-CLIENT";
 
 extern MessageBufferHandle_t xMessageBufferTrans;
+extern size_t xItemSize;
 
 void udp_client(void *pvParameters) {
 	ESP_LOGI(TAG, "Start UDP PORT=%d", CONFIG_UDP_PORT);
@@ -56,7 +57,7 @@ void udp_client(void *pvParameters) {
 	LWIP_ASSERT("sock >= 0", sock >= 0);
 
 	while(1) {
-		char buffer[256]; // Maximum Payload size of SX1261/62/68 is 255
+		char buffer[xItemSize];
 		size_t received = xMessageBufferReceive(xMessageBufferTrans, buffer, sizeof(buffer), portMAX_DELAY);
 		ESP_LOGI(TAG, "xMessageBufferReceive received=%d", received);
 		if (received > 0) {

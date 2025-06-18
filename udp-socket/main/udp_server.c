@@ -22,6 +22,7 @@
 static const char *TAG = "UDP-SERVER";
 
 extern MessageBufferHandle_t xMessageBufferRecv;
+extern size_t xItemSize;
 
 void udp_server(void *pvParameters)
 {
@@ -63,7 +64,7 @@ void udp_server(void *pvParameters)
 	struct sockaddr_in senderInfo;
 	socklen_t senderInfoLen = sizeof(senderInfo);
 	while(1) {
-		char rx_buf[256]; // Maximum Payload size of SX1261/62/68 is 255
+		char rx_buf[xItemSize];
 		int rx_len = recvfrom(sock, rx_buf, sizeof(rx_buf), 0, (struct sockaddr*)&senderInfo, &senderInfoLen);
 		ESP_LOGI(TAG, "recvfrom rx_len=%d errno=%d", rx_len, errno);
 		if (rx_len < 0) {
