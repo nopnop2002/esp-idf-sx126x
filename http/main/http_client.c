@@ -21,6 +21,7 @@
 static const char *TAG = "CLIENT";
 
 extern MessageBufferHandle_t xMessageBufferTrans;
+extern size_t xItemSize;
 
 esp_err_t _http_event_handler(esp_http_client_event_t *evt)
 {
@@ -132,6 +133,7 @@ esp_err_t http_post_with_url(char *url, char * post_data, size_t post_len)
 	};
 #endif
 
+
 	esp_http_client_handle_t client = esp_http_client_init(&config);
 
 	// POST
@@ -169,7 +171,7 @@ void http_client(void *pvParameters)
 	sprintf(url, "http://%s:%d", ip, CONFIG_WEB_SERVER_PORT);
 	ESP_LOGI(TAG, "url=[%s]", url);
 
-	char buffer[256]; // Maximum Payload size of SX1261/62/68 is 255
+	char buffer[xItemSize];
 	while (1) {
 		size_t received = xMessageBufferReceive(xMessageBufferTrans, buffer, sizeof(buffer), portMAX_DELAY);
 		ESP_LOGI(TAG, "xMessageBufferReceive received=%d", received);

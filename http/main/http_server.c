@@ -19,6 +19,7 @@
 static const char *TAG = "SERVER";
 
 extern MessageBufferHandle_t xMessageBufferRecv;
+extern size_t xItemSize;
 
 /* root post handler */
 static esp_err_t root_post_handler(httpd_req_t *req)
@@ -46,9 +47,10 @@ static esp_err_t root_post_handler(httpd_req_t *req)
 	// Queries a message buffer to see how much free space it contains
 	size_t spacesAvailable = xMessageBufferSpacesAvailable( xMessageBufferRecv );
 	ESP_LOGI(TAG, "spacesAvailable=%d", spacesAvailable);
+	if (req->content_len > xItemSize) req->content_len = xItemSize;
 	size_t sended = xMessageBufferSend(xMessageBufferRecv, buf, req->content_len, 100);
 	if (sended != req->content_len) {
-		ESP_LOGE(TAG, "xMessageBufferSend fail. req->content_len=%d sended=%d", req->content_len, sended);
+		ESP_LOGE(TAG, "xMessageBufferSend fail. sended=%d req->content_len=%d", sended, req->content_len);
 	}
 	free(buf);
 
@@ -103,6 +105,8 @@ esp_err_t start_server(int port)
 
 	return ESP_OK;
 }
+
+
 
 void http_server(void *pvParameters)
 {

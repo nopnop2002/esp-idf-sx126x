@@ -37,6 +37,8 @@ MessageBufferHandle_t xMessageBufferRecv;
 
 // The total number of bytes (not single messages) the message buffer will be able to hold at any one time.
 size_t xBufferSizeBytes = 1024;
+// The size, in bytes, required to hold each item in the message,
+size_t xItemSize = 255; // Maximum Payload size of SX1261/62/68 is 255
 
 static void event_handler(void* arg, esp_event_base_t event_base, int32_t event_id, void* event_data)
 {
@@ -195,7 +197,7 @@ void initialize_mdns(void)
 void task_tx(void *pvParameters)
 {
 	ESP_LOGI(pcTaskGetName(NULL), "Start");
-	uint8_t buf[256]; // Maximum Payload size of SX1261/62/68 is 255
+	uint8_t buf[xItemSize];
 	while(1) {
 		size_t received = xMessageBufferReceive(xMessageBufferRecv, buf, sizeof(buf), portMAX_DELAY);
 		ESP_LOGI(pcTaskGetName(NULL), "xMessageBufferReceive received=%d", received);
@@ -224,7 +226,7 @@ void task_tx(void *pvParameters)
 void task_rx(void *pvParameters)
 {
 	ESP_LOGI(pcTaskGetName(NULL), "Start");
-	uint8_t buf[256]; // Maximum Payload size of SX1261/62/68 is 255
+	uint8_t buf[xItemSize];
 	while(1) {
 		uint8_t rxLen = LoRaReceive(buf, sizeof(buf));
 		if ( rxLen > 0 ) { 
