@@ -29,6 +29,7 @@ extern const uint8_t root_cert_pem_start[] asm("_binary_root_cert_pem_start");
 extern const uint8_t root_cert_pem_end[] asm("_binary_root_cert_pem_end");
 
 extern MessageBufferHandle_t xMessageBufferRecv;
+extern size_t xItemSize;
 
 static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data)
 {
@@ -171,6 +172,7 @@ void mqtt_sub(void *pvParameters)
 			// Queries a message buffer to see how much free space it contains
 			size_t spacesAvailable = xMessageBufferSpacesAvailable( xMessageBufferRecv );
 			ESP_LOGI(pcTaskGetName(NULL), "spacesAvailable=%d", spacesAvailable);
+			if (mqttBuf.data_len > xItemSize) mqttBuf.data_len = xItemSize;
 			size_t sended = xMessageBufferSend(xMessageBufferRecv, mqttBuf.data, mqttBuf.data_len, 100);
 			if (sended != mqttBuf.data_len) {
 				ESP_LOGE(TAG, "xMessageBufferSend fail mqttBuf.data_len=%d sended=%d", mqttBuf.data_len, sended);
