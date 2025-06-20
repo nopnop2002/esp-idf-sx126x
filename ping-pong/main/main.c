@@ -60,10 +60,11 @@ void task_primary(void *pvParameters)
 
 		vTaskDelay(pdMS_TO_TICKS(1000));
 	} // end while
+
+	// never reach here
+	vTaskDelete( NULL );
 }
 #endif // CONFIG_PRIMARY
-
-
 
 #if CONFIG_SECONDARY
 void task_secondary(void *pvParameters)
@@ -112,6 +113,9 @@ void task_secondary(void *pvParameters)
 		}
 		vTaskDelay(1); // Avoid WatchDog alerts
 	} // end while
+
+	// never reach here
+	vTaskDelete( NULL );
 }
 #endif // CONFIG_SECONDARY
 
