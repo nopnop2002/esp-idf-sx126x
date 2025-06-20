@@ -19,7 +19,7 @@ static const char *TAG = "MAIN";
 void task_tx(void *pvParameters)
 {
 	ESP_LOGI(pcTaskGetName(NULL), "Start");
-	uint8_t buf[256]; // Maximum Payload size of SX1261/62/68 is 255
+	uint8_t buf[255]; // Maximum Payload size of SX1261/62/68 is 255
 	while(1) {
 		TickType_t nowTick = xTaskGetTickCount();
 		int txLen = sprintf((char *)buf, "Hello World %"PRIu32, nowTick);
@@ -40,6 +40,9 @@ void task_tx(void *pvParameters)
 
 		vTaskDelay(pdMS_TO_TICKS(1000));
 	} // end while
+
+	// never reach here
+	vTaskDelete( NULL );
 }
 #endif // CONFIG_SENDER
 
@@ -49,7 +52,7 @@ void task_tx(void *pvParameters)
 void task_rx(void *pvParameters)
 {
 	ESP_LOGI(pcTaskGetName(NULL), "Start");
-	uint8_t buf[256]; // Maximum Payload size of SX1261/62/68 is 255
+	uint8_t buf[255]; // Maximum Payload size of SX1261/62/68 is 255
 	while(1) {
 		uint8_t rxLen = LoRaReceive(buf, sizeof(buf));
 		if ( rxLen > 0 ) { 
@@ -61,6 +64,9 @@ void task_rx(void *pvParameters)
 		}
 		vTaskDelay(1); // Avoid WatchDog alerts
 	} // end while
+
+	// never reach here
+	vTaskDelete( NULL );
 }
 #endif // CONFIG_RECEIVER
 
