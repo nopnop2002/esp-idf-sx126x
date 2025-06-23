@@ -2,69 +2,69 @@ menu "Application Configuration"
 
 	menu "WiFi Setting"
 
-	config ESP_WIFI_SSID
-		string "WiFi SSID"
-		default "myssid"
-		help
-			SSID (network name) for the example to connect to.
+		config ESP_WIFI_SSID
+			string "WiFi SSID"
+			default "myssid"
+			help
+				SSID (network name) for the example to connect to.
 
-	config ESP_WIFI_PASSWORD
-		string "WiFi Password"
-		default "mypassword"
-		help
-			WiFi password (WPA or WPA2) for the example to use.
+		config ESP_WIFI_PASSWORD
+			string "WiFi Password"
+			default "mypassword"
+			help
+				WiFi password (WPA or WPA2) for the example to use.
 
-	config ESP_MAXIMUM_RETRY
-		int "Maximum retry"
-		default 5
-		help
-			Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.
+		config ESP_MAXIMUM_RETRY
+			int "Maximum retry"
+			default 5
+			help
+				Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.
 
-	config MDNS_HOSTNAME
-		string "mDNS Hostname"
-		default "esp32-server"
-		help
-			The mDNS host name used by the ESP32.
+		config MDNS_HOSTNAME
+			string "mDNS Hostname"
+			default "esp32-server"
+			help
+				The mDNS host name used by the ESP32.
 
 	endmenu
 
 	menu "Radio Setting"
 
-	choice DIRECTION
-		prompt "Communication polarity"
-		default SENDER
-		help
-			Select Communication polarity.
-		config SENDER
-			bool "HTTP to LoRa"
+		choice DIRECTION
+			prompt "Communication polarity"
+			default SENDER
 			help
-				HTTP to LoRa.
-		config RECEIVER
-			bool "LoRa to HTTP"
+				Select Communication polarity.
+			config SENDER
+				bool "HTTP to LoRa"
+				help
+					HTTP to LoRa.
+			config RECEIVER
+				bool "LoRa to HTTP"
+				help
+					LoRa to HTTP.
+		endchoice
+
+		config WEB_SERVER_HOST
+			depends on RECEIVER
+			string "server to connect to"
+			default "http-server.local"
 			help
-				LoRa to HTTP.
-	endchoice
+				server to connect to.
 
-	config WEB_SERVER_HOST
-		depends on RECEIVER
-		string "server to connect to"
-		default "http-server.local"
-		help
-			server to connect to.
+		config WEB_SERVER_PORT
+			depends on RECEIVER
+			int "port to connect to"
+			default 8080
+			help
+				port to connect to.
 
-	config WEB_SERVER_PORT
-		depends on RECEIVER
-		int "port to connect to"
-		default 8080
-		help
-			port to connect to.
-
-	config WEB_SERVER_PORT
-		depends on SENDER
-		int "Listening port"
-		default 8080
-		help
-			Listening port.
+		config WEB_SERVER_PORT
+			depends on SENDER
+			int "Listening port"
+			default 8080
+			help
+				Listening port.
 
 	endmenu
 
