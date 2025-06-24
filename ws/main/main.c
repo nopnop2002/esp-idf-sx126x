@@ -216,6 +216,9 @@ void task_tx(void *pvParameters)
 			ESP_LOGW(pcTaskGetName(NULL), "%d packets lost", lost);
 		}
 	} // end while
+
+	// never reach here
+	vTaskDelete( NULL );
 }
 #endif // CONFIG_SENDER
 
