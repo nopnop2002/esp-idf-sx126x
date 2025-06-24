@@ -59,7 +59,7 @@ menu "Application Configuration"
 			help
 				port to connect to.
 
-		config WEB_SERVER_PORT
+		config WEB_LISTEN_PORT
 			depends on SENDER
 			int "Listening port"
 			default 8080
