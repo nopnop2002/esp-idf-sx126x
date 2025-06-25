@@ -44,9 +44,7 @@ You can use this script as TCP Client.
 ![config-radio-1](https://github.com/user-attachments/assets/3f17d630-2587-4736-b43f-3973b06428f2)
 
 Communicate with Arduino Environment.   
-Run this sketch.   
-ArduinoCode\Ra01S_RX   
-
+I tested it with [this](https://github.com/nopnop2002/esp-idf-sx126x/tree/main/ArduinoCode/Ra01S-RX).   
 
 ### LoRa to TCP
 Receive from LoRa and send to TCP.   
@@ -65,9 +63,7 @@ You can use this script as TCP Server.
 ![config-radio-2](https://github.com/user-attachments/assets/647012f5-3a67-47fe-9dca-008d01a005f7)
 
 Communicate with Arduino Environment.   
-Run this sketch.   
-ArduinoCode\Ra01S_TX   
-
+I tested it with [this](https://github.com/nopnop2002/esp-idf-sx126x/tree/main/ArduinoCode/Ra01S-TX).   
 
 ### Specifying an TCP Server   
 You can specify your TCP Server in one of the following ways:   
