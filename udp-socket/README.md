@@ -44,9 +44,7 @@ You can use this script as UDP Client.
 ![config-radio-1](https://github.com/user-attachments/assets/f4c3319f-2460-43a1-9a75-be1f366084c7)
 
 Communicate with Arduino Environment.   
-Run this sketch.   
-ArduinoCode\Ra01S_RX   
-
+I tested it with [this](https://github.com/nopnop2002/esp-idf-sx126x/tree/main/ArduinoCode/Ra01S-RX).   
 
 ### LoRa to UDP
 Receive from LoRa and send to UDP.   
@@ -65,9 +63,7 @@ You can use this script as UDP Server.
 ![Image](https://github.com/user-attachments/assets/b4cd0e2f-03db-4955-9b8d-1e63df720281)
 
 Communicate with Arduino Environment.   
-Run this sketch.   
-ArduinoCode\Ra01S_TX   
-
+I tested it with [this](https://github.com/nopnop2002/esp-idf-sx126x/tree/main/ArduinoCode/Ra01S-TX).   
 
 ### Specifying an UDP Address   
 There are the following four methods for specifying the UDP Address.   
