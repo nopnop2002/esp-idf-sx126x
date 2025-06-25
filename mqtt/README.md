@@ -41,8 +41,7 @@ You can use mosquitto_pub as Publisher.
 ```
 
 Communicate with Arduino Environment.   
-Run this sketch.   
-ArduinoCode\Ra01S_RX   
+I tested it with [this](https://github.com/nopnop2002/esp-idf-sx126x/tree/main/ArduinoCode/Ra01S-RX).   
 
 ### LoRa to MQTT   
 Receive from LoRa and publish as MQTT.   
@@ -59,8 +58,7 @@ You can use mosquitto_sub as Subscriber.
 
 
 Communicate with Arduino Environment.   
-Run this sketch.   
-ArduinoCode\Ra01S_TX   
+I tested it with [this](https://github.com/nopnop2002/esp-idf-sx126x/tree/main/ArduinoCode/Ra01S-TX).   
 
 ## Broker Setting
 Set the information of your MQTT broker.   
