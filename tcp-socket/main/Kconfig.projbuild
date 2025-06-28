@@ -2,62 +2,62 @@ menu "Application Configuration"
 
 	menu "WiFi Setting"
 
-	config ESP_WIFI_SSID
-		string "WiFi SSID"
-		default "myssid"
-		help
-			SSID (network name) for the example to connect to.
+		config ESP_WIFI_SSID
+			string "WiFi SSID"
+			default "myssid"
+			help
+				SSID (network name) for the example to connect to.
 
-	config ESP_WIFI_PASSWORD
-		string "WiFi Password"
-		default "mypassword"
-		help
-			WiFi password (WPA or WPA2) for the example to use.
+		config ESP_WIFI_PASSWORD
+			string "WiFi Password"
+			default "mypassword"
+			help
+				WiFi password (WPA or WPA2) for the example to use.
 
-	config ESP_MAXIMUM_RETRY
-		int "Maximum retry"
-		default 5
-		help
-			Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.
+		config ESP_MAXIMUM_RETRY
+			int "Maximum retry"
+			default 5
+			help
+				Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.
 
-	config MDNS_HOSTNAME
-		string "mDNS Hostname"
-		default "esp32-server"
-		help
-			The mDNS host name used by the ESP32.
+		config MDNS_HOSTNAME
+			string "mDNS Hostname"
+			default "esp32-server"
+			help
+				The mDNS host name used by the ESP32.
 
 	endmenu
 
 	menu "Radio Setting"
 
-	choice DIRECTION
-		prompt "Communication polarity"
-		default SENDER
-		help
-			Select Communication polarity.
-		config SENDER
-			bool "TCP to LoRa"
+		choice DIRECTION
+			prompt "Communication polarity"
+			default SENDER
 			help
-				TCP to LoRa.
-		config RECEIVER
-			bool "LoRa to TCP"
+				Select Communication polarity.
+			config SENDER
+				bool "TCP to LoRa"
+				help
+					TCP to LoRa.
+			config RECEIVER
+				bool "LoRa to TCP"
+				help
+					LoRa to TCP
+		endchoice
+
+		config TCP_HOST
+			depends on RECEIVER
+			string "TCP Host"
+			default "tcp-server.local"
 			help
-				LoRa to TCP
-	endchoice
+				IP4 address or mDNS hostname of the remote host.
 
-	config TCP_HOST
-		depends on RECEIVER
-		string "TCP Host"
-		default "tcp-server.local"
-		help
-			IP4 address or mDNS hostname of the remote host.
-
-	config TCP_PORT
-		int "TCP Port"
-		range 0 65535
-		default 8080
-		help
-			TCP port number.
+		config TCP_PORT
+			int "TCP Port"
+			range 0 65535
+			default 8080
+			help
+				TCP port number.
 
 	endmenu
 
