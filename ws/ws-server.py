@@ -21,7 +21,7 @@ def message_received(client, server, message):
 
 if __name__=='__main__':
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--port', type=int, help='tcp port', default=8080)
+	parser.add_argument('--port', type=int, help='listen port', default=8080)
 	args = parser.parse_args()
 	print("args.port={}".format(args.port))
 

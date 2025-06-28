@@ -18,8 +18,8 @@ if __name__=='__main__':
 	running = True
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--host', help='tcp host', default="esp32-server.local")
-	parser.add_argument('--port', type=int, help='tcp port', default=8080)
+	parser.add_argument('--host', help='socket host', default="esp32-server.local")
+	parser.add_argument('--port', type=int, help='socket port', default=8080)
 	args = parser.parse_args()
 	print("args.host={}".format(args.host))
 	print("args.port={}".format(args.port))
