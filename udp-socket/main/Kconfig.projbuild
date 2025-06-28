@@ -2,81 +2,81 @@ menu "Application Configuration"
 
 	menu "WiFi Setting"
 
-	config ESP_WIFI_SSID
-		string "WiFi SSID"
-		default "myssid"
-		help
-			SSID (network name) for the example to connect to.
+		config ESP_WIFI_SSID
+			string "WiFi SSID"
+			default "myssid"
+			help
+				SSID (network name) for the example to connect to.
 
-	config ESP_WIFI_PASSWORD
-		string "WiFi Password"
-		default "mypassword"
-		help
-			WiFi password (WPA or WPA2) for the example to use.
+		config ESP_WIFI_PASSWORD
+			string "WiFi Password"
+			default "mypassword"
+			help
+				WiFi password (WPA or WPA2) for the example to use.
 
-	config ESP_MAXIMUM_RETRY
-		int "Maximum retry"
-		default 5
-		help
-			Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.
+		config ESP_MAXIMUM_RETRY
+			int "Maximum retry"
+			default 5
+			help
+				Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.
 
-	config MDNS_HOSTNAME
-		string "mDNS Hostname"
-		default "esp32-server"
-		help
-			The mDNS host name used by the ESP32.
+		config MDNS_HOSTNAME
+			string "mDNS Hostname"
+			default "esp32-server"
+			help
+				The mDNS host name used by the ESP32.
 
 	endmenu
 
 	menu "Radio Setting"
 
-	choice DIRECTION
-		prompt "Communication polarity"
-		default SENDER
-		help
-			Select Communication polarity.
-		config SENDER
-			bool "UDP to LoRa"
+		choice DIRECTION
+			prompt "Communication polarity"
+			default SENDER
 			help
-				UDP to LoRa.
-		config RECEIVER
-			bool "LoRa to UDP"
+				Select Communication polarity.
+			config SENDER
+				bool "UDP to LoRa"
+				help
+					UDP to LoRa.
+			config RECEIVER
+				bool "LoRa to UDP"
+				help
+					LoRa to UDP.
+		endchoice
+
+		choice UDP_ADDRESS
+			depends on RECEIVER
+			bool "Select UDP Address"
+			default UDP_LIMITED_BROADCAST
 			help
-				LoRa to UDP.
-	endchoice
+				Select Send Address.
+			config UDP_LIMITED_BROADCAST
+				bool "Limited broadcast address"
+			config UDP_DIRECTED_BROADCAST
+				bool "Directed broadcast address"
+			config UDP_MULTICAST
+				bool "Multicast address"
+			config UDP_UNICAST
+				bool "Unicast address"
+		endchoice
 
-	choice UDP_ADDRESS
-		depends on RECEIVER
-		bool "Select UDP Address"
-		default UDP_LIMITED_BROADCAST
-		help
-			Select Send Address.
-		config UDP_LIMITED_BROADCAST
-			bool "Limited broadcast address"
-		config UDP_DIRECTED_BROADCAST
-			bool "Directed broadcast address"
-		config UDP_MULTICAST
-			bool "Multicast address"
-		config UDP_UNICAST
-			bool "Unicast address"
-	endchoice
+		config UDP_MULTICAST_ADDRESS
+			depends on UDP_MULTICAST
+			string "Multicast address"
+			default "239.255.255.255"
 
-	config UDP_MULTICAST_ADDRESS
-		depends on UDP_MULTICAST
-		string "Multicast address"
-		default "239.255.255.255"
+		config UDP_UNICAST_ADDRESS
+			depends on UDP_UNICAST
+			string "Unicast address"
+			default "192.168.10.20"
 
-	config UDP_UNICAST_ADDRESS
-		depends on UDP_UNICAST
-		string "Unicast address"
-		default "192.168.10.20"
-
-	config UDP_PORT
-		int "UDP Port"
-		range 0 65535
-		default 8080
-		help
-			UDP port number.
+		config UDP_PORT
+			int "UDP Port"
+			range 0 65535
+			default 8080
+			help
+				UDP port number.
 
 	endmenu
 
