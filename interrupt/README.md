@@ -1,5 +1,5 @@
 # Interrupt Example   
-The SX126x supports the following interrupts:   
+The SX126x supports the following interrupts.   
 This project demonstrates how to use TxDone or RxDone.   
 
 |Bit|IRQ|Description|Modulation|
@@ -41,8 +41,8 @@ irqMask sets the interrupt bits you need. You can set multiple bits.
 dioXMask sets the interrupt bits to notify DIOX. You can set multiple bits.   
 The following setting enables all interrupts:   
 When SX126X_IRQ_TX_DONE occurs, DIO1 turns ON.   
-When SX126X_IRQ_RX_DONE occurs, DIO2 turns ON.
-When SX126X_IRQ_TIMEOUT occurs, DIO3 turns ON.
+When SX126X_IRQ_RX_DONE occurs, DIO2 turns ON.   
+When SX126X_IRQ_TIMEOUT occurs, DIO3 turns ON.   
 ```
     uint16_t irqMask = SX126X_IRQ_ALL;
     uint16_t dio1Mask = SX126X_IRQ_TX_DONE;
