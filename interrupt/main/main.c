@@ -40,6 +40,7 @@ void gpio(void *pvParameters)
 			break;
 		}
 	}
+	vTaskDelete( NULL );
 }
 
 #if CONFIG_SENDER
