@@ -50,3 +50,12 @@ When SX126X_IRQ_TIMEOUT occurs, DIO3 turns ON.
     uint16_t dio3Mask = SX126X_IRQ_TIMEOUT;
     SetDioIrqParams(irqMask, dio1Mask, dio2Mask, dio3Mask);
 ```
+
+This will give the same result as above.   
+```
+    uint16_t irqMask = SX126X_IRQ_TX_DONE | SX126X_IRQ_RX_DONE | SX126X_IRQ_TIMEOUT;
+    uint16_t dio1Mask = SX126X_IRQ_TX_DONE;
+    uint16_t dio2Mask = SX126X_IRQ_RX_DONE;
+    uint16_t dio3Mask = SX126X_IRQ_TIMEOUT;
+    SetDioIrqParams(irqMask, dio1Mask, dio2Mask, dio3Mask);
+```
