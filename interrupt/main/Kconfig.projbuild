@@ -1,0 +1,27 @@
+menu "Application Configuration"
+
+	choice DIRECTION
+		prompt "Communication polarity"
+		default SENDER
+		help
+			Select Communication polarity.
+		config SENDER
+			bool "As the sender"
+			help
+				As the sender.
+		config RECEIVER
+			bool "As the receiver"
+			help
+				As the receiver.
+	endchoice
+
+	config INPUT_GPIO
+		int "INPUT GPIO"
+		range 0 GPIO_RANGE_MAX
+		default 21 if IDF_TARGET_ESP32
+		default  1 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+		default  1 # C3 and others
+		help
+			Pin Number to be used as the INPUT signal.
+
+endmenu 
