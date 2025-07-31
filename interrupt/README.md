@@ -1,6 +1,7 @@
 # Interrupt Example   
 The SX126x supports the following interrupts.   
 This project demonstrates how to use TxDone or RxDone.   
+__Bit 3 cannot be used with LoRa.__   
 
 |Bit|IRQ|Description|Modulation|
 |:-:|:-:|:-:|:-:|
