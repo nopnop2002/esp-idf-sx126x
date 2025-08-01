@@ -129,7 +129,6 @@ void app_main()
 	io_conf.pull_down_en = 0;
 	//disable pull-up mode
 	io_conf.pull_up_en = 0;
-	gpio_config(&io_conf);
 	//configure GPIO with the given settings
 	gpio_config(&io_conf);
 
