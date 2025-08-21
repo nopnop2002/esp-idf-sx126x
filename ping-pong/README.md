@@ -52,16 +52,21 @@ Time (Ticks) required from Start to Finish.
 ESP32@160/433MHz/CR=1/SF=7   
 |Payload|BW=0(7.8KHz)|BW=1(15.6KHz)|BW=2(31.25KHz)|BW=3(62.5KHz)|BW=4(125KHz)|BW=5(250KHz)|BW=6(500KHz)|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-|64Bytes|*|199|102|56|32|20|14|
-|128Bytes|*|*|181|94|52|30|18|
-|255Bytes|*|*|328|169|89|48|28|
+|32Bytes|241|125|65|37|22|14|*2|
+|64Bytes|*1|199|102|56|32|20|14|
+|128Bytes|*1|*1|181|94|52|30|18|
+|255Bytes|*1|*1|328|169|89|48|28|
 
-(*)The sent data and the response data do not match.   
+(*1)The sent data and the response data do not match.   
+
+(*2) SetTx Illegal Status occurs. Cause unknown.   
+
 
 ### With varying Error coding rate(CR)   
 ESP32@160/433MHz/BW=4/SF=7   
 |Payload|CR=1(4/5)|CR=2(4/6)|CR=3(4/7)|CR=4(4/8)|
 |:-:|:-:|:-:|:-:|:-:|
+|32Bytes|22|23|27|29|
 |64Bytes|32|36|38|43|
 |128Bytes|52|59|67|74|
 |255Bytes|89|103|119|133|
