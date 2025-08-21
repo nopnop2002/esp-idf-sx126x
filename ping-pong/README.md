@@ -35,7 +35,7 @@ When using Arduino, use Ra01S-Ping.
 
 
 # Response time   
-Time required from Start to Finish.   
+Time (Ticks) required from Start to Finish.   
 ```
 +-----------+           +-----------+            +-----------+           +-----------+
 |           |Start      |           |            |           |           |           |
@@ -47,16 +47,16 @@ Time required from Start to Finish.
 +-----------+           +-----------+            +-----------+           +-----------+
 ```
 
-### With varying Signal Bandwidth(BW) (Unit=MillSecs)
+### With varying Signal Bandwidth(BW)   
 ESP32@160/433MHz/CR=1/SF=7   
 |Payload|BW=0(7.8KHz)|BW=1(15.6KHz)|BW=2(31.25KHz)|BW=3(62.5KHz)|BW=4(125KHz)|BW=5(250KHz)|BW=6(500KHz)|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-|255Bytes|*|*|3340|1740|940|550|350|
+|255Bytes|*|*|328|169|89|48|28|
 
 (*)The sent data does not match the received data.   
 
-### With varying Error coding rate(CR) (Unit=MillSecs)   
-ESP32@160/433MHz/BW=7/SF=7   
+### With varying Error coding rate(CR)   
+ESP32@160/433MHz/BW=4/SF=7   
 |Payload|CR=1(4/5)|CR=2(4/6)|CR=3(4/7)|CR=4(4/8)|
 |:-:|:-:|:-:|:-:|:-:|
-|255Bytes|940|1080|1240|1390|
+|255Bytes|89|103|119|133|
