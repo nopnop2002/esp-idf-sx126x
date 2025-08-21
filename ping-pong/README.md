@@ -36,6 +36,7 @@ When using Arduino, use Ra01S-Ping.
 
 # Response time   
 Time (Ticks) required from Start to Finish.   
+1 Tick is 10 milliseconds.   
 ```
 +-----------+           +-----------+            +-----------+           +-----------+
 |           |Start      |           |            |           |           |           |
@@ -51,12 +52,14 @@ Time (Ticks) required from Start to Finish.
 ESP32@160/433MHz/CR=1/SF=7   
 |Payload|BW=0(7.8KHz)|BW=1(15.6KHz)|BW=2(31.25KHz)|BW=3(62.5KHz)|BW=4(125KHz)|BW=5(250KHz)|BW=6(500KHz)|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|128Bytes|*|*|181|94|52|30|18|
 |255Bytes|*|*|328|169|89|48|28|
 
-(*)The sent data does not match the received data.   
+(*)The sent data and the response data do not match.   
 
 ### With varying Error coding rate(CR)   
 ESP32@160/433MHz/BW=4/SF=7   
 |Payload|CR=1(4/5)|CR=2(4/6)|CR=3(4/7)|CR=4(4/8)|
 |:-:|:-:|:-:|:-:|:-:|
+|128Bytes|52|59|67|74|
 |255Bytes|89|103|119|133|
