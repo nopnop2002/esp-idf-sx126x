@@ -378,13 +378,13 @@ You can set whether to use Optimaise for each CDR, and enabling it will improve 
 # Throughput
 
 - With varying Signal Bandwidth(BW) (Unit=Bytes/Sec)   
-	ESP32@160/433MHz/CR=1/SF=7   
+	ESP32@160/SX1268@433MHz/CR=1/SF=7   
 	|BW=0(7.81KHz)|BW=1(15.63KHz)|BW=2(31.25KHz)|BW=3(62.5KHz)|BW=4(125KHz)|BW=5(250KHz)|BW=6(500KHz)|
 	|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 	|41.32|81.85|160.73|309.65|578.89|1022.04|1650.49|
 
 - With varying Error coding rate(CR) (Unit=Bytes/Sec)   
-	ESP32@160/433MHz/BW=4/SF=7   
+	ESP32@160/SX1268@433MHz/BW=4/SF=7   
 	|CR=1(4/5)|CR=2(4/6)|CR=3(4/7)|CR=4(4/8)|
 	|:-:|:-:|:-:|:-:|
 	|578.89|493.71|429.65|386.07|
