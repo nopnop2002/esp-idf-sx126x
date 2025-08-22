@@ -49,7 +49,7 @@ Time (Ticks) required from Start to Finish.
 ```
 
 ### With varying Signal Bandwidth(BW)   
-ESP32@160/433MHz/CR=1/SF=7   
+ESP32@160/SX1268@433MHz/CR=1/SF=7   
 |Payload|BW=0(7.8KHz)|BW=1(15.6KHz)|BW=2(31.25KHz)|BW=3(62.5KHz)|BW=4(125KHz)|BW=5(250KHz)|BW=6(500KHz)|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |32Bytes|241|125|65|37|22|14|*2|
@@ -63,7 +63,7 @@ ESP32@160/433MHz/CR=1/SF=7
 
 
 ### With varying Error coding rate(CR)   
-ESP32@160/433MHz/BW=4/SF=7   
+ESP32@160/SX1268@433MHz/BW=4/SF=7   
 |Payload|CR=1(4/5)|CR=2(4/6)|CR=3(4/7)|CR=4(4/8)|
 |:-:|:-:|:-:|:-:|:-:|
 |32Bytes|22|23|27|29|
