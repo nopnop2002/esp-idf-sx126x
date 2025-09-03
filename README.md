@@ -68,13 +68,13 @@ __When using LLCC68 other than Ra-01SC, it is necessary to set the options appro
 
 # Datasheet   
 - RA-01S   
-https://docs.ai-thinker.com/_media/lora/docs/ra-01s_specification.pdf
+https://aithinker-static.oss-cn-shenzhen.aliyuncs.com/docs/_media_old/ra-01s_specification.pdf
 
 - RA-01SH   
-https://docs.ai-thinker.com/_media/lora/docs/ra-01sh_specification.pdf
+https://aithinker-static.oss-cn-shenzhen.aliyuncs.com/docs/_media_old/ra-01sh_specification.pdf
 
-- RA-01SC(Chinese)   
-https://img.iceasy.com/product/product/files/202108/8a8a8a1a7aec7b55017b2ef70a370953.pdf
+- RA-01SC   
+https://aithinker-static.oss-cn-shenzhen.aliyuncs.com/docs/_media_old/ra-01sc_specification.pdf
 
 # Foot pattern
 RA-0x(SMD16) has the same foot pattern as ESP12.   
