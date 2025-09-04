@@ -58,7 +58,7 @@ DIO2 = 0, CTRL = 1, RFC for SC70-6 gose to RF2 -->  Switch to Rx Mode.
 
 You need to look at the schematic to set these options properly, but it's very esoteric.   
 The default settings for this library are for Ra-01S / Ra-01SH.    
-__When using other than Ra-01S / Ra-01SH, you need to set them appropriately.__   
+__When using other than Ra-01S/01SH, you need to set them appropriately.__   
 
 # About LLCC68   
 LLCC68 is compatible with SX1262/SX1268.   
@@ -75,7 +75,7 @@ LoRa@ SF=5-6-7-8-9 for BW=125kHz
 LoRa@ SF=5-6-7-8-9-10 for BW =250 kHz   
 LoRa@ SF=5-6-7-8-9-10-11 for BW=500 kHz   
 
-__When using LLCC68 other than Ra-01SC/SCH, it is necessary to set the options appropriately based on the datasheet.__   
+__When using LLCC68 other than Ra-01SC/01SCH, it is necessary to set the options appropriately based on the datasheet.__   
 
 ![ra01sc](https://user-images.githubusercontent.com/6020549/169180199-12a88938-1d6d-43c7-836d-f3c2081ac10d.JPG)
 
