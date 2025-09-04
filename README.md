@@ -22,6 +22,7 @@ You can get these on AliExpress and eBay.
 |Ra-01SC-P|Tranceiver|SPI|**LLCC68**|410-525Mhz|SMD16|Yes|No|
 |Ra-01SCH|Tranceiver|SPI|**LLCC68**|803-930Mhz|SMD16|No|No|
 |Ra-01SCH-P|Tranceiver|SPI|**LLCC68**|803-930Mhz|SMD16|Yes|No|
+|Ra-03SCH|Tranceiver|SPI|**LLCC68**|803-930Mhz|SMD14|No|No|
 |Ra-06|MCU|ARM Cortex M0+|SX1278|410-525Mhz|SMD20|No|No|
 |Ra-07|MCU|ARM Cortex M0+|ASR6501|410-525Mhz|SMD18|No|Yes|
 |Ra-07H|MCU|ARM Cortex M0+|ASR6501|803-930Mhz|SMD18|No|Yes|
