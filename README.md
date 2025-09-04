@@ -9,20 +9,20 @@ I ported from [here](https://github.com/nopnop2002/Arduino-LoRa-Ra01S).
 Ai-Thinker offers several LoRa modules.   
 You can get these on AliExpress and eBay.   
 
-|Model|Type|Interface/Core|Chip|Frequency|Foot-Pattern|IPEX-Antena|LoRa-WAN|
+|Model|Type|Interface/Core|Chip|Frequency|Foot-Pattern|Long-Range|LoRa-WAN|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |Ra-01|Tranceiver|SPI|SX1278|410-525Mhz|SMD16|No|No|
-|Ra-02|Tranceiver|SPI|SX1278|410-525Mhz|SMD16|Yes|No|
+|Ra-02|Tranceiver|SPI|SX1278|410-525Mhz|SMD16|No|No|
 |Ra-01H|Tranceiver|SPI|SX1276|803-930Mhz|SMD16|No|No|
 |Ra-01S|Tranceiver|SPI|**SX1268**|410-525Mhz|SMD16|No|No|
-|Ra-01S-P|Tranceiver|SPI|**SX1268**|410-525Mhz|SMD16|No|No|
-|Ra-01SH|Tranceiver|SPI|**SX1262**|803-930Mhz|SMD16|Yes|No|
+|Ra-01S-P|Tranceiver|SPI|**SX1268**|410-525Mhz|SMD16|Yes|No|
+|Ra-01SH|Tranceiver|SPI|**SX1262**|803-930Mhz|SMD16|No|No|
 |Ra-01SH-P|Tranceiver|SPI|**SX1262**|803-930Mhz|SMD16|Yes|No|
-|Ra-01SC|Tranceiver|SPI|**LLCC68**|410-525Mhz|SMD16|Yes|No|
+|Ra-01SC|Tranceiver|SPI|**LLCC68**|410-525Mhz|SMD16|No|No|
 |Ra-01SC-P|Tranceiver|SPI|**LLCC68**|410-525Mhz|SMD16|Yes|No|
-|Ra-01SCH|Tranceiver|SPI|**LLCC68**|803-930Mhz|SMD16|Yes|No|
+|Ra-01SCH|Tranceiver|SPI|**LLCC68**|803-930Mhz|SMD16|No|No|
 |Ra-01SCH-P|Tranceiver|SPI|**LLCC68**|803-930Mhz|SMD16|Yes|No|
-|Ra-06|MCU|ARM Cortex M0+|SX1278|410-525Mhz|SMD20|Yes|No|
+|Ra-06|MCU|ARM Cortex M0+|SX1278|410-525Mhz|SMD20|No|No|
 |Ra-07|MCU|ARM Cortex M0+|ASR6501|410-525Mhz|SMD18|No|Yes|
 |Ra-07H|MCU|ARM Cortex M0+|ASR6501|803-930Mhz|SMD18|No|Yes|
 |Ra-08|MCU|ARM Cortex M4|ASR6601|410-525Mhz|SMD18|No|Yes|
