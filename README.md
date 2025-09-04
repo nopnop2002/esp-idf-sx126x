@@ -65,14 +65,14 @@ LLCC68 is compatible with SX1262/SX1268.
 Different between LLCC68 and SX1262/SX1268:   
 (1) SX1262/SX1268 support spreading factor SF5,SF6,SF7,SF8,SF9,SF10,SF11,SF12.   
 SX1262/SX1268 can set spreading factor and receiving bandwidth:   
-LoRa@ Rx/Tx, BW = 7.8 - 500 kHz,   
+LoRa@ Rx/Tx, BW = 7.8 - 500 kHz   
 SF5 TO SF12,BR=0.018-62.5 Kb/S   
 
 (2) LLCC68 support spreading factor SF5,SF6,SF7,SF8,SF9,SF10,SF11.   
-LLCC68can set spreading factor and receiving bandwidth:   
-LoRa@ Rx/Tx, BW = 125 - 250 - 500 kHz,   
-LoRa@ SF=5-6-7-8-9 for BW=125kHz,   
-LoRa@ SF=5-6-7-8-9-10 for BW =250 kHz,   
+LLCC68 can set spreading factor and receiving bandwidth:   
+LoRa@ Rx/Tx, BW = 125 - 250 - 500 kHz   
+LoRa@ SF=5-6-7-8-9 for BW=125kHz   
+LoRa@ SF=5-6-7-8-9-10 for BW =250 kHz   
 LoRa@ SF=5-6-7-8-9-10-11 for BW=500 kHz   
 
 __When using LLCC68 other than Ra-01SC/SCH, it is necessary to set the options appropriately based on the datasheet.__   
