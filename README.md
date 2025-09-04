@@ -60,8 +60,7 @@ You need to look at the schematic to set these options properly, but it's very e
 The default settings for this library are for Ra-01S / Ra-01SH.    
 __When using other than Ra-01S / Ra-01SH, you need to set them appropriately.__   
 
-# About Ra-01SC/SCH   
-Ra-01SC/SCH uses LLCC68.   
+# About LLCC68   
 LLCC68 is compatible with SX1262/SX1268.   
 Different between LLCC68 and SX1262/SX1268:   
 (1) SX1262/SX1268 support spreading factor SF5,SF6,SF7,SF8,SF9,SF10,SF11,SF12.   
