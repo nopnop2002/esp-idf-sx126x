@@ -9,7 +9,7 @@ I ported from [here](https://github.com/nopnop2002/Arduino-LoRa-Ra01S).
 Ai-Thinker offers several LoRa modules.   
 You can get these on AliExpress and eBay.   
 
-|Model|Type|Interface/Core|Chip|Frequency|Foot-Pattern|Long-Range|LoRa-WAN|
+|Model|Type|Interface/Core|Chip|Frequency|Foot-Pattern|High-Power|LoRa-WAN|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |Ra-01|Tranceiver|SPI|SX1278|410-525Mhz|SMD16|No|No|
 |Ra-02|Tranceiver|SPI|SX1278|410-525Mhz|SMD16|No|No|
