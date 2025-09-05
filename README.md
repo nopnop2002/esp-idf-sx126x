@@ -221,8 +221,7 @@ SX1262 and LLCC68 are compatible, but the following modules do not work for some
 Works with the same changes as EBYTE Module.   
 
 # Limitation
-- The SX126x chip supports FSK/GFSK/MSK/GMSK/OOK modulation methods , but these are not supported by this library.   
-- Interrupts is not supported in this library.   
+The SX126x chip supports FSK/GFSK/MSK/GMSK/OOK modulation methods , but these are not supported by this library.   
 
 # Error Handling   
 If an error occurs within the library, this library calls the following function:   
