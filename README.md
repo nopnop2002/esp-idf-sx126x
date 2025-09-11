@@ -243,7 +243,7 @@ void LoRaError(int error)
 
 
 # Trouble shooting   
-If it doesn't look like this at boot time, the wirering is incorrect.   
+If it doesn't look like this at boot time, the wiring is incorrect.   
 ```
 I (3425) RA01S: syncWord=0x1424
 I (3425) RA01S: SX126x installed

@@ -21,7 +21,7 @@ __Bit 3 cannot be used with LoRa.__
 ![Image](https://github.com/user-attachments/assets/381a395e-e04f-4fdd-9579-f8353d44245b)
 ![Image](https://github.com/user-attachments/assets/292df250-48d8-489c-9beb-1ecaba7fc37c)
 
-# Wirering
+# Wiring
 Add a wire to DIO1.   
 |SX126X||ESP32|ESP32-S2/S3|ESP32-C2/C3/C6|
 |:-:|:-:|:-:|:-:|:-:|
