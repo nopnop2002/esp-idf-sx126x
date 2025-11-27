@@ -102,7 +102,7 @@ esp_err_t wifi_init_sta(void)
 	};
 	ESP_ERROR_CHECK(esp_wifi_set_ps(WIFI_PS_NONE));
 	ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
-	ESP_ERROR_CHECK(esp_wifi_set_config(ESP_IF_WIFI_STA, &wifi_config));
+	ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config));
 	ESP_ERROR_CHECK(esp_wifi_start());
 
 	/* Waiting until either the connection is established (WIFI_CONNECTED_BIT) or connection failed for the maximum
@@ -314,7 +314,6 @@ void app_main()
 #if CONFIG_SENDER
 	xTaskCreate(&task_tx, "TX", 1024*4, NULL, 5, NULL);
 	xTaskCreate(&mqtt_sub, "SUB", 1024*4, NULL, 5, NULL);
-
 #endif
 #if CONFIG_RECEIVER
 	xTaskCreate(&task_rx, "RX", 1024*4, NULL, 5, NULL);
