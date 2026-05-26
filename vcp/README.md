@@ -4,7 +4,7 @@ This is LoRa and VCP(Virtual Com Port) gateway application.
 ESP-IDF supports VCP hosts.   
 VCP hosts can communicate with VCP devices using the USB port.   
 Representative VCP devices include Arduino Uno and Arduino Mega, which have a UART-USB conversion chip.   
-I based it on [this](https://github.com/espressif/esp-idf/tree/master/examples/peripherals/usb/host/cdc/cdc_acm_vcp).   
+I based it on [this](https://github.com/espressif/esp-idf/tree/master/examples/peripherals/usb/host/cdc).   
 
 This project uses the following components.   
 Other UART-USB converter chips are not supported.   
