@@ -85,8 +85,7 @@ Therefore, a pitch conversion PCB for ESP12 can be used.
 We have pitch conversion PCBs available on eBay and AliExpress.   
 
 ![ra01s-3](https://user-images.githubusercontent.com/6020549/161641874-32a79d5f-dbae-42f1-a8cd-d0787c238a06.JPG)
-![ra01s-2](https://user-images.githubusercontent.com/6020549/161641421-e720a7da-4889-4bd4-b2c6-1f3a28518cf8.JPG)
-
+<img width="864" height="576" alt="Image" src="https://github.com/user-attachments/assets/fa6209bb-6fe2-48f7-be64-b085210978df" />
 
 # Software requirements
 ESP-IDF V5.0 or later.   
