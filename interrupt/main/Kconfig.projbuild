@@ -17,7 +17,7 @@ menu "Application Configuration"
 
 	config INPUT_GPIO
 		int "INPUT GPIO"
-		range 0 GPIO_RANGE_MAX
+		range 0 SOC_GPIO_OUT_RANGE_MAX
 		default 21 if IDF_TARGET_ESP32
 		default  1 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
 		default  1 # C3 and others
