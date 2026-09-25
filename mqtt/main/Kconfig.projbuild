@@ -135,7 +135,7 @@ menu "Application Configuration"
 
 		config BROKER_AUTHENTICATION
 			bool "Server requests for password when connecting"
-			default false
+			default n
 			help
 				Server requests for password when connecting.
 

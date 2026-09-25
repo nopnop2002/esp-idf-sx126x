@@ -204,6 +204,7 @@ void task_tx(void *pvParameters)
 		}
 		ESP_LOGD(pcTaskGetName(NULL), "Transmission done");
 	} // end while
+	vTaskDelete(NULL);
 }
 #endif // CONFIG_SENDER
 
