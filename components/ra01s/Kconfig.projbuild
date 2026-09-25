@@ -33,7 +33,7 @@ menu "SX126X Configuration"
 
 	config ADVANCED
 		bool "Enable Advanced settings"
-		default false
+		default n
 		help
 			Enable Advanced settings.
 
@@ -63,7 +63,7 @@ menu "SX126X Configuration"
 
 	config USE_TCXO
 		bool "Enable TCXO"
-		default false
+		default n
 		help
 			Enable Temperature-Compensated Crystal Oscillator.
 
